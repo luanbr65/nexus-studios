@@ -1,21 +1,12 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "@/styles/globals.css";
+import { Inter } from "next/font/google";
+import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+const inter = Inter({ subsets: ["latin"], weight: ['300', '400', '600'] });
 
 export const metadata: Metadata = {
-  title: "Nexus Studio - Agência de Elite",
-  description: "Elevamos o padrão do seu ecossistema digital com design premium e engenharia de software de ponta.",
+  title: "Nexus Studio | Digital Engineering",
+  description: "High-end software development firm.",
 };
 
 export default function RootLayout({
@@ -24,10 +15,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="pt-br">
+      <body className={inter.className}>
+        {/* As linhas de grade que ficam no fundo do site todo */}
+        <div className="grid-background">
+          <div className="grid-line"></div>
+          <div className="grid-line"></div>
+          <div className="grid-line"></div>
+        </div>
+        
         {children}
       </body>
     </html>

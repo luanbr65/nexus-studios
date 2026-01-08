@@ -1,87 +1,78 @@
 .section {
-    padding: 180px 24px 100px; /* Mais espaço no topo por causa da nav fixa */
-    min-height: 90vh;
-    display: flex;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Opcional: Adicionar um "spotlight" de luz azul vindo de baixo para dar drama */
-.section::after {
-    content: '';
-    position: absolute;
-    bottom: -20%;
-    left: 20%;
-    width: 60%;
-    height: 50%;
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
-    filter: blur(80px);
-    z-index: -1;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: var(--header-height);
 }
 
 .container {
-    max-width: 1000px;
-    margin: 0 auto;
-    /* Podemos encapsular o conteúdo do Hero em um grande painel de vidro sutil, ou deixar solto. Vamos deixar solto para mais impacto por enquanto. */
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Divide a tela em 2 */
+  gap: 2rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.label {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 1.5rem;
+  display: block;
 }
 
 .headline {
-  font-size: clamp(3rem, 7vw, 5rem);
-  font-weight: 800;
+  font-size: 4rem; /* Grande, mas contido */
   line-height: 1.1;
-  letter-spacing: -0.04em; /* Letras mais juntinhas = mais moderno */
-  color: #ffffff;
+  font-weight: 400; /* Leve, não boldado */
   margin-bottom: 2rem;
+  letter-spacing: -0.03em;
 }
 
-.highlight {
-  /* Degradê Aço/Azul Executivo */
-  background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-  /* OU opção Prata/Ouro (mais sóbrio): */
-  /* background: linear-gradient(to right, #e2e2e2 0%, #9ca3af 100%); */
-  
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  
-  /* Um brilho suave atrás do texto para ele "saltar" do fundo preto */
-  filter: drop-shadow(0 0 20px rgba(79, 172, 254, 0.4));
+.description {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 500px;
+  margin-bottom: 3rem;
+  border-left: 1px solid var(--border-color); /* Linha lateral estilo editorial */
+  padding-left: 1.5rem;
 }
 
-.subheadline {
-    font-size: 1.25rem;
-    color: var(--text-secondary);
-    max-width: 600px;
-    margin-bottom: 3rem;
-    line-height: 1.6;
-    border-left: 2px solid var(--accent-blue-glow); /* Linha vertical de destaque */
-    padding-left: 1.5rem;
+.cta {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: fit-content;
 }
 
-/* O Botão Principal do Hero */
-.mainCta {
-    /* Estilo "Botão de Vidro Sólido" */
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    color: var(--text-primary);
-    
-    padding: 1rem 2.5rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border-radius: 4px; /* Retangular e sério */
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efeito de mola sutil */
-
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+.cta:hover {
+  background: #fff;
+  color: #000;
 }
 
-.mainCta:hover {
-    background: var(--accent-blue-glow);
-    border-color: var(--accent-blue-glow);
-    color: white;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4); /* Sombra azul brilhante */
+/* Placeholder para onde iria uma imagem/video institucional */
+.visual {
+  height: 600px;
+  background-color: #111;
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
 }

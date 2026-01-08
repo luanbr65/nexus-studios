@@ -1,23 +1,17 @@
 :root {
-  /* === Paleta Suits (Noite em Manhattan) === */
-  --bg-deep: #0a0e17; /* Azul noturno muito profundo */
-  --bg-gradient-start: #141e30;
-  --bg-gradient-end: #243b55;
-
-  /* Tipografia */
-  --text-primary: #ffffff; /* Branco puro para máximo contraste */
-  --text-secondary: #a0aec0; /* Cinza azulado para subtítulos */
-
-  /* Acentos (Pense em abotoaduras de prata ou luzes da cidade) */
-  --accent-steel: #d1d5db;
-  --accent-blue-glow: #3b82f6; /* Um azul elétrico sutil para hovers */
-
-  /* === Variáveis do Efeito Vidro (Glassmorphism) === */
-  /* A mágica acontece aqui. Ajuste a opacidade (o último número) para mais ou menos transparência */
-  --glass-bg: rgba(25, 30, 45, 0.6); /* Fundo escuro semi-transparente */
-  --glass-border: rgba(255, 255, 255, 0.1); /* Borda fina e sutilmente brilhante */
-  --glass-blur: 16px; /* Intensidade do desfoque do fundo */
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5); /* Sombra profunda para dar profundidade 3D */
+  /* Cores Institucionais Sóbrias */
+  --bg-main: #0a0a0a;       /* Preto quase absoluto */
+  --bg-secondary: #111111;  /* Cinza muito escuro para seções */
+  --border-color: #333333;  /* Linhas de grid sutis */
+  
+  --text-primary: #ffffff;
+  --text-secondary: #888888; /* Cinza médio para descrição */
+  
+  --font-main: 'Inter', sans-serif;
+  
+  /* Tamanhos de container para alinhamento perfeito */
+  --max-width: 1400px;
+  --header-height: 80px;
 }
 
 * {
@@ -26,22 +20,39 @@
   margin: 0;
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  /* O fundo base agora é um gradiente noturno sofisticado */
-  background: linear-gradient(to bottom right, var(--bg-gradient-start), var(--bg-deep));
+html, body {
+  background-color: var(--bg-main);
   color: var(--text-primary);
-  font-family: 'Inter', sans-serif; /* A Inter ainda funciona bem aqui por ser neutra */
-  min-height: 100vh;
+  font-family: var(--font-main);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased; /* Texto nítido */
 }
 
-/* Utilitário global para classe de vidro (opcional, mas útil) */
-.glass-panel {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur)); /* Suporte Safari */
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Utilitário de Grid (Linhas verticais de fundo para dar estrutura) */
+.grid-background {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--max-width);
+  height: 100vh;
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  z-index: -1;
+  pointer-events: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.grid-line {
+  width: 1px;
+  height: 100%;
+  background-color: var(--border-color);
+  opacity: 0.3;
 }
