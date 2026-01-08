@@ -1,37 +1,47 @@
 :root {
-  /* Bases Clean Premium */
-  --bg-page: #FAFAFA;        /* Off-white principal */
-  --bg-subtle: #F5F5F5;     /* Subtle para seções */
-  --bg-hero: #FFFFFF;       /* Hero limpa */
-  
-  /* Tipografia & Hierarquia Refinada */
-  --text-headline: #000000; /* Preto absoluto para títulos */
-  --text-body: #111111;     /* Preto suave para leitura */
-  --text-secondary: #666666; /* Textos secundários */
-  --text-muted: #999999;    /* Muted para detalhes */
-  
-  /* Elementos de Ação */
-  --accent-black: #000000;  /* CTA e elementos fortes */
-  --accent-brand: #6366f1;  /* Indigo suave para destaques */
-  
-  /* Gradientes Aurora */
-  --accent-gradient: radial-gradient(ellipse at top right, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
-  
-  /* Sombras Apple-like */
-  --shadow-card: 0 2px 8px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
-  --shadow-float: 0 12px 24px -6px rgba(0,0,0,0.08);
+  /* === Paleta Suits (Noite em Manhattan) === */
+  --bg-deep: #0a0e17; /* Azul noturno muito profundo */
+  --bg-gradient-start: #141e30;
+  --bg-gradient-end: #243b55;
+
+  /* Tipografia */
+  --text-primary: #ffffff; /* Branco puro para máximo contraste */
+  --text-secondary: #a0aec0; /* Cinza azulado para subtítulos */
+
+  /* Acentos (Pense em abotoaduras de prata ou luzes da cidade) */
+  --accent-steel: #d1d5db;
+  --accent-blue-glow: #3b82f6; /* Um azul elétrico sutil para hovers */
+
+  /* === Variáveis do Efeito Vidro (Glassmorphism) === */
+  /* A mágica acontece aqui. Ajuste a opacidade (o último número) para mais ou menos transparência */
+  --glass-bg: rgba(25, 30, 45, 0.6); /* Fundo escuro semi-transparente */
+  --glass-border: rgba(255, 255, 255, 0.1); /* Borda fina e sutilmente brilhante */
+  --glass-blur: 16px; /* Intensidade do desfoque do fundo */
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5); /* Sombra profunda para dar profundidade 3D */
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
 
+html,
 body {
-  background-color: var(--bg-page);
-  color: var(--text-body);
-  font-family: 'Inter', -apple-system, sans-serif;
-  -webkit-font-smoothing: antialiased;
+  max-width: 100vw;
+  overflow-x: hidden;
+  /* O fundo base agora é um gradiente noturno sofisticado */
+  background: linear-gradient(to bottom right, var(--bg-gradient-start), var(--bg-deep));
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif; /* A Inter ainda funciona bem aqui por ser neutra */
+  min-height: 100vh;
 }
 
-button:focus-visible, a:focus-visible {
-  outline: 2px solid var(--accent-black);
-  outline-offset: 3px;
+/* Utilitário global para classe de vidro (opcional, mas útil) */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur)); /* Suporte Safari */
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
 }

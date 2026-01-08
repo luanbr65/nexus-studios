@@ -1,8 +1,9 @@
 'use client';
 import styles from './page.module.css';
 import Navbar from '../components/Navbar';
+import MainHero from '../components/MainHero';
 import { motion } from 'framer-motion';
-import { ArrowRight, Instagram, Linkedin, Github, CheckCircle, Code2 } from 'lucide-react';
+import { ArrowRight, Instagram, Linkedin, Github, CheckCircle } from 'lucide-react';
 
 export default function Home() {
   const projects = [
@@ -11,14 +12,14 @@ export default function Home() {
       title: "Nexus Portfolio",
       description: "Vitrine interativa de alta performance. Desenvolvida para demonstrar domínio em animações complexas, Next.js e arquitetura de componentes escalável.",
       link: "https://nexus-phi-two.vercel.app/",
-      status: "online" // Flag para identificar projeto real
+      status: "online"
     },
     {
       category: "Em Desenvolvimento",
       title: "Próximo Case",
       description: "Nova solução SaaS focada em automação com IA. Estamos desenhando a arquitetura neste momento.",
       link: "#",
-      status: "building" // Flag para identificar placeholder
+      status: "building"
     }
   ];
 
@@ -26,61 +27,11 @@ export default function Home() {
     <main>
       <Navbar />
       
-      <section className={styles.main}>
-        {/* Aurora Background */}
-        <div className={styles.glowOrb}></div>
-        
-        {/* Headline com Span Indigo Sutil */}
-        <motion.h1 
-          className={styles.title}
-          initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
-        >
-          Construímos produtos digitais que fazem seu projeto <span style={{color: '#6366f1'}}>crescer, converter e ser lembrado.</span>
-        </motion.h1>
-
-        <motion.div 
-          className={styles.descriptionWrapper}
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
-        >
-          <p className={styles.description}>
-            A Nexus Studio funde engenharia de software complexa com design de vanguarda. 
-            Não fazemos sites, construímos ecossistemas digitais.
-          </p>
-
-          {/* Seção de Benefícios com Fundo Sutil */}
-          <div className={styles.benefits}>
-            <ul className={styles.benefitList}>
-              <li className={styles.benefitItem}>
-                <CheckCircle size={20} />
-                <span>Performance otimizada para conversão</span>
-              </li>
-              <li className={styles.benefitItem}>
-                <CheckCircle size={20} />
-                <span>Design que encanta e retém usuários</span>
-              </li>
-              <li className={styles.benefitItem}>
-                <CheckCircle size={20} />
-                <span>Arquitetura escalável para crescimento</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contexto do CTA */}
-          <div className={styles.ctaContext}>
-            Pronto para acelerar sua ideia?
-          </div>
-
-          {/* CTA COM COPY REFINADA */}
-          <button className={styles.btn}>
-            Quero lançar meu projeto com o Nexus
-            <ArrowRight size={18} />
-          </button>
-        </motion.div>
-      </section>
+      <MainHero />
 
       {/* Portfolio Section */}
       <section className={styles.portfolioSection}>
-        <h2>Projetos <span style={{color: '#6366f1'}}>Selecionados</span></h2>
+        <h2>Projetos <span style={{color: '#3b82f6'}}>Selecionados</span></h2>
         <div className={styles.portfolioGrid}>
           {projects.map((project, index) => (
             project.status === "online" ? (
@@ -91,23 +42,23 @@ export default function Home() {
                 key={index} 
                 className={styles.card}
                 whileHover={{ y: -8 }}
-                style={{ textDecoration: 'none', display: 'block', borderLeft: '4px solid #6366f1' }}
+                style={{ textDecoration: 'none', display: 'block', borderLeft: '4px solid #3b82f6' }}
               >
                 <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'0.5rem'}}>
-                    <span style={{ color: '#6366f1', fontWeight:'700', fontSize:'0.75rem', letterSpacing:'1px', textTransform:'uppercase' }}>
+                    <span style={{ color: '#3b82f6', fontWeight:'700', fontSize:'0.75rem', letterSpacing:'1px', textTransform:'uppercase' }}>
                       {project.category}
                     </span>
-                    <span style={{background:'#E0E7FF', color:'#4338ca', padding:'2px 8px', borderRadius:'12px', fontSize:'0.7rem', fontWeight:'bold'}}>ONLINE</span>
+                    <span style={{background:'#DBEAFE', color:'#1e40af', padding:'2px 8px', borderRadius:'12px', fontSize:'0.7rem', fontWeight:'bold'}}>ONLINE</span>
                 </div>
                 
-                <h3 style={{ fontSize: '1.75rem', fontWeight: '700', color: 'var(--text-headline)', marginBottom: '0.5rem' }}>
+                <h3 style={{ fontSize: '1.75rem', fontWeight: '700', color: '#ffffff', marginBottom: '0.5rem' }}>
                   {project.title}
                 </h3>
-                <p style={{ color: 'var(--text-muted)', lineHeight: '1.6', fontSize: '1rem' }}>
+                <p style={{ color: '#a0aec0', lineHeight: '1.6', fontSize: '1rem' }}>
                   {project.description}
                 </p>
                 
-                <div style={{ marginTop: '1.5rem', display: 'flex', alignItems: 'center', gap: '8px', color: '#111', fontWeight: '600', fontSize: '0.9rem' }}>
+                <div style={{ marginTop: '1.5rem', display: 'flex', alignItems: 'center', gap: '8px', color: '#ffffff', fontWeight: '600', fontSize: '0.9rem' }}>
                   Ver Case <ArrowRight size={16} />
                 </div>
               </motion.a>
@@ -121,7 +72,7 @@ export default function Home() {
                   display: 'flex', 
                   flexDirection: 'column', 
                   justifyContent: 'center',
-                  border: '2px dashed #E5E7EB', /* Borda tracejada sutil */
+                  border: '2px dashed #475569', /* Borda tracejada sutil */
                   background: 'transparent', /* Sem fundo branco */
                   boxShadow: 'none' /* Sem sombra */
                 }}
@@ -130,20 +81,19 @@ export default function Home() {
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '8px',
-                    background: '#F3F4F6',
+                    background: '#1e293b',
                     padding: '8px 16px',
                     borderRadius: '20px',
                     width: 'fit-content',
                     marginBottom: '1rem'
                  }}>
-                    <Code2 size={16} color="#6B7280" />
-                    <span style={{color:'#6B7280', fontWeight:'600', fontSize:'0.8rem', textTransform:'uppercase'}}>Cozinhando...</span>
+                    <span style={{color:'#64748b', fontWeight:'600', fontSize:'0.8rem', textTransform:'uppercase'}}>🚧 Em construção...</span>
                  </div>
                  
-                <h3 style={{ fontSize: '1.5rem', fontWeight: '700', color: '#9CA3AF', marginBottom: '0.5rem' }}>
+                <h3 style={{ fontSize: '1.5rem', fontWeight: '700', color: '#64748b', marginBottom: '0.5rem' }}>
                   {project.title}
                 </h3>
-                <p style={{ color: '#9CA3AF', lineHeight: '1.6', fontSize: '0.95rem' }}>
+                <p style={{ color: '#64748b', lineHeight: '1.6', fontSize: '0.95rem' }}>
                   {project.description}
                 </p>
               </div>
@@ -152,7 +102,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer Limpo (Sem estilos inline nos ícones) */}
+      {/* Footer */}
       <footer className={styles.footer}>
         <div>
             <span className={styles.footerLogo}>NEXUS STUDIO</span>

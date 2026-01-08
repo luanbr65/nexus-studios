@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import styles from './Hero.module.css';
 
-export default function Hero() {
+export default function MainHero() {
   return (
     <section className={styles.section}>
       <div className={styles.container}>

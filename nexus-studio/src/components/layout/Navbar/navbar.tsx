@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Brain } from 'lucide-react';
-import styles from './Navbar.module.css';
+import styles from './navbar.module.css';
 
 export default function Navbar() {
   return (

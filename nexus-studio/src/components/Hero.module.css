@@ -1,0 +1,88 @@
+.section {
+    padding: 180px 24px 100px; /* Mais espaço no topo por causa da nav fixa */
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Opcional: Adicionar um "spotlight" de luz azul vindo de baixo para dar drama */
+.section::after {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    left: 20%;
+    width: 60%;
+    height: 50%;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+    filter: blur(80px);
+    z-index: -1;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    /* Podemos encapsular o conteúdo do Hero em um grande painel de vidro sutil, ou deixar solto. Vamos deixar solto para mais impacto por enquanto. */
+}
+
+.headline {
+    font-size: clamp(3rem, 8vw, 5.5rem); /* Letras GIGANTES */
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -2px;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    
+    /* Efeito de texto metálico/cromado */
+    background: linear-gradient(to bottom right, #ffffff, #c0c0c0);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 4px rgba(0,0,0,0.3));
+}
+
+/* Destaque em azul elétrico para palavras chave */
+.highlight {
+    background: linear-gradient(to right, var(--accent-blue-glow), #60a5fa);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subheadline {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+    border-left: 2px solid var(--accent-blue-glow); /* Linha vertical de destaque */
+    padding-left: 1.5rem;
+}
+
+/* O Botão Principal do Hero */
+.mainCta {
+    /* Estilo "Botão de Vidro Sólido" */
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: var(--text-primary);
+    
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 4px; /* Retangular e sério */
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efeito de mola sutil */
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.mainCta:hover {
+    background: var(--accent-blue-glow);
+    border-color: var(--accent-blue-glow);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4); /* Sombra azul brilhante */
+}
