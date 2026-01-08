@@ -139,3 +139,38 @@
   transform: translateY(-2px);
 }
 
+/* Portfolio Section */
+.portfolioSection {
+  padding: 6rem 2rem 8rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.portfolioSection h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-headline);
+  margin-bottom: 3rem;
+}
+
+.portfolioGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  background: var(--bg-page);
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: var(--shadow-card);
+  text-decoration: none;
+  color: inherit;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-float);
+}
+
