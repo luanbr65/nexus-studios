@@ -3,52 +3,61 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 5%; /* Margens laterais para respiro */
+  padding: 0 10%; /* Margem lateral grande para respiro */
   position: relative;
   overflow: hidden;
 }
 
-/* Orb de luz para dar vida ao fundo */
+/* Efeito de luz ambiente */
 .glowOrb {
   position: absolute;
-  top: -20%;
-  right: -10%;
+  top: -10%;
+  right: -5%;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(99,102,241,0.2) 0%, rgba(0,0,0,0) 70%);
-  filter: blur(80px);
+  background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(0,0,0,0) 70%);
+  filter: blur(100px);
   z-index: -1;
-  animation: pulse 10s infinite alternate;
+  pointer-events: none;
 }
 
-@keyframes pulse { 0% { opacity: 0.5; transform: scale(1); } 100% { opacity: 0.8; transform: scale(1.1); } }
-
-/* Tipografia Gigante e Apertada */
 .title {
-  font-size: clamp(3rem, 10vw, 9rem); /* Responsivo, mas enorme em desktop */
+  /* Texto responsivo e gigante */
+  font-size: clamp(3.5rem, 8vw, 8rem);
   font-weight: 800;
-  line-height: 0.9;
+  line-height: 1;
   letter-spacing: -0.04em;
-  text-transform: uppercase;
   color: #fff;
   margin-bottom: 2rem;
-  max-width: 1200px;
+  max-width: 1400px;
 }
 
+/* Efeito de texto 'vazado' ou gradiente */
 .accent {
-  color: transparent;
-  -webkit-text-stroke: 1px #6366f1; /* Estilo Outline moderno */
-  position: relative;
+  background: linear-gradient(to right, #fff, #6366f1);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* Opcional: Se quiser estilo Outline, use: 
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px #6366f1; */
+}
+
+.descriptionWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-left: 5px;
 }
 
 .description {
   font-size: 1.25rem;
   color: #888;
   max-width: 600px;
-  line-height: 1.5;
-  border-left: 1px solid #333;
+  line-height: 1.6;
+  border-left: 2px solid #333; /* Linha vertical técnica */
   padding-left: 1.5rem;
-  margin-bottom: 3rem;
 }
 
 .btn {
@@ -60,11 +69,17 @@
   border: none;
   border-radius: 2px; /* Cantos retos = mais sério */
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-.btn:hover { background: #6366f1; color: #fff; transform: translateY(-5px); }
+
+.btn:hover {
+  background: #6366f1;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.5);
+}
 
 /* Seção de Serviços */
 .servicesSection { padding: 8rem 2rem; max-width: 1200px; margin: 0 auto; }

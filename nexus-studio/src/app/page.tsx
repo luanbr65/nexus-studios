@@ -28,8 +28,8 @@ export default function Home() {
         </motion.h1>
 
         <motion.div 
+          className={styles.descriptionWrapper}
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
-          style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}
         >
           <p className={styles.description}>
             A Nexus Studio funde engenharia de software complexa com design de vanguarda. 
