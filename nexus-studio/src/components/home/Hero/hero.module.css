@@ -27,27 +27,26 @@
 }
 
 .headline {
-    font-size: clamp(3rem, 8vw, 5.5rem); /* Letras GIGANTES */
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -2px;
-    margin-bottom: 1.5rem;
-    color: var(--text-primary);
-    
-    /* Efeito de texto metálico/cromado */
-    background: linear-gradient(to bottom right, #ffffff, #c0c0c0);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 4px 4px rgba(0,0,0,0.3));
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.04em; /* Letras mais juntinhas = mais moderno */
+  color: #ffffff;
+  margin-bottom: 2rem;
 }
 
-/* Destaque em azul elétrico para palavras chave */
 .highlight {
-    background: linear-gradient(to right, var(--accent-blue-glow), #60a5fa);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  /* Degradê Aço/Azul Executivo */
+  background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+  /* OU opção Prata/Ouro (mais sóbrio): */
+  /* background: linear-gradient(to right, #e2e2e2 0%, #9ca3af 100%); */
+  
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  /* Um brilho suave atrás do texto para ele "saltar" do fundo preto */
+  filter: drop-shadow(0 0 20px rgba(79, 172, 254, 0.4));
 }
 
 .subheadline {
