@@ -52,18 +52,21 @@ export default function Projects() {
             <div className={styles.statusLine}>
               <span>Tech: Python / AWS / WebGL</span>
             </div>
-            {/* Botão travado estilizado inline */}
-            <span className={styles.linkButton} style={{
-              color: '#555', 
+            
+            {/* ATUALIZAÇÃO: Link funcional para a página Vortex */}
+            <Link href="/vortex" className={styles.linkButton} style={{
+              color: '#888', 
               textDecoration: 'none', 
-              cursor: 'not-allowed',
               border: '1px solid #333',
-              padding: '4px 10px',
+              padding: '6px 12px',
               borderRadius: '4px',
-              fontSize: '0.75rem'
+              fontSize: '0.75rem',
+              background: 'rgba(0,0,0,0.5)',
+              display: 'inline-block',
+              transition: 'all 0.2s'
             }}>
-              Acesso Restrito 🔒
-            </span>
+              Solicitar Acesso 🔒
+            </Link>
           </div>
         </div>
 
