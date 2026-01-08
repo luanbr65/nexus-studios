@@ -1,17 +1,15 @@
-import Navbar from '@/components/Navbar';
-import Hero from '@/components/Hero';
-import Services from '@/components/Services';
-import Footer from '@/components/Footer';
+import styles from './page.module.css';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background text-white overflow-hidden">
-      <Navbar />
-      <main>
-        <Hero />
-        <Services />
-      </main>
-      <Footer />
-    </div>
+    <main className={styles.main}>
+      <div className={styles.glassCard}>
+        <h1 className={styles.title}>
+          NEXUS <span className={styles.accent}>STUDIO</span>
+        </h1>
+        <p style={{ color: '#94a3b8', marginTop: '1rem' }}>Elite Digital Crafting & AI Solutions</p>
+        <button className={styles.btn}>Iniciar Projeto</button>
+      </div>
+    </main>
   );
 }

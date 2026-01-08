@@ -1,0 +1,51 @@
+.main { 
+  min-height: 100vh; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  background: radial-gradient(circle at top, #1e1b4b 0%, #030712 100%); 
+}
+
+.glassCard { 
+  background: rgba(255, 255, 255, 0.02); 
+  backdrop-filter: blur(20px); 
+  border: 1px solid rgba(255, 255, 255, 0.08); 
+  padding: 4rem; 
+  border-radius: 3rem; 
+  text-align: center; 
+  box-shadow: 0 40px 100px rgba(0,0,0,0.5); 
+}
+
+.title { 
+  font-size: 5rem; 
+  font-weight: 900; 
+  letter-spacing: -0.05em; 
+  margin: 0; 
+  background: linear-gradient(to bottom, #fff, #64748b); 
+  background-clip: text;
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent; 
+  color: transparent;
+}
+
+.accent { 
+  color: #6366f1; 
+  text-shadow: 0 0 30px rgba(99, 102, 241, 0.4); 
+}
+
+.btn { 
+  margin-top: 2rem; 
+  padding: 1rem 2.5rem; 
+  border-radius: 99px; 
+  border: none; 
+  background: #fff; 
+  color: #000; 
+  font-weight: bold; 
+  cursor: pointer; 
+  transition: 0.3s; 
+}
+
+.btn:hover { 
+  transform: scale(1.05); 
+  box-shadow: 0 0 20px rgba(255,255,255,0.2); 
+}
