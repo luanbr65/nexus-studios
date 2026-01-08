@@ -2,6 +2,7 @@ import styles from './page.module.css';
 import Navbar from '../components/layout/Navbar/navbar';
 import Hero from '../components/home/Hero/hero';
 import TechStrip from '../components/home/TechStrip';
+import Services from '../components/home/Services';
 
 export default function Home() {
   const projects = [
@@ -28,6 +29,8 @@ export default function Home() {
       <Hero />
 
       <TechStrip />
+
+      <Services />
 
       {/* Portfolio Section */}
       <section className={styles.portfolioSection}>
