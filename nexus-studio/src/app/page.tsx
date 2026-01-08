@@ -47,20 +47,28 @@ export default function Home() {
             Não fazemos sites, construímos ecossistemas digitais.
           </p>
 
-          <ul className={styles.benefitList}>
-            <li className={styles.benefitItem}>
-              <CheckCircle size={20} />
-              <span>Performance otimizada para conversão</span>
-            </li>
-            <li className={styles.benefitItem}>
-              <CheckCircle size={20} />
-              <span>Design que encanta e retém usuários</span>
-            </li>
-            <li className={styles.benefitItem}>
-              <CheckCircle size={20} />
-              <span>Arquitetura escalável para crescimento</span>
-            </li>
-          </ul>
+          {/* Seção de Benefícios com Fundo Sutil */}
+          <div className={styles.benefits}>
+            <ul className={styles.benefitList}>
+              <li className={styles.benefitItem}>
+                <CheckCircle size={20} />
+                <span>Performance otimizada para conversão</span>
+              </li>
+              <li className={styles.benefitItem}>
+                <CheckCircle size={20} />
+                <span>Design que encanta e retém usuários</span>
+              </li>
+              <li className={styles.benefitItem}>
+                <CheckCircle size={20} />
+                <span>Arquitetura escalável para crescimento</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contexto do CTA */}
+          <div className={styles.ctaContext}>
+            Pronto para acelerar sua ideia?
+          </div>
 
           {/* CTA COM COPY REFINADA */}
           <button className={styles.btn}>

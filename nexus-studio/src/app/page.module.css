@@ -1,4 +1,4 @@
-/* 2. Layout Responsivo (Mobile First) */
+/* Hero Section Clean Premium */
 .main {
   display: flex;
   flex-direction: column;
@@ -7,6 +7,7 @@
   padding: 0 5%;
   position: relative;
   overflow: hidden;
+  background: var(--bg-hero);
 }
 
 @media (min-width: 768px) {
@@ -15,28 +16,33 @@
   }
 }
 
-/* Aurora Background (mantido) */
+/* Aurora Background Sutil */
 .glowOrb {
   position: absolute;
   top: -10%;
   right: -5%;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, rgba(0,0,0,0) 70%);
+  background: var(--accent-gradient);
   filter: blur(120px);
   z-index: -1;
   pointer-events: none;
   will-change: transform, opacity;
 }
 
+/* Tipografia Refinada */
 .title {
-  color: var(--text-headline); /* Agora usa Preto Puro */
+  color: var(--text-headline);
   font-size: clamp(3rem, 6vw, 4.5rem);
   font-weight: 800;
-  letter-spacing: -0.04em; /* Tracking bem apertado para títulos grandes */
-  line-height: 1.05;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
   margin-bottom: 1.5rem;
   max-width: 900px;
+}
+
+.title span {
+  color: var(--accent-brand);
 }
 
 .descriptionWrapper {
@@ -48,12 +54,36 @@
   max-width: 600px;
 }
 
+/* Linha Decorativa Refinada */
 .description {
-  font-size: 1.25rem;
-  color: var(--text-muted);
+  font-size: 1.3rem;
+  color: var(--text-secondary);
   line-height: 1.6;
-  border-left: 2px solid #e5e5e5;
+  max-width: 600px;
+  border-left: 3px solid rgba(0, 0, 0, 0.2);
   padding-left: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* Subheadline Contexto */
+.ctaContext {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+/* Seção de Benefícios Clean */
+.benefits {
+  background: var(--bg-subtle);
+  padding: 4rem 0;
+  margin: 0 -5%;
+}
+
+@media (min-width: 768px) {
+  .benefits {
+    margin: 0 -10%;
+  }
 }
 
 .benefitList {
@@ -76,7 +106,7 @@
   flex-shrink: 0;
 }
 
-/* Botão Premium: Foco em Sombra, não troca de cor */
+/* Botão Premium Mantido */
 .btn {
   background: var(--accent-black);
   color: #FFFFFF;
@@ -89,15 +119,13 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  /* Sombra inicial discreta */
   box-shadow: 0 4px 6px rgba(0,0,0,0.05);
   transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
 }
 
 .btn:hover {
-  /* Mantém o preto puro, mas eleva o elemento */
   transform: translateY(-3px) scale(1.01);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.15); /* Sombra difusa elegante */
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
 }
 
 /* Footer Icons */

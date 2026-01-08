@@ -1,16 +1,21 @@
 :root {
-  /* Bases */
-  --bg-page: #FFFFFF;
-  --bg-subtle: #FAFAFA;
+  /* Bases Clean Premium */
+  --bg-page: #FAFAFA;        /* Off-white principal */
+  --bg-subtle: #F5F5F5;     /* Subtle para seções */
+  --bg-hero: #FFFFFF;       /* Hero limpa */
   
-  /* Tipografia & Hierarquia */
-  --text-headline: #000000; /* Preto Puro para Títulos (Impacto) */
-  --text-body: #111111;     /* Preto Suave para leitura confortável */
-  --text-muted: #666666;
+  /* Tipografia & Hierarquia Refinada */
+  --text-headline: #000000; /* Preto absoluto para títulos */
+  --text-body: #111111;     /* Preto suave para leitura */
+  --text-secondary: #666666; /* Textos secundários */
+  --text-muted: #999999;    /* Muted para detalhes */
   
   /* Elementos de Ação */
-  --accent-black: #000000; /* CTA e Logos */
-  --accent-brand: #6366f1; /* Detalhes sutis (Indigo) */
+  --accent-black: #000000;  /* CTA e elementos fortes */
+  --accent-brand: #6366f1;  /* Indigo suave para destaques */
+  
+  /* Gradientes Aurora */
+  --accent-gradient: radial-gradient(ellipse at top right, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
   
   /* Sombras Apple-like */
   --shadow-card: 0 2px 8px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
@@ -23,7 +28,7 @@ body {
   background-color: var(--bg-page);
   color: var(--text-body);
   font-family: 'Inter', -apple-system, sans-serif;
-  -webkit-font-smoothing: antialiased; /* Renderização de fonte nítida */
+  -webkit-font-smoothing: antialiased;
 }
 
 button:focus-visible, a:focus-visible {
