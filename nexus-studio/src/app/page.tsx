@@ -1,5 +1,8 @@
+"use client";
 import styles from './page.module.css';
+import Navbar from '../components/Navbar';
 import { Cpu, Layout, Terminal, ArrowRight, Instagram, Linkedin, Github } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Home() {
   const services = [
@@ -9,14 +12,31 @@ export default function Home() {
   ];
 
   return (
-    <main style={{ background: '#030712' }}>
-      {/* Hero Section (Preservando o estilo atual) */}
+    <main>
+      <Navbar />
+      
+      {/* Nova Hero Section: Sem Card, Direto na Grade */}
       <section className={styles.main}>
-        <div className={styles.glassCard}>
-          <h1 className={styles.title}>NEXUS <span className={styles.accent}>STUDIO</span></h1>
-          <p style={{ color: '#94a3b8', marginTop: '1rem', fontSize: '1.2rem' }}>Elite Digital Crafting & AI Solutions</p>
-          <button className={styles.btn}>Iniciar Projeto</button>
-        </div>
+        <div className={styles.glowOrb}></div>
+        
+        <motion.h1 
+          className={styles.title}
+          initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
+        >
+          We craft <br />
+          digital <span className={styles.accent}>futures.</span>
+        </motion.h1>
+
+        <motion.div 
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}
+        >
+          <p className={styles.description}>
+            A Nexus Studio funde engenharia de software complexa com design de vanguarda. 
+            Não fazemos sites, construímos ecossistemas digitais.
+          </p>
+          <button className={styles.btn}>Start Project</button>
+        </motion.div>
       </section>
 
       {/* Services Section */}
