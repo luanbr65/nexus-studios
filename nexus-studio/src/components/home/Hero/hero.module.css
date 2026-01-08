@@ -66,13 +66,72 @@
   color: #000;
 }
 
-/* Placeholder para onde iria uma imagem/video institucional */
 .visual {
-  height: 600px;
-  background-color: #111;
-  border: 1px solid var(--border-color);
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #333;
+  /* Removemos a borda e fundo cinza feio */
+  background: transparent;
+  border: none;
+}
+
+.terminalWindow {
+  width: 100%;
+  max-width: 500px;
+  background: #0f0f0f;
+  border: 1px solid #333;
+  border-radius: 8px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  overflow: hidden;
+  font-family: 'Fira Code', 'Courier New', monospace; /* Fonte monoespaçada */
+}
+
+.terminalHeader {
+  background: #1a1a1a;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #333;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.fileName {
+  margin-left: auto;
+  color: #666;
+  font-size: 0.8rem;
+}
+
+.terminalBody {
+  padding: 24px;
+  color: #ccc;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Cores de Syntax Highlighting (Deixa o código bonito) */
+.purple { color: #c678dd; }
+.blue { color: #61afef; }
+.yellow { color: #e5c07b; }
+.green { color: #98c379; }
+.gray { color: #5c6370; font-style: italic; }
+
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: #61afef;
+  margin-left: 5px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }

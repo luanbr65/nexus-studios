@@ -1,0 +1,35 @@
+.strip {
+  width: 100%;
+  border-bottom: 1px solid var(--border-color); /* Mantém o grid */
+  background: var(--bg-main);
+  padding: 1.5rem 0;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #444; /* Bem escuro, discreto */
+  letter-spacing: 0.1em;
+}
+
+.list {
+  display: flex;
+  gap: 3rem;
+  opacity: 0.6;
+}
+
+.tech {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #666;
+  letter-spacing: 0.05em;
+}
