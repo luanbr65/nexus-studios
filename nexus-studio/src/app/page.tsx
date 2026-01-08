@@ -1,30 +1,24 @@
-"use client";
+'use client';
 import styles from './page.module.css';
 import Navbar from '../components/Navbar';
-import { Cpu, Layout, Terminal, ArrowRight, Instagram, Linkedin, Github } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { ArrowRight, Instagram, Linkedin, Github, CheckCircle } from 'lucide-react';
 
 export default function Home() {
-  const services = [
-    { title: "Soluções em IA", icon: <Cpu color="#6366f1" size={32} />, desc: "Automatizamos processos complexos com inteligência artificial sob medida." },
-    { title: "Design de Elite", icon: <Layout color="#6366f1" size={32} />, desc: "Interfaces que encantam usuários e elevam o valor da sua marca." },
-    { title: "Dev Fullstack", icon: <Terminal color="#6366f1" size={32} />, desc: "Sistemas robustos e escaláveis construídos com tecnologia de ponta." }
-  ];
-
   return (
     <main>
       <Navbar />
       
-      {/* Nova Hero Section: Sem Card, Direto na Grade */}
       <section className={styles.main}>
+        {/* Aurora Background */}
         <div className={styles.glowOrb}></div>
         
+        {/* Headline com Span Indigo Sutil */}
         <motion.h1 
           className={styles.title}
-          initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
         >
-          We craft <br />
-          digital <span className={styles.accent}>futures.</span>
+          Construímos produtos digitais que fazem seu projeto <span style={{color: '#6366f1'}}>crescer, converter e ser lembrado.</span>
         </motion.h1>
 
         <motion.div 
@@ -35,42 +29,41 @@ export default function Home() {
             A Nexus Studio funde engenharia de software complexa com design de vanguarda. 
             Não fazemos sites, construímos ecossistemas digitais.
           </p>
-          <button className={styles.btn}>Start Project</button>
+
+          <ul className={styles.benefitList}>
+            <li className={styles.benefitItem}>
+              <CheckCircle size={20} />
+              <span>Performance otimizada para conversão</span>
+            </li>
+            <li className={styles.benefitItem}>
+              <CheckCircle size={20} />
+              <span>Design que encanta e retém usuários</span>
+            </li>
+            <li className={styles.benefitItem}>
+              <CheckCircle size={20} />
+              <span>Arquitetura escalável para crescimento</span>
+            </li>
+          </ul>
+
+          {/* CTA COM COPY REFINADA */}
+          <button className={styles.btn}>
+            Quero lançar meu projeto com o Nexus
+            <ArrowRight size={18} />
+          </button>
         </motion.div>
       </section>
 
-      {/* Services Section */}
-      <section className={styles.servicesSection}>
-        <div style={{ textAlign: 'center' }}>
-          <h2 style={{ fontSize: '3rem', fontWeight: '800' }}>Nossas <span className={styles.accent}>Expertises</span></h2>
-        </div>
-        <div className={styles.grid}>
-          {services.map((s, i) => (
-            <div key={i} className={styles.card}>
-              {s.icon}
-              <h3>{s.title}</h3>
-              <p>{s.desc}</p>
-              <div style={{ marginTop: '2rem', display: 'flex', alignItems: 'center', gap: '10px', color: '#6366f1', fontWeight: 'bold', cursor: 'pointer' }}>
-                Saber mais <ArrowRight size={18} />
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Portfolio Section */}
-      <section className={styles.portfolioSection}>
-        <h2 style={{ fontSize: '2.5rem', fontWeight: '800' }}>Projetos <span className={styles.accent}>Selecionados</span></h2>
-        <div className={styles.portfolioGrid}>
-          <div className={styles.projectCard}><div className={styles.projectOverlay}><h3>Plataforma Alpha</h3></div></div>
-          <div className={styles.projectCard}><div className={styles.projectOverlay}><h3>Luxe Marketplace</h3></div></div>
-        </div>
-      </section>
-
-      {/* Footer */}
+      {/* Footer Limpo (Sem estilos inline nos ícones) */}
       <footer className={styles.footer}>
-        <div><span className={styles.footerLogo}>NEXUS STUDIO</span><p>© 2024 Design de Elite.</p></div>
-        <div style={{ display: 'flex', gap: '1.5rem' }}><Instagram size={20} /><Linkedin size={20} /><Github size={20} /></div>
+        <div>
+            <span className={styles.footerLogo}>NEXUS STUDIO</span>
+            <p className={styles.footerCopy}>© 2024 Design de Elite.</p>
+        </div>
+        <div className={styles.socialIcons}>
+          <Instagram size={22} className={styles.socialIcon} />
+          <Linkedin size={22} className={styles.socialIcon} />
+          <Github size={22} className={styles.socialIcon} />
+        </div>
       </footer>
     </main>
   );
