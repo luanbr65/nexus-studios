@@ -1,103 +1,162 @@
-"use client"; // Necessário para usar animações no Next.js
+"use client";
 
 import { useState, useEffect } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import styles from './vortex.module.css';
 
+// Dados simulados para o gráfico
+const data = [
+  { name: '00:00', stream: 4000, nodes: 2400 },
+  { name: '04:00', stream: 3000, nodes: 1398 },
+  { name: '08:00', stream: 2000, nodes: 9800 },
+  { name: '12:00', stream: 2780, nodes: 3908 },
+  { name: '16:00', stream: 1890, nodes: 4800 },
+  { name: '20:00', stream: 2390, nodes: 3800 },
+  { name: '23:59', stream: 3490, nodes: 4300 },
+];
+
 export default function VortexPage() {
-  // Estados para simular dados mudando
-  const [dataStream, setDataStream] = useState(45.2);
-  const [nodes, setNodes] = useState(8402);
-  const [latency, setLatency] = useState(12);
+  const [isLocked, setIsLocked] = useState(true); // Controla se está na tela de login ou dashboard
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  // O "Motor" de simulação
+  // Estados "Vivos"
+  const [streamSpeed, setStreamSpeed] = useState(45.2);
+
+  // Simulação de dados vivos
   useEffect(() => {
-    const interval = setInterval(() => {
-      // Flutua o Data Stream levemente
-      setDataStream(prev => +(prev + (Math.random() * 0.4 - 0.2)).toFixed(1));
-      
-      // Muda a latência aleatoriamente
-      setLatency(Math.floor(Math.random() * (15 - 8 + 1) + 8));
-      
-      // Ocasionalmente muda o número de nós
-      if (Math.random() > 0.9) {
-        setNodes(prev => prev + (Math.random() > 0.5 ? 1 : -1));
+    if (!isLocked) {
+      const interval = setInterval(() => {
+        setStreamSpeed(prev => +(prev + (Math.random() * 2 - 1)).toFixed(1));
+      }, 800);
+      return () => clearInterval(interval);
+    }
+  }, [isLocked]);
+
+  // Função de Login Fake
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(false);
+
+    // Simula tempo de processamento
+    setTimeout(() => {
+      if (password === 'ADMIN' || password === 'admin') {
+        setIsLocked(false); // Libera o acesso
+      } else {
+        setError(true);
       }
-    }, 1500); // Atualiza a cada 1.5 segundos
+      setLoading(false);
+    }, 1500);
+  };
 
-    return () => clearInterval(interval);
-  }, []);
+  // --- TELA 1: LOGIN (O que já tínhamos, levemente ajustado) ---
+  if (isLocked) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.scanlines}></div>
+        <div className={styles.main}>
+          <div className={styles.panel}>
+            <h1 className={styles.title}>System Locked</h1>
+            <p className={styles.subtitle}>ACCESS RESTRICTED TO AUTHORIZED PERSONNEL ONLY.</p>
+            
+            <form className={styles.formGroup} onSubmit={handleLogin}>
+              <input 
+                type="password" 
+                placeholder="ENTER ACCESS KEY..." 
+                className={styles.input}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                disabled={loading}
+              />
+              <button className={styles.button} disabled={loading}>
+                {loading ? 'AUTHENTICATING...' : 'UNLOCK SYSTEM'}
+              </button>
+              {error && <p style={{color: 'red', marginTop: 10, fontSize: '0.8rem'}}>ACCESS DENIED: INVALID CREDENTIALS</p>}
+            </form>
+            
+            <div style={{marginTop: '2rem', borderTop: '1px solid #333', paddingTop: '1rem'}}>
+              <p style={{fontSize: '0.7rem', color: '#444'}}>HINT FOR DEMO: Type "ADMIN"</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
+  // --- TELA 2: DASHBOARD (A Novidade) ---
   return (
     <div className={styles.container}>
-      <div className={styles.scanlines}></div>
-
-      {/* Header estilo Terminal */}
-      <header className={styles.header}>
+      {/* Header do Dashboard */}
+      <header className={styles.header} style={{borderColor: '#333'}}>
         <div className={styles.brand}>
-          <span style={{color: '#fff'}}>VORTEX</span>_ANALYTICS
+          <span style={{color: '#fff'}}>VORTEX</span>_DASHBOARD
         </div>
         <div className={styles.status}>
-          SERVER: <span style={{color: '#fff'}}>US-EAST-1</span>
-          <div className={styles.blink}></div>
+          LIVE CONNECTION <div className={styles.blink}></div>
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className={styles.main}>
-        <div className={styles.panel}>
-          <h1 className={styles.title}>System Locked</h1>
-          <p className={styles.subtitle}>
-            Vortex v2.4.0 (Beta Privado).<br/>
-            Plataforma de inteligência de dados de alta frequência.
-            Acesso restrito a usuários corporativos autorizados.
-          </p>
-
-          {/* Dados Animados */}
-          <div className={styles.statsGrid}>
-            <div className={styles.statItem}>
-              <span className={styles.statLabel}>Data Stream</span>
-              {/* Exibe o número animado */}
-              <span className={styles.statValue}>{dataStream} TB/s</span>
-            </div>
-            <div className={styles.statItem}>
-              <span className={styles.statLabel}>Active Nodes</span>
-              <span className={styles.statValue}>{nodes.toLocaleString()}</span>
-            </div>
-            <div className={styles.statItem}>
-              <span className={styles.statLabel}>Latency</span>
-              {/* Muda a cor se a latência subir muito (Detalhe técnico visual) */}
-              <span className={styles.statValue} style={{color: latency > 14 ? '#ffbd2e' : '#00ff41'}}>
-                {latency}ms
-              </span>
-            </div>
-            <div className={styles.statItem}>
-              <span className={styles.statLabel}>Encryption</span>
-              <span className={styles.statValue}>AES-256</span>
-            </div>
+      {/* Grid Principal */}
+      <div className={styles.dashboardGrid}>
+        
+        {/* Widget 1: Visão Geral */}
+        <div className={styles.widget}>
+          <h3 className={styles.widgetTitle}>REAL-TIME THROUGHPUT</h3>
+          <div className={styles.bigNumber}>{streamSpeed} <span style={{fontSize: '1rem', color:'#666'}}>TB/s</span></div>
+          <div className={styles.chartContainer}>
+             <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={data}>
+                  <defs>
+                    <linearGradient id="colorStream" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#00ff41" stopOpacity={0.3}/>
+                      <stop offset="95%" stopColor="#00ff41" stopOpacity={0}/>
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#222" />
+                  <Tooltip contentStyle={{backgroundColor: '#000', border: '1px solid #333'}} />
+                  <Area type="monotone" dataKey="stream" stroke="#00ff41" fillOpacity={1} fill="url(#colorStream)" />
+                </AreaChart>
+             </ResponsiveContainer>
           </div>
-
-          <form className={styles.formGroup} onSubmit={(e) => e.preventDefault()}>
-            <input 
-              type="email" 
-              placeholder="ENTER CORPORATE ID..." 
-              className={styles.input}
-              disabled 
-            />
-            <button className={styles.button}>
-              Request Access Key
-            </button>
-          </form>
-          
-          <p style={{marginTop: '1rem', fontSize: '0.7rem', color: '#666'}}>
-            * Security protocol initiated. IP logged.
-          </p>
         </div>
-      </main>
 
-      <footer className={styles.footer}>
-        <div>SYSTEM_ID: VTX-9928-X</div>
-        <div>POWERED BY NEXUS STUDIO ENGINE</div>
-      </footer>
+        {/* Widget 2: Status dos Nós */}
+        <div className={styles.widget}>
+          <h3 className={styles.widgetTitle}>CLUSTER HEALTH</h3>
+          <div style={{display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem'}}>
+             <div className={styles.healthRow}>
+                <span>US-EAST-1</span>
+                <span style={{color: '#00ff41'}}>OPERATIONAL</span>
+             </div>
+             <div className={styles.healthRow}>
+                <span>EU-WEST-2</span>
+                <span style={{color: '#00ff41'}}>OPERATIONAL</span>
+             </div>
+             <div className={styles.healthRow}>
+                <span>AP-SOUTH-1</span>
+                <span style={{color: '#ffbd2e'}}>WARNING (Latency High)</span>
+             </div>
+             <div className={styles.healthRow}>
+                <span>SA-EAST-1</span>
+                <span style={{color: '#00ff41'}}>OPERATIONAL</span>
+             </div>
+          </div>
+        </div>
+
+         {/* Widget 3: Terminal de Logs */}
+         <div className={styles.widget} style={{gridColumn: '1 / -1'}}>
+            <h3 className={styles.widgetTitle}>SYSTEM LOGS</h3>
+            <div className={styles.logs}>
+                <p>[20:42:01] Ingesting shard #88291... OK</p>
+                <p>[20:42:02] Optimizing indexes for cluster Alpha...</p>
+                <p>[20:42:05] <span style={{color: '#ffbd2e'}}>WARNING: Spike detected in region AP-SOUTH</span></p>
+                <p>[20:42:06] Auto-scaling initiated. Provisioning +50 nodes.</p>
+            </div>
+         </div>
+
+      </div>
     </div>
   );
 }
