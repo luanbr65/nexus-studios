@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import styles from './vortex.module.css';
 
 // Dados simulados para o gráfico
@@ -106,19 +105,50 @@ export default function VortexPage() {
           <h3 className={styles.widgetTitle}>REAL-TIME THROUGHPUT</h3>
           <div className={styles.bigNumber}>{streamSpeed} <span style={{fontSize: '1rem', color:'#666'}}>TB/s</span></div>
           <div className={styles.chartContainer}>
-             <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={data}>
-                  <defs>
-                    <linearGradient id="colorStream" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#00ff41" stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor="#00ff41" stopOpacity={0}/>
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#222" />
-                  <Tooltip contentStyle={{backgroundColor: '#000', border: '1px solid #333'}} />
-                  <Area type="monotone" dataKey="stream" stroke="#00ff41" fillOpacity={1} fill="url(#colorStream)" />
-                </AreaChart>
-             </ResponsiveContainer>
+            <svg width="100%" height="100%" viewBox="0 0 400 200" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="colorStream" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="5%" stopColor="#00ff41" stopOpacity="0.3"/>
+                  <stop offset="95%" stopColor="#00ff41" stopOpacity="0"/>
+                </linearGradient>
+              </defs>
+              
+              {/* Grid lines */}
+              {[...Array(5)].map((_, i) => (
+                <line
+                  key={`h-${i}`}
+                  x1="0"
+                  y1={i * 40}
+                  x2="400"
+                  y2={i * 40}
+                  stroke="#222"
+                  strokeDasharray="3 3"
+                />
+              ))}
+              
+              {[...Array(8)].map((_, i) => (
+                <line
+                  key={`v-${i}`}
+                  x1={i * 57}
+                  y1="0"
+                  x2={i * 57}
+                  y2="200"
+                  stroke="#222"
+                  strokeDasharray="3 3"
+                />
+              ))}
+              
+              {/* Area chart */}
+              <path
+                d={`M 0,${200 - (data[0].stream / 100)} ${data.map((d, i) => 
+                  `L ${i * 66},${200 - (d.stream / 100)}`
+                ).join(' ')} L 400,200 L 0,200 Z`}
+                fill="url(#colorStream)"
+                stroke="#00ff41"
+                strokeWidth="2"
+                fillOpacity="1"
+              />
+            </svg>
           </div>
         </div>
 
