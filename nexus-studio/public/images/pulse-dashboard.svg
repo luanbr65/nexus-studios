@@ -1,0 +1,53 @@
+<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0a"/>
+      <stop offset="100%" style="stop-color:#1a1a1a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="100%" style="stop-color:#a855f7"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="400" fill="url(#bg)"/>
+  
+  <!-- Sidebar -->
+  <rect x="0" y="0" width="200" height="400" fill="#0f0f0f"/>
+  
+  <!-- Sidebar items -->
+  <rect x="20" y="80" width="160" height="40" rx="8" fill="rgba(99, 102, 241, 0.2)"/>
+  <rect x="20" y="140" width="160" height="40" rx="8" fill="rgba(255, 255, 255, 0.05)"/>
+  <rect x="20" y="200" width="160" height="40" rx="8" fill="rgba(255, 255, 255, 0.05)"/>
+  
+  <!-- Main content area -->
+  <rect x="220" y="20" width="560" height="360" rx="12" fill="rgba(255, 255, 255, 0.03)" stroke="rgba(255, 255, 255, 0.1)"/>
+  
+  <!-- Stats cards -->
+  <rect x="240" y="40" width="120" height="80" rx="8" fill="rgba(99, 102, 241, 0.1)" stroke="rgba(99, 102, 241, 0.3)"/>
+  <rect x="380" y="40" width="120" height="80" rx="8" fill="rgba(16, 185, 129, 0.1)" stroke="rgba(16, 185, 129, 0.3)"/>
+  <rect x="520" y="40" width="120" height="80" rx="8" fill="rgba(168, 85, 247, 0.1)" stroke="rgba(168, 85, 247, 0.3)"/>
+  
+  <!-- Chart area -->
+  <rect x="240" y="140" width="400" height="160" rx="8" fill="rgba(255, 255, 255, 0.02)" stroke="rgba(255, 255, 255, 0.1)"/>
+  
+  <!-- Chart bars -->
+  <rect x="260" y="220" width="30" height="60" fill="url(#accent)"/>
+  <rect x="310" y="200" width="30" height="80" fill="url(#accent)"/>
+  <rect x="360" y="180" width="30" height="100" fill="url(#accent)"/>
+  <rect x="410" y="190" width="30" height="90" fill="url(#accent)"/>
+  <rect x="460" y="210" width="30" height="70" fill="url(#accent)"/>
+  <rect x="510" y="170" width="30" height="110" fill="url(#accent)"/>
+  <rect x="560" y="195" width="30" height="85" fill="url(#accent)"/>
+  
+  <!-- Table rows -->
+  <rect x="240" y="320" width="400" height="30" rx="4" fill="rgba(255, 255, 255, 0.02)"/>
+  <rect x="240" y="360" width="400" height="30" rx="4" fill="rgba(255, 255, 255, 0.02)"/>
+  
+  <!-- Logo text -->
+  <text x="30" y="35" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#6366f1">⚡ Pulse CRM</text>
+  
+  <!-- Title -->
+  <text x="240" y="35" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#ffffff">Dashboard</text>
+</svg>

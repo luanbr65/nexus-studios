@@ -35,7 +35,30 @@ export default function Projects() {
           </div>
         </div>
 
-        {/* PROJETO 2: Vortex (Novo Projeto SaaS) */}
+        {/* PROJETO 2: Pulse CRM (SaaS de Vendas) */}
+        <div className={styles.projectRow}>
+          <div className={styles.projectInfo}>
+            <h3 className={styles.projectName} style={{color: '#6366f1'}}>Pulse CRM</h3>
+            <p className={styles.projectDesc}>
+              Plataforma completa de gestão de relacionamento (CRM) com pipeline visual Kanban, 
+              métricas em tempo real e automação de follow-ups. Projetado para acelerar o ciclo de vendas.
+            </p>
+          </div>
+          <div className={styles.projectMeta}>
+            <div className={styles.statusLine}>
+              <span className={`${styles.dot} ${styles.online}`}></span>
+              <span>SAAS LIVE</span>
+            </div>
+            <div className={styles.statusLine}>
+              <span>Tech: Next.js 14 / Dashboard UI / Realtime</span>
+            </div>
+            <Link href="/pulse-crm" className={styles.linkButton}>
+              Ver Sistema Online &rarr;
+            </Link>
+          </div>
+        </div>
+
+        {/* PROJETO 3: Vortex (Novo Projeto SaaS) */}
         <div className={styles.projectRow}>
           <div className={styles.projectInfo}>
             <h3 className={styles.projectName} style={{color: '#ddd'}}>Vortex Analytics</h3>
