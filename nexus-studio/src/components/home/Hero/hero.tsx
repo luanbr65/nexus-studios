@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from 'framer-motion';
 import styles from './hero.module.css';
 
 export default function Hero() {
@@ -7,26 +10,58 @@ export default function Hero() {
         
         {/* Lado Esquerdo (Texto) - MANTENHA IGUAL */}
         <div className={styles.content}>
-          <span className={styles.label}>Est. 2024 &mdash; São Paulo</span>
+          <motion.span
+            className={styles.label}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            Est. 2024 &mdash; São Paulo
+          </motion.span>
           
-          <h1 className={styles.headline}>
+          <motion.h1
+            className={styles.headline}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+          >
             Arquitetura digital <br />
             para negócios <br />
             de escala.
-          </h1>
+          </motion.h1>
           
-          <p className={styles.description}>
+          <motion.p
+            className={styles.description}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
             A Nexus Studio é uma firma de engenharia de software focada em 
             performance, solidez e design sistêmico. Não seguimos tendências, 
             construímos infraestrutura.
-          </p>
+          </motion.p>
 
-          <button className={styles.cta}>Iniciar Consultoria</button>
+          <motion.button
+            className={styles.cta}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            whileHover={{ y: -3 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Iniciar Consultoria
+          </motion.button>
         </div>
 
         {/* Lado Direito (NOVO: Terminal Visual) */}
         <div className={styles.visual}>
-            <div className={styles.terminalWindow}>
+            <motion.div
+              className={styles.terminalWindow}
+              initial={{ opacity: 0, y: 40, rotateX: 6 }}
+              animate={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ duration: 0.8, delay: 0.25 }}
+              whileHover={{ y: -6 }}
+            >
                 <div className={styles.terminalHeader}>
                     <div className={styles.dot} style={{background: '#ff5f56'}}></div>
                     <div className={styles.dot} style={{background: '#ffbd2e'}}></div>
@@ -60,7 +95,7 @@ export default function Hero() {
                     </div>
                     <div className={styles.cursor}>_</div>
                 </div>
-            </div>
+            </motion.div>
         </div>
 
       </div>
