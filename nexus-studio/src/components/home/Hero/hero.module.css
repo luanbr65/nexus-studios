@@ -85,6 +85,7 @@
   box-shadow: 0 20px 50px rgba(0,0,0,0.5);
   overflow: hidden;
   font-family: 'Fira Code', 'Courier New', monospace; /* Fonte monoespaçada */
+  animation: floating 6s ease-in-out infinite;
 }
 
 .terminalHeader {
@@ -134,4 +135,14 @@
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
+}
+
+@keyframes floating {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }

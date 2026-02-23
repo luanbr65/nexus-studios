@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from 'framer-motion';
 import styles from './services.module.css';
 
 export default function Services() {
@@ -25,8 +28,16 @@ export default function Services() {
   return (
     <section className={styles.section} id="services">
       <div className={styles.container}>
-        {services.map((service) => (
-          <div key={service.id} className={styles.card}>
+        {services.map((service, index) => (
+          <motion.div
+            key={service.id}
+            className={styles.card}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: index * 0.12 }}
+            whileHover={{ y: -6 }}
+          >
             <div>
               <span className={styles.number}>{service.id} //</span>
               <h3 className={styles.title}>{service.title}</h3>
@@ -35,7 +46,7 @@ export default function Services() {
             <div className={styles.techStack}>
               stack: {service.stack}
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>
