@@ -1,6 +1,6 @@
 .strip {
   width: 100%;
-  border-bottom: 1px solid var(--border-color); /* Mantém o grid */
+  border-bottom: 1px solid var(--border-color);
   background: var(--bg-main);
   padding: 1.5rem 0;
 }
@@ -17,19 +17,36 @@
 .label {
   font-size: 0.75rem;
   text-transform: uppercase;
-  color: #444; /* Bem escuro, discreto */
+  color: #444;
   letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.marquee {
+  overflow: hidden;
+  width: 100%;
 }
 
 .list {
   display: flex;
   gap: 3rem;
-  opacity: 0.6;
+  opacity: 0.72;
+  width: max-content;
+  animation: marquee 20s linear infinite;
 }
 
 .tech {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #666;
+  color: #777;
   letter-spacing: 0.05em;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 1.5rem));
+  }
 }
