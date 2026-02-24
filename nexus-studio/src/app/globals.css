@@ -1,17 +1,20 @@
 :root {
-  /* Cores Institucionais Sóbrias */
-  --bg-main: #0a0a0a;       /* Preto quase absoluto */
-  --bg-secondary: #111111;  /* Cinza muito escuro para seções */
-  --border-color: #333333;  /* Linhas de grid sutis */
-  
+  --bg-main: #0a0a0a;
+  --bg-secondary: #111111;
+  --border-color: #333333;
+
   --text-primary: #ffffff;
-  --text-secondary: #888888; /* Cinza médio para descrição */
-  
+  --text-secondary: #888888;
+
   --font-main: 'Inter', sans-serif;
-  
-  /* Tamanhos de container para alinhamento perfeito */
+
   --max-width: 1400px;
   --header-height: 80px;
+
+  --motion-duration-standard: 0.6s;
+  --motion-duration-fast: 0.3s;
+  --motion-ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-distance-md: 24px;
 }
 
 * {
@@ -20,12 +23,13 @@
   margin: 0;
 }
 
-html, body {
+html,
+body {
   background-color: var(--bg-main);
   color: var(--text-primary);
   font-family: var(--font-main);
   overflow-x: hidden;
-  -webkit-font-smoothing: antialiased; /* Texto nítido */
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
@@ -33,7 +37,6 @@ a {
   color: inherit;
 }
 
-/* Utilitário de Grid (Linhas verticais de fundo para dar estrutura) */
 .grid-background {
   position: fixed;
   top: 0;
@@ -75,5 +78,21 @@ a {
   50% {
     opacity: 0.5;
     transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .grid-line {
+    animation: none;
+    opacity: 0.2;
   }
 }

@@ -25,11 +25,8 @@
   font-weight: 600;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  transition: color 0.25s ease;
-}
-
-.logo:hover {
-  color: #a5b4fc;
+  transition: transform var(--motion-duration-fast) var(--motion-ease-standard),
+    opacity var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
 .menu {
@@ -43,7 +40,6 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--text-secondary);
-  transition: color 0.3s;
   position: relative;
 }
 
@@ -57,7 +53,7 @@
   background: linear-gradient(90deg, #6366f1, #22d3ee);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.3s ease;
+  transition: transform var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
 .link:hover {

@@ -1,31 +1,31 @@
 .section {
   border-top: 1px solid var(--border-color);
   background-color: var(--bg-main);
-  padding: 0; /* O padding será interno nos cards */
+  padding: 0;
 }
 
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
   display: grid;
-  /* Grid de 3 colunas que vira 1 no mobile */
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
-  border-left: 1px solid var(--border-color); /* Fecha a caixa */
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  border-left: 1px solid var(--border-color);
 }
 
 .card {
   border-right: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
   padding: 4rem 2.5rem;
-  transition: background 0.3s ease;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   min-height: 300px;
+  transition: transform var(--motion-duration-fast) var(--motion-ease-standard),
+    opacity var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
 .card:hover {
-  background: #111; /* Sutil destaque ao passar o mouse */
+  transform: translateY(-2px);
 }
 
 .number {
@@ -51,7 +51,6 @@
   max-width: 90%;
 }
 
-/* Um detalhe "tech" no rodapé do card */
 .techStack {
   margin-top: 2rem;
   font-size: 0.75rem;
