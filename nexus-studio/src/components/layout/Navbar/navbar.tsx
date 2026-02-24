@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
+import { MOTION_TRANSITION, fadeUp } from '@/lib/motion';
 import styles from './navbar.module.css';
 
 const links = [
@@ -10,24 +11,37 @@ const links = [
 ];
 
 export default function Navbar() {
+  const shouldReduceMotion = useReducedMotion();
+  const navVariants = fadeUp(18);
+
   return (
     <motion.nav
       className={styles.nav}
-      initial={{ y: -30, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6 }}
+      initial={shouldReduceMotion ? false : 'hidden'}
+      animate={shouldReduceMotion ? undefined : 'show'}
+      variants={navVariants}
+      transition={MOTION_TRANSITION}
     >
       <div className={styles.container}>
-        <motion.a href="#top" className={styles.logo} whileHover={{ letterSpacing: '0.06em' }}>
+        <motion.a
+          href="#top"
+          className={styles.logo}
+          whileHover={shouldReduceMotion ? undefined : { y: -1 }}
+          transition={MOTION_TRANSITION}
+        >
           Nexus Studio.
         </motion.a>
         <ul className={styles.menu}>
           {links.map((link, index) => (
             <motion.li
               key={link.href}
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.12 + index * 0.08 }}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: -8 }}
+              animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+              transition={
+                shouldReduceMotion
+                  ? undefined
+                  : { ...MOTION_TRANSITION, delay: 0.08 + index * 0.05 }
+              }
             >
               <a href={link.href} className={styles.link}>{link.label}</a>
             </motion.li>

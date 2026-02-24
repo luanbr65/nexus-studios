@@ -11,7 +11,7 @@
   padding: 0 2rem;
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Divide a tela em 2 */
+  grid-template-columns: 1fr 1fr;
   gap: 2rem;
 }
 
@@ -31,9 +31,9 @@
 }
 
 .headline {
-  font-size: 4rem; /* Grande, mas contido */
+  font-size: 4rem;
   line-height: 1.1;
-  font-weight: 400; /* Leve, não boldado */
+  font-weight: 400;
   margin-bottom: 2rem;
   letter-spacing: -0.03em;
 }
@@ -44,7 +44,7 @@
   line-height: 1.6;
   max-width: 500px;
   margin-bottom: 3rem;
-  border-left: 1px solid var(--border-color); /* Linha lateral estilo editorial */
+  border-left: 1px solid var(--border-color);
   padding-left: 1.5rem;
 }
 
@@ -57,13 +57,13 @@
   font-size: 0.8rem;
   letter-spacing: 0.1em;
   cursor: pointer;
-  transition: all 0.3s;
   width: fit-content;
+  transition: transform var(--motion-duration-fast) var(--motion-ease-standard),
+    opacity var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
 .cta:hover {
-  background: #fff;
-  color: #000;
+  transform: translateY(-2px);
 }
 
 .visual {
@@ -71,7 +71,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Removemos a borda e fundo cinza feio */
   background: transparent;
   border: none;
 }
@@ -82,9 +81,9 @@
   background: #0f0f0f;
   border: 1px solid #333;
   border-radius: 8px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
   overflow: hidden;
-  font-family: 'Fira Code', 'Courier New', monospace; /* Fonte monoespaçada */
+  font-family: 'Fira Code', 'Courier New', monospace;
   animation: floating 6s ease-in-out infinite;
 }
 
@@ -116,7 +115,6 @@
   line-height: 1.6;
 }
 
-/* Cores de Syntax Highlighting (Deixa o código bonito) */
 .purple { color: #c678dd; }
 .blue { color: #61afef; }
 .yellow { color: #e5c07b; }
@@ -139,10 +137,13 @@
 
 @keyframes floating {
   0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
+  100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminalWindow,
+  .cursor {
+    animation: none;
   }
 }

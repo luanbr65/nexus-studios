@@ -1,26 +1,30 @@
 "use client";
 
-import { motion } from 'framer-motion';
-import styles from './projects.module.css';
+import { motion, useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
-
-const fadeUp = {
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.2 },
-  transition: { duration: 0.65 },
-};
+import { MOTION_TRANSITION, fadeUp } from '@/lib/motion';
+import styles from './projects.module.css';
 
 export default function Projects() {
+  const shouldReduceMotion = useReducedMotion();
+
+  const inViewMotion = shouldReduceMotion
+    ? {}
+    : {
+        initial: 'hidden' as const,
+        whileInView: 'show' as const,
+        viewport: { once: true, amount: 0.25 },
+      };
+
   return (
     <section className={styles.section} id="cases">
       <div className={styles.container}>
-        <motion.div className={styles.header} {...fadeUp}>
+        <motion.div className={styles.header} variants={fadeUp(24)} transition={MOTION_TRANSITION} {...inViewMotion}>
           <span className={styles.sectionTitle}>Selected Works // 2024-2025</span>
           <h2 className={styles.mainTitle}>System Logs</h2>
         </motion.div>
 
-        <motion.div className={styles.projectRow} {...fadeUp} transition={{ duration: 0.6, delay: 0.05 }}>
+        <motion.div className={styles.projectRow} variants={fadeUp(20)} transition={{ ...MOTION_TRANSITION, delay: 0.04 }} {...inViewMotion}>
           <div className={styles.projectInfo}>
             <h3 className={styles.projectName}>Nexus Portfolio</h3>
             <p className={styles.projectDesc}>
@@ -42,7 +46,7 @@ export default function Projects() {
           </div>
         </motion.div>
 
-        <motion.div className={styles.projectRow} {...fadeUp} transition={{ duration: 0.6, delay: 0.12 }}>
+        <motion.div className={styles.projectRow} variants={fadeUp(20)} transition={{ ...MOTION_TRANSITION, delay: 0.08 }} {...inViewMotion}>
           <div className={styles.projectInfo}>
             <h3 className={styles.projectName} style={{ color: '#6366f1' }}>Pulse CRM</h3>
             <p className={styles.projectDesc}>
@@ -64,7 +68,7 @@ export default function Projects() {
           </div>
         </motion.div>
 
-        <motion.div className={styles.projectRow} {...fadeUp} transition={{ duration: 0.6, delay: 0.2 }}>
+        <motion.div className={styles.projectRow} variants={fadeUp(20)} transition={{ ...MOTION_TRANSITION, delay: 0.12 }} {...inViewMotion}>
           <div className={styles.projectInfo}>
             <h3 className={styles.projectName} style={{ color: '#ddd' }}>Vortex Analytics</h3>
             <p className={styles.projectDesc}>
@@ -81,21 +85,7 @@ export default function Projects() {
               <span>Tech: Python / AWS / WebGL</span>
             </div>
 
-            <Link
-              href="/vortex"
-              className={styles.linkButton}
-              style={{
-                color: '#888',
-                textDecoration: 'none',
-                border: '1px solid #333',
-                padding: '6px 12px',
-                borderRadius: '4px',
-                fontSize: '0.75rem',
-                background: 'rgba(0,0,0,0.5)',
-                display: 'inline-block',
-                transition: 'all 0.2s',
-              }}
-            >
+            <Link href="/vortex" className={styles.linkButtonSecondary}>
               Solicitar Acesso 🔒
             </Link>
           </div>
