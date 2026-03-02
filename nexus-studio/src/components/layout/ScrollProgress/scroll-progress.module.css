@@ -5,7 +5,12 @@
   right: 0;
   height: 2px;
   transform-origin: 0% 50%;
-  background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 50%, #22d3ee 100%);
+  background: linear-gradient(
+    90deg,
+    var(--color-primary) 0%,
+    #8b5cf6 50%,
+    var(--color-accent) 100%
+  );
   box-shadow: 0 0 12px rgba(99, 102, 241, 0.75);
   z-index: 180;
 }

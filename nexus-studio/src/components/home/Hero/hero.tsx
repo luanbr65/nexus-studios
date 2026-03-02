@@ -1,32 +1,27 @@
 "use client";
 
-import { motion, useReducedMotion } from 'framer-motion';
-import { MOTION_TRANSITION, fadeUp } from '@/lib/motion';
+import { motion } from 'framer-motion';
+import { useAnimate } from '@/hooks/useAnimate';
 import styles from './hero.module.css';
 
 export default function Hero() {
-  const shouldReduceMotion = useReducedMotion();
+  const { shouldReduceMotion, fade } = useAnimate();
 
   return (
     <section className={styles.section}>
-      <div className={styles.container}>
+      <header className={styles.container}>
         <div className={styles.content}>
           <motion.span
             className={styles.label}
-            initial={shouldReduceMotion ? false : 'hidden'}
-            animate={shouldReduceMotion ? undefined : 'show'}
-            variants={fadeUp(20)}
-            transition={MOTION_TRANSITION}
+            {...fade(20)}
           >
             Est. 2024 &mdash; São Paulo
           </motion.span>
 
           <motion.h1
             className={styles.headline}
-            initial={shouldReduceMotion ? false : 'hidden'}
-            animate={shouldReduceMotion ? undefined : 'show'}
-            variants={fadeUp(28)}
-            transition={shouldReduceMotion ? undefined : { ...MOTION_TRANSITION, delay: 0.08 }}
+            {...fade(28)}
+            transition={shouldReduceMotion ? undefined : { duration: 0.6, delay: 0.08 }}
           >
             Arquitetura digital <br />
             para negócios <br />
@@ -35,10 +30,8 @@ export default function Hero() {
 
           <motion.p
             className={styles.description}
-            initial={shouldReduceMotion ? false : 'hidden'}
-            animate={shouldReduceMotion ? undefined : 'show'}
-            variants={fadeUp(18)}
-            transition={shouldReduceMotion ? undefined : { ...MOTION_TRANSITION, delay: 0.16 }}
+            {...fade(18)}
+            transition={shouldReduceMotion ? undefined : { duration: 0.6, delay: 0.16 }}
           >
             A Nexus Studio é uma firma de engenharia de software focada em
             performance, solidez e design sistêmico. Não seguimos tendências,
@@ -46,10 +39,11 @@ export default function Hero() {
           </motion.p>
 
           <motion.button
+            type="button"
             className={styles.cta}
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
-            animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={shouldReduceMotion ? undefined : { ...MOTION_TRANSITION, delay: 0.24 }}
+            {...(shouldReduceMotion
+              ? {}
+              : { initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.6, delay: 0.24 } })}
             whileHover={shouldReduceMotion ? undefined : { y: -2 }}
             whileTap={shouldReduceMotion ? undefined : { y: 0 }}
           >
@@ -60,9 +54,9 @@ export default function Hero() {
         <div className={styles.visual}>
           <motion.div
             className={styles.terminalWindow}
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
-            animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={shouldReduceMotion ? undefined : { ...MOTION_TRANSITION, delay: 0.2 }}
+            {...(shouldReduceMotion
+              ? {}
+              : { initial: { opacity: 0, y: 30 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.6, delay: 0.2 } })}
             whileHover={shouldReduceMotion ? undefined : { y: -4 }}
           >
             <div className={styles.terminalHeader}>
@@ -106,7 +100,7 @@ export default function Hero() {
             </div>
           </motion.div>
         </div>
-      </div>
+      </header>
     </section>
   );
 }

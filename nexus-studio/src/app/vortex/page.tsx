@@ -1,7 +1,13 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import type { Metadata } from 'next';
 import styles from './vortex.module.css';
+
+export const metadata: Metadata = {
+  title: 'Vortex Analytics • Nexus Studio',
+  description: 'Dashboard beta para análise de big data em tempo real com estilo cyberpunk. Login de demonstração incluso.',
+};
 
 // Dados simulados para o gráfico
 const data = [
@@ -53,7 +59,7 @@ export default function VortexPage() {
   // --- TELA 1: LOGIN (O que já tínhamos, levemente ajustado) ---
   if (isLocked) {
     return (
-      <div className={styles.container}>
+      <main className={styles.container} aria-label="Tela de login">
         <div className={styles.scanlines}></div>
         <div className={styles.main}>
           <div className={styles.panel}>
@@ -61,7 +67,11 @@ export default function VortexPage() {
             <p className={styles.subtitle}>ACCESS RESTRICTED TO AUTHORIZED PERSONNEL ONLY.</p>
             
             <form className={styles.formGroup} onSubmit={handleLogin}>
-              <input 
+              <label className={styles.srOnly} htmlFor="accessKey">
+              Access key
+            </label>
+            <input 
+                id="accessKey"
                 type="password" 
                 placeholder="ENTER ACCESS KEY..." 
                 className={styles.input}
@@ -69,7 +79,7 @@ export default function VortexPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loading}
               />
-              <button className={styles.button} disabled={loading}>
+              <button type="submit" className={styles.button} disabled={loading}>
                 {loading ? 'AUTHENTICATING...' : 'UNLOCK SYSTEM'}
               </button>
               {error && <p style={{color: 'red', marginTop: 10, fontSize: '0.8rem'}}>ACCESS DENIED: INVALID CREDENTIALS</p>}
@@ -80,13 +90,13 @@ export default function VortexPage() {
             </div>
           </div>
         </div>
-      </div>
+      </main>
     );
   }
 
   // --- TELA 2: DASHBOARD (A Novidade) ---
   return (
-    <div className={styles.container}>
+    <main className={styles.container} aria-label="Painel Vortex">
       {/* Header do Dashboard */}
       <header className={styles.header} style={{borderColor: '#333'}}>
         <div className={styles.brand}>
@@ -187,6 +197,6 @@ export default function VortexPage() {
          </div>
 
       </div>
-    </div>
+    </main>
   );
 }

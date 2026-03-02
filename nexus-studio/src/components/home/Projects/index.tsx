@@ -1,14 +1,59 @@
 "use client";
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { MOTION_TRANSITION, fadeUp } from '@/lib/motion';
 import styles from './projects.module.css';
+import { useAnimate } from '@/hooks/useAnimate';
+
+interface Project {
+  name: string;
+  description: string;
+  tech: string;
+  status: 'online' | 'live' | 'beta';
+  href?: string;
+  highlightColor?: string;
+  linkText: string;
+  linkHref: string;
+  linkSecondary?: boolean;
+}
+
+const projects: Project[] = [
+  {
+    name: 'Nexus Portfolio',
+    description:
+      'Hub pessoal de projetos. Interface experimental focada em branding e apresentação visual de alto impacto (Identity Design).',
+    tech: 'Next.js / Framer Motion / Node.js',
+    status: 'online',
+    linkText: 'Em produção →',
+    linkHref: '#',
+  },
+  {
+    name: 'Pulse CRM',
+    description:
+      'Plataforma completa de gestão de relacionamento (CRM) com pipeline visual Kanban, métricas em tempo real e automação de follow-ups. Projetado para acelerar o ciclo de vendas.',
+    tech: 'Next.js 14 / Dashboard UI / Realtime',
+    status: 'live',
+    highlightColor: '#6366f1',
+    linkText: 'Ver Sistema Online →',
+    linkHref: '/pulse-crm',
+  },
+  {
+    name: 'Vortex Analytics',
+    description:
+      'Plataforma SaaS B2B para visualização de Big Data em tempo real. Dashboard administrativo com processamento de milhões de registros.',
+    tech: 'Python / AWS / WebGL',
+    status: 'beta',
+    highlightColor: '#ddd',
+    linkText: 'Solicitar Acesso 🔒',
+    linkHref: '/vortex',
+    linkSecondary: true,
+  },
+];
 
 export default function Projects() {
-  const shouldReduceMotion = useReducedMotion();
+  const { shouldReduceMotion, fade, listItem } = useAnimate();
 
-  const inViewMotion = shouldReduceMotion
+  const inViewProps = shouldReduceMotion
     ? {}
     : {
         initial: 'hidden' as const,
@@ -19,77 +64,52 @@ export default function Projects() {
   return (
     <section className={styles.section} id="cases">
       <div className={styles.container}>
-        <motion.div className={styles.header} variants={fadeUp(24)} transition={MOTION_TRANSITION} {...inViewMotion}>
+        <motion.div {...fade(24)} {...inViewProps} className={styles.header}>
           <span className={styles.sectionTitle}>Selected Works // 2024-2025</span>
           <h2 className={styles.mainTitle}>System Logs</h2>
         </motion.div>
 
-        <motion.div className={styles.projectRow} variants={fadeUp(20)} transition={{ ...MOTION_TRANSITION, delay: 0.04 }} {...inViewMotion}>
-          <div className={styles.projectInfo}>
-            <h3 className={styles.projectName}>Nexus Portfolio</h3>
-            <p className={styles.projectDesc}>
-              Hub pessoal de projetos. Interface experimental focada em
-              branding e apresentação visual de alto impacto (Identity Design).
-            </p>
-          </div>
-          <div className={styles.projectMeta}>
-            <div className={styles.statusLine}>
-              <span className={`${styles.dot} ${styles.online}`}></span>
-              <span>SYSTEM ONLINE</span>
+        {projects.map((proj, idx) => (
+          <motion.div
+            key={proj.name}
+            className={styles.projectRow}
+            {...fade(20)}
+            transition={{ ...(shouldReduceMotion ? {} : { duration: 0.6, ease: [0.22, 1, 0.36, 1] }), delay: 0.04 + idx * 0.04 }}
+            {...inViewProps}
+          >
+            <div className={styles.projectInfo}>
+              <h3
+                className={styles.projectName}
+                style={{ color: proj.highlightColor || 'inherit' }}
+              >
+                {proj.name}
+              </h3>
+              <p className={styles.projectDesc}>{proj.description}</p>
             </div>
-            <div className={styles.statusLine}>
-              <span>Tech: Next.js / Framer Motion / Node.js</span>
+            <div className={styles.projectMeta}>
+              <div className={styles.statusLine}>
+                <span
+                  className={`${styles.dot} ${
+                    proj.status === 'online' ? styles.online : proj.status === 'live' ? styles.online : styles.building
+                  }`}
+                ></span>
+                <span>{proj.status === 'beta' ? 'PRIVATE BETA' : proj.status === 'live' ? 'SAAS LIVE' : 'SYSTEM ONLINE'}</span>
+              </div>
+              <div className={styles.statusLine}>
+                <span>Tech: {proj.tech}</span>
+              </div>
+              {proj.linkSecondary ? (
+                <Link href={proj.linkHref} className={styles.linkButtonSecondary}>
+                  {proj.linkText}
+                </Link>
+              ) : (
+                <Link href={proj.linkHref} className={styles.linkButton}>
+                  {proj.linkText}
+                </Link>
+              )}
             </div>
-            <a href="#" className={styles.linkButton}>
-              Em produção &rarr;
-            </a>
-          </div>
-        </motion.div>
-
-        <motion.div className={styles.projectRow} variants={fadeUp(20)} transition={{ ...MOTION_TRANSITION, delay: 0.08 }} {...inViewMotion}>
-          <div className={styles.projectInfo}>
-            <h3 className={styles.projectName} style={{ color: '#6366f1' }}>Pulse CRM</h3>
-            <p className={styles.projectDesc}>
-              Plataforma completa de gestão de relacionamento (CRM) com pipeline visual Kanban,
-              métricas em tempo real e automação de follow-ups. Projetado para acelerar o ciclo de vendas.
-            </p>
-          </div>
-          <div className={styles.projectMeta}>
-            <div className={styles.statusLine}>
-              <span className={`${styles.dot} ${styles.online}`}></span>
-              <span>SAAS LIVE</span>
-            </div>
-            <div className={styles.statusLine}>
-              <span>Tech: Next.js 14 / Dashboard UI / Realtime</span>
-            </div>
-            <Link href="/pulse-crm" className={styles.linkButton}>
-              Ver Sistema Online &rarr;
-            </Link>
-          </div>
-        </motion.div>
-
-        <motion.div className={styles.projectRow} variants={fadeUp(20)} transition={{ ...MOTION_TRANSITION, delay: 0.12 }} {...inViewMotion}>
-          <div className={styles.projectInfo}>
-            <h3 className={styles.projectName} style={{ color: '#ddd' }}>Vortex Analytics</h3>
-            <p className={styles.projectDesc}>
-              Plataforma SaaS B2B para visualização de Big Data em tempo real.
-              Dashboard administrativo com processamento de milhões de registros.
-            </p>
-          </div>
-          <div className={styles.projectMeta}>
-            <div className={styles.statusLine}>
-              <span className={`${styles.dot} ${styles.building}`}></span>
-              <span style={{ color: '#ffbd2e' }}>PRIVATE BETA</span>
-            </div>
-            <div className={styles.statusLine}>
-              <span>Tech: Python / AWS / WebGL</span>
-            </div>
-
-            <Link href="/vortex" className={styles.linkButtonSecondary}>
-              Solicitar Acesso 🔒
-            </Link>
-          </div>
-        </motion.div>
+          </motion.div>
+        ))}
       </div>
     </section>
   );

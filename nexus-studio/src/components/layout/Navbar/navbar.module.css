@@ -21,7 +21,7 @@
 }
 
 .logo {
-  font-size: 1.2rem;
+  font-size: calc(var(--fs-base) * 1.2);
   font-weight: 600;
   letter-spacing: -0.02em;
   text-transform: uppercase;
@@ -29,10 +29,82 @@
     opacity var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
+.toggleWrapper {
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+}
+
 .menu {
   display: flex;
   gap: 3rem;
   list-style: none;
+}
+
+/* hamburger button for small screens */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  display: block;
+  height: 2px;
+  background: var(--color-text);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* animate to X when open */
+.hamburger.open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* mobile menu overlay */
+.mobileMenu {
+  display: none;
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  background: var(--color-bg-light);
+  padding: 2rem;
+  flex-direction: column;
+  gap: 1.5rem;
+  z-index: 90;
+}
+
+.mobileMenu a {
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+  text-transform: uppercase;
+}
+
+.mobileMenu a:focus {
+  outline: 2px solid var(--color-accent);
+}
+
+.mobileMenu.open {
+  display: flex;
+}
+
+/* responsive adjustments */
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+  }
+  .hamburger {
+    display: flex;
+  }
 }
 
 .link {

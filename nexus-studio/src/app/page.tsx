@@ -9,13 +9,10 @@ import Footer from '../components/layout/Footer';
 export default function Home() {
   return (
     <main id="top">
-      <ScrollProgress />
-      <Navbar />
       <Hero />
       <TechStrip />
       <Services />
       <Projects />
-      <Footer />
     </main>
   );
 }

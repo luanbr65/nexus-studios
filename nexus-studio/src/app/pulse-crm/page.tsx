@@ -1,20 +1,26 @@
 import styles from './page.module.css';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Pulse CRM • Nexus Studio',
+  description: 'CRM moderno com automação de vendas, pipeline visual e dashboards em tempo real. Explore a demo ou comece grátis.',
+};
 
 export default function PulseCRM() {
   return (
-    <div className={styles.container}>
+    <main className={styles.container}>
       {/* Header */}
       <header className={styles.header}>
         <div className={styles.headerContent}>
           <Link href="/" className={styles.logo}>
             <span className={styles.logoIcon}>◆</span> Nexus Studio
           </Link>
-          <nav className={styles.nav}>
+          <nav className={styles.nav} role="navigation" aria-label="Pulse CRM header menu">
             <a href="#features">Features</a>
             <a href="#pricing">Pricing</a>
             <Link href="/pulse-crm/dashboard">Demo Dashboard</Link>
-            <button className={styles.ctaButton}>Começar Grátis</button>
+            <button type="button" className={styles.ctaButton}>Começar Grátis</button>
           </nav>
         </div>
       </header>
@@ -33,11 +39,11 @@ export default function PulseCRM() {
             Reduza seu ciclo de vendas em até 40% com métricas em tempo real.
           </p>
           <div className={styles.heroButtons}>
-            <button className={styles.primaryButton}>
+            <button type="button" className={styles.primaryButton}>
               Iniciar Teste Gratuito →
             </button>
             <Link href="/pulse-crm/dashboard">
-              <button className={styles.secondaryButton}>
+              <button type="button" className={styles.secondaryButton}>
                 Ver Dashboard Demo
               </button>
             </Link>
@@ -181,10 +187,9 @@ export default function PulseCRM() {
           </div>
           <div className={styles.previewCta}>
             <Link href="/pulse-crm/dashboard">
-              <button className={styles.demoButton}>
+              <button type="button" className={styles.demoButton}>
                 Explorar Dashboard Demo →
-              </button>
-            </Link>
+              </button>            </Link>
           </div>
         </div>
       </section>
@@ -297,6 +302,6 @@ export default function PulseCRM() {
           <p>© 2025 Nexus Studio. Pulse CRM - Projeto de Portfólio.</p>
         </div>
       </footer>
-    </div>
+    </main>
   );
 }

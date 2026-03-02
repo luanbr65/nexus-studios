@@ -1,6 +1,43 @@
-body { 
-  margin: 0; 
-  background: #030712; 
-  color: #f8fafc; 
+/* design tokens and base variables */
+:root {
+  --color-bg: #030712;
+  --color-bg-light: #0a0a0f;
+  --color-text: #f8fafc;
+  --color-text-secondary: #a0aec0;
+  --color-primary: #6366f1;
+  --color-accent: #22d3ee;
+  --color-border: #1f2937;
+
+  --header-height: 4rem;
+  --max-width: 72rem;
+
+  /* typography scale */
+  --fs-base: 1rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 2rem;
+  --rhythm: 1.5;
+
+  --motion-duration-fast: 0.2s;
+  --motion-ease-standard: cubic-bezier(0.22,1,0.36,1);
+}
+
+/* dark mode (toggle by adding .dark to html or body) */
+.dark {
+  --color-bg: #f8fafc;
+  --color-text: #030712;
+  --color-text-secondary: #4a5568;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
+
+/* globally visible focus outlines */
+:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+

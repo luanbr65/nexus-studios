@@ -16,5 +16,14 @@ export default function ScrollProgress() {
     return null;
   }
 
-  return <motion.div className={styles.progress} style={{ scaleX, opacity: 1 }} />;
+  return (
+    <motion.div
+      className={styles.progress}
+      style={{ scaleX, opacity: 1 }}
+      role="progressbar"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-label="Progresso de rolagem"
+    />
+  );
 }

@@ -1,7 +1,14 @@
+:root {
+  /* map some local tokens to global design variables */
+  --page-bg: var(--color-bg);
+  --page-text: var(--color-text);
+  --page-accent: var(--color-primary);
+}
+
 .container {
   min-height: 100vh;
-  background: #0a0a0a;
-  color: #ffffff;
+  background: var(--page-bg);
+  color: var(--page-text);
 }
 
 /* Header */
@@ -36,7 +43,7 @@
 }
 
 .logoIcon {
-  color: #6366f1;
+  color: var(--page-accent);
   font-size: 1.5rem;
 }
 
@@ -47,7 +54,7 @@
 }
 
 .nav a {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--page-text-secondary, rgba(255,255,255,0.7));
   text-decoration: none;
   font-size: 0.95rem;
   transition: color 0.2s;
@@ -58,8 +65,8 @@
 }
 
 .ctaButton {
-  background: #6366f1;
-  color: #ffffff;
+  background: var(--page-accent);
+  color: var(--page-text);
   border: none;
   padding: 0.6rem 1.5rem;
   border-radius: 6px;
@@ -86,7 +93,7 @@
 
 .badge {
   display: inline-block;
-  color: #6366f1;
+  color: var(--page-accent);
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 2px;
