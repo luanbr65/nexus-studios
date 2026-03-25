@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from '../components/layout/Navbar/navbar';
-import Footer from '../components/Footer';
-import ScrollProgress from '../components/layout/ScrollProgress';
+import AppChrome from '../components/layout/AppChrome';
 
 const inter = Inter({ subsets: ["latin"], weight: ['300', '400', '600'] });
 
@@ -26,10 +24,7 @@ export default function RootLayout({
           <div className="grid-line"></div>
           <div className="grid-line"></div>
         </div>
-        <ScrollProgress />
-        <Navbar />
-        {children}
-        <Footer />
+        <AppChrome>{children}</AppChrome>
       </body>
     </html>
   );

@@ -4,6 +4,9 @@ import { motion } from 'framer-motion';
 import { useAnimate } from '@/hooks/useAnimate';
 import styles from './hero.module.css';
 
+const whatsappMessage =
+  'Ola! Vim pelo site da Nexus Studio e gostaria de iniciar uma consultoria.';
+
 export default function Hero() {
   const { shouldReduceMotion, fade } = useAnimate();
 
@@ -38,8 +41,10 @@ export default function Hero() {
             construímos infraestrutura.
           </motion.p>
 
-          <motion.button
-            type="button"
+          <motion.a
+            href={`https://wa.me/qr/T73YZS6YWDZLP1?text=${encodeURIComponent(whatsappMessage)}`}
+            target="_blank"
+            rel="noreferrer"
             className={styles.cta}
             {...(shouldReduceMotion
               ? {}
@@ -48,7 +53,7 @@ export default function Hero() {
             whileTap={shouldReduceMotion ? undefined : { y: 0 }}
           >
             Iniciar Consultoria
-          </motion.button>
+          </motion.a>
         </div>
 
         <div className={styles.visual}>
