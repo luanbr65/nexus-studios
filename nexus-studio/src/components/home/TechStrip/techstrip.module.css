@@ -1,25 +1,40 @@
 .strip {
   width: 100%;
+  border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
-  background: var(--bg-main);
-  padding: 1.5rem 0;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0)),
+    var(--bg-main);
 }
 
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 2rem;
-  display: flex;
+  padding: 1.35rem 2rem;
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 1.5rem;
   align-items: center;
-  gap: 2rem;
+}
+
+.lead {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
 }
 
 .label {
-  font-size: 0.75rem;
+  font-size: 0.76rem;
   text-transform: uppercase;
-  color: #444;
-  letter-spacing: 0.1em;
-  white-space: nowrap;
+  color: rgba(248, 250, 252, 0.42);
+  letter-spacing: 0.16em;
+}
+
+.lead strong {
+  color: rgba(248, 250, 252, 0.82);
+  font-size: 0.98rem;
+  line-height: 1.5;
+  font-weight: 600;
 }
 
 .marquee {
@@ -29,24 +44,57 @@
 
 .list {
   display: flex;
-  gap: 3rem;
-  opacity: 0.72;
+  gap: 2.4rem;
   width: max-content;
-  animation: marquee 20s linear infinite;
+  animation: marquee 22s linear infinite;
 }
 
 .tech {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #777;
-  letter-spacing: 0.05em;
+  position: relative;
+  padding-left: 1rem;
+  font-size: 0.88rem;
+  color: rgba(248, 250, 252, 0.62);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.tech::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 999px;
+  background: var(--color-accent);
+  transform: translateY(-50%);
+  opacity: 0.9;
 }
 
 @keyframes marquee {
   from {
     transform: translateX(0);
   }
+
   to {
-    transform: translateX(calc(-50% - 1.5rem));
+    transform: translateX(calc(-50% - 1.2rem));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .list {
+    animation: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .container {
+    padding: 1.1rem 1.2rem;
   }
 }

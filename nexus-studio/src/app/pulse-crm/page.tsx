@@ -5,9 +5,11 @@ import {
   ArrowRight,
   BarChart3,
   Bot,
+  CircleAlert,
   Database,
   MessagesSquare,
   ShieldCheck,
+  Target,
   Workflow,
 } from 'lucide-react';
 import styles from './page.module.css';
@@ -20,85 +22,107 @@ export const metadata: Metadata = {
 const principles = [
   {
     index: '01',
-    title: 'Fluxo comercial estruturado',
-    copy: 'Cada lead, proposta e handoff opera dentro de uma sequencia clara, com dono, contexto e proximo passo.',
+    title: 'Operacao visivel',
+    copy: 'Cada oportunidade nasce com dono, contexto, proximo passo e sinal de risco. Nada fica preso em memoria dispersa.',
   },
   {
     index: '02',
-    title: 'Leitura rapida de sinal',
-    copy: 'A interface prioriza decisao operacional. Menos ornamento, mais clareza para quem precisa agir rapido.',
+    title: 'Leitura priorizada',
+    copy: 'A interface mostra primeiro o que move receita, cadencia e resposta. O resto fica em segundo plano.',
   },
   {
     index: '03',
-    title: 'Automacao com contexto',
-    copy: 'Playbooks aceleram follow-ups e qualificacao sem apagar a nuance de cada conta e cada negociacao.',
+    title: 'Automacao com criterio',
+    copy: 'Playbooks aceleram o time sem esconder o estado real de cada conta, deal ou etapa.',
   },
 ];
 
 const modules: Array<{ icon: LucideIcon; title: string; copy: string; meta: string }> = [
   {
     icon: Workflow,
-    title: 'Orquestracao de pipeline',
-    copy: 'Regras de etapa, responsabilidade por deal e higiene de pipeline embutidas na camada operacional.',
-    meta: 'kanban / handoff / SLAs',
+    title: 'Board comercial orientado a dono',
+    copy: 'Pipeline com regra de passagem, proxima acao e responsabilidade explicita por oportunidade.',
+    meta: 'board / handoff / ownership',
   },
   {
     icon: Bot,
-    title: 'Automacoes comerciais',
-    copy: 'Dispare follow-ups, priorize contas quentes e reduza o tempo gasto em trabalho repetitivo.',
-    meta: 'rotinas / alertas / gatilhos',
+    title: 'Rotinas de execucao',
+    copy: 'Follow-ups, digests e filas de risco entram como camada operacional e nao como recurso solto.',
+    meta: 'playbooks / alerts / cadence',
   },
   {
     icon: BarChart3,
     title: 'Telemetria de receita',
-    copy: 'Leia conversao, velocidade e previsao em uma superficie mais enxuta e util para o time.',
-    meta: 'forecast / cadencia / conversao',
+    copy: 'Forecast, velocidade e cobertura do pipeline aparecem em um formato mais legivel para o operador.',
+    meta: 'forecast / coverage / cycle',
   },
   {
     icon: MessagesSquare,
-    title: 'Memoria compartilhada da conta',
-    copy: 'Notas, reunioes, objeccoes e historico comercial ficam ligados ao deal, nao espalhados em chat.',
-    meta: 'timeline / contexto / historico',
+    title: 'Memoria da conta',
+    copy: 'Interacoes, objeccoes e contexto ficam colados na conta para evitar perda de sinal entre membros do time.',
+    meta: 'timeline / notes / meetings',
   },
   {
     icon: Database,
-    title: 'Base operacional limpa',
-    copy: 'Fontes de lead, padroes de qualificacao e saida comercial ficam normalizados para decisao futura.',
-    meta: 'modelo / fontes / sincronizacao',
+    title: 'Modelo de dados comercial',
+    copy: 'Fontes, segmentos e niveis de qualificacao seguem um padrao util para decisao e relatorio.',
+    meta: 'schema / quality / sync',
   },
   {
     icon: ShieldCheck,
-    title: 'Controle de acesso',
-    copy: 'Demos privadas, papeis do time e protecoes operacionais deixam a superficie pronta para uso real.',
-    meta: 'roles / auditoria / governanca',
+    title: 'Ambiente controlado',
+    copy: 'Papeis, historico e protecoes basicas deixam o produto pronto para implantacao privada e demos reais.',
+    meta: 'roles / audit / privacy',
   },
+];
+
+const heroSignals = [
+  { value: 'R$ 393k', label: 'pipeline monitorado' },
+  { value: '87%', label: 'deals com proxima acao' },
+  { value: '8h', label: 'tempo medio de resposta' },
+  { value: '14', label: 'rotinas ativas' },
+];
+
+const operatingLayers = [
+  {
+    title: 'Camada de comando',
+    copy: 'Visao geral para leitura de sinal, fila operacional e risco comercial sem ruido desnecessario.',
+  },
+  {
+    title: 'Camada de pipeline',
+    copy: 'Kanban com valor, etapa, proxima acao e contexto minimo suficiente para mover cada conta.',
+  },
+  {
+    title: 'Camada de automacao',
+    copy: 'Regras que cobrem silencio, propostas paradas, digests e recomendacoes de ajuste operacional.',
+  },
+];
+
+const outcomes = [
+  { icon: Target, title: 'Menos deals silenciosos', copy: 'Cobertura de proxima acao sobe quando o board obriga contexto e dono.' },
+  { icon: CircleAlert, title: 'Risco mais explicito', copy: 'Contas frias, propostas paradas e gargalos entram na superficie cedo.' },
+  { icon: Workflow, title: 'Ritmo mais claro', copy: 'A equipe consegue operar com cadencia visivel e menos dependencia de memoria.' },
 ];
 
 const deploymentTracks = [
   {
     label: 'Piloto',
-    title: 'Para equipes validando um novo modelo comercial',
-    copy: 'Ideal para times compactos que precisam organizar a operacao antes de ampliar a complexidade do processo.',
+    title: 'Organizar um comercial ainda pulverizado',
+    copy: 'Board, ownership e memoria compartilhada para equipes que precisam sair do improviso.',
     metric: '2 a 4 semanas',
   },
   {
     label: 'Ops',
-    title: 'Para equipes formalizando operacao de receita',
-    copy: 'Adiciona automacoes, superficies de relatorio e mais clareza de responsabilidade em pipeline ativo.',
+    title: 'Formalizar cadencia e visibilidade de receita',
+    copy: 'Entram automacoes, governanca basica de pipeline e leitura mais executiva dos sinais.',
     metric: '4 a 8 semanas',
   },
   {
     label: 'Scale',
-    title: 'Para ambientes comerciais com multiplos operadores',
-    copy: 'Pensado para workflows em camadas, visibilidade cruzada e restricoes de implantacao privada.',
-    metric: 'Escopo customizado',
+    title: 'Consolidar operacao com multiplos operadores',
+    copy: 'Estrutura com niveis de acesso, ritos de acompanhamento e regras mais densas por etapa.',
+    metric: 'escopo customizado',
   },
-];
-
-const heroSignals = [
-  { value: 'R$ 393k', label: 'pipeline ativo' },
-  { value: '31%', label: 'conversao de proposta' },
-  { value: '8 dias', label: 'ciclo medio de resposta' },
 ];
 
 export default function PulseCRM() {
@@ -107,12 +131,11 @@ export default function PulseCRM() {
       <section className={styles.hero}>
         <div className={styles.heroGrid}>
           <div className={styles.heroCopy}>
-            <span className={styles.eyebrow}>Sistema de produto Nexus / Pulse CRM</span>
-            <h1 className={styles.heroTitle}>Uma camada de controle comercial para equipes que vendem com precisao.</h1>
+            <span className={styles.eyebrow}>Produto Nexus / Pulse CRM</span>
+            <h1 className={styles.heroTitle}>Um sistema comercial desenhado para operar melhor na vida real.</h1>
             <p className={styles.heroText}>
-              Pulse CRM reorganiza leads, propostas e follow-ups em uma unica superficie operacional. A proposta nao
-              e parecer uma landing generica de SaaS, e sim uma ferramenta que transmite controle, leitura e ritmo de
-              execucao.
+              O Pulse CRM nao tenta parecer um SaaS generico. Ele foi modelado como uma camada de controle para
+              times comerciais que precisam acompanhar pipeline, contexto e cadencia com mais precisao.
             </p>
 
             <div className={styles.heroActions}>
@@ -120,55 +143,51 @@ export default function PulseCRM() {
                 Abrir demo do produto <ArrowRight size={16} />
               </Link>
               <a href="#deployment" className={styles.secondaryLink}>
-                Ver faixas de implantacao
+                Ver implantacao
               </a>
             </div>
 
             <div className={styles.metricRow}>
-              <div className={styles.metricCard}>
-                <span className={styles.metricValue}>247</span>
-                <span className={styles.metricLabel}>contas monitoradas</span>
-              </div>
-              <div className={styles.metricCard}>
-                <span className={styles.metricValue}>14</span>
-                <span className={styles.metricLabel}>automacoes ativas</span>
-              </div>
-              <div className={styles.metricCard}>
-                <span className={styles.metricValue}>99,2%</span>
-                <span className={styles.metricLabel}>completude de dados</span>
-              </div>
+              {heroSignals.map((signal) => (
+                <div key={signal.label} className={styles.metricCard}>
+                  <span className={styles.metricValue}>{signal.value}</span>
+                  <span className={styles.metricLabel}>{signal.label}</span>
+                </div>
+              ))}
             </div>
           </div>
 
           <aside className={styles.heroPanel}>
             <div className={styles.panelHeader}>
               <span className={styles.panelEyebrow}>Leitura operacional</span>
-              <span className={styles.panelTimestamp}>atualizado ha 2 min</span>
-            </div>
-
-            <div className={styles.signalGrid}>
-              {heroSignals.map((signal) => (
-                <div key={signal.label} className={styles.signalCard}>
-                  <span className={styles.signalValue}>{signal.value}</span>
-                  <span className={styles.signalLabel}>{signal.label}</span>
-                </div>
-              ))}
+              <span className={styles.panelTimestamp}>ambiente demo atualizado ha 2 min</span>
             </div>
 
             <div className={styles.panelBlock}>
-              <span className={styles.panelBlockLabel}>Estrutura do operador</span>
+              <span className={styles.panelBlockLabel}>O que essa interface prioriza</span>
               <ul className={styles.panelList}>
-                <li>Governanca do pipeline com dono por oportunidade</li>
-                <li>Gatilhos de follow-up para contas sem movimento</li>
-                <li>Visibilidade compartilhada entre qualificacao e proposta</li>
+                <li>negociacoes com risco crescente</li>
+                <li>falta de proxima acao por owner</li>
+                <li>tempo de resposta e cobertura do pipeline</li>
               </ul>
             </div>
 
+            <div className={styles.panelGrid}>
+              <div className={styles.signalCard}>
+                <span className={styles.signalValue}>94 pts</span>
+                <span className={styles.signalLabel}>saude do pipeline</span>
+              </div>
+              <div className={styles.signalCard}>
+                <span className={styles.signalValue}>31%</span>
+                <span className={styles.signalLabel}>conversao de proposta</span>
+              </div>
+            </div>
+
             <div className={styles.panelBlock}>
-              <span className={styles.panelBlockLabel}>Por que a leitura muda</span>
+              <span className={styles.panelBlockLabel}>Postura de produto</span>
               <p className={styles.panelText}>
-                O Pulse foi desenhado como sistema operacional comercial, nao como vitrine. A interface fica densa
-                onde precisa e silenciosa no resto.
+                Denso onde precisa, silencioso no resto. O objetivo e melhorar a leitura do operador, nao inflar a
+                interface com decoracao.
               </p>
             </div>
           </aside>
@@ -178,7 +197,7 @@ export default function PulseCRM() {
       <section className={styles.section}>
         <div className={styles.sectionIntro}>
           <span className={styles.sectionEyebrow}>Principios de produto</span>
-          <h2 className={styles.sectionTitle}>A mesma disciplina visual da Nexus aplicada a um produto comercial.</h2>
+          <h2 className={styles.sectionTitle}>A linguagem visual da Nexus aplicada a uma superficie comercial.</h2>
         </div>
 
         <div className={styles.principlesGrid}>
@@ -192,38 +211,58 @@ export default function PulseCRM() {
         </div>
       </section>
 
+      <section className={styles.section}>
+        <div className={styles.sectionIntro}>
+          <span className={styles.sectionEyebrow}>Camadas de operacao</span>
+          <h2 className={styles.sectionTitle}>O produto foi pensado para acompanhar o ritmo do time, nao para enfeitar a demo.</h2>
+        </div>
+
+        <div className={styles.layerGrid}>
+          {operatingLayers.map((layer) => (
+            <article key={layer.title} className={styles.layerCard}>
+              <h3>{layer.title}</h3>
+              <p>{layer.copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section id="features" className={styles.section}>
         <div className={styles.sectionIntro}>
           <span className={styles.sectionEyebrow}>Modulos centrais</span>
-          <h2 className={styles.sectionTitle}>Uma superficie comercial mais enxuta do primeiro contato ao deal fechado.</h2>
+          <h2 className={styles.sectionTitle}>Uma camada comercial mais enxuta do primeiro contato ao fechamento.</h2>
         </div>
 
         <div className={styles.moduleGrid}>
-          {modules.map((module) => (
-            <article key={module.title} className={styles.moduleCard}>
-              <div className={styles.moduleIcon}>
-                <module.icon size={18} strokeWidth={1.8} />
-              </div>
-              <div className={styles.moduleBody}>
-                <h3>{module.title}</h3>
-                <p>{module.copy}</p>
-                <span className={styles.moduleMeta}>{module.meta}</span>
-              </div>
-            </article>
-          ))}
+          {modules.map((module) => {
+            const Icon = module.icon;
+
+            return (
+              <article key={module.title} className={styles.moduleCard}>
+                <div className={styles.moduleIcon}>
+                  <Icon size={18} strokeWidth={1.8} />
+                </div>
+                <div className={styles.moduleBody}>
+                  <h3>{module.title}</h3>
+                  <p>{module.copy}</p>
+                  <span className={styles.moduleMeta}>{module.meta}</span>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 
       <section className={`${styles.section} ${styles.previewSection}`}>
         <div className={styles.sectionIntro}>
           <span className={styles.sectionEyebrow}>Preview de interface</span>
-          <h2 className={styles.sectionTitle}>Um painel de comando comercial com menos ruido e mais capacidade de acao.</h2>
+          <h2 className={styles.sectionTitle}>Um painel de comando comercial com mais capacidade de acao e menos atrito visual.</h2>
         </div>
 
         <div className={styles.previewShell}>
           <div className={styles.previewRail}>
             <div className={styles.previewRailBlock}>
-              <span className={styles.previewRailLabel}>Views</span>
+              <span className={styles.previewRailLabel}>Views ativas</span>
               <span className={styles.previewRailItem}>visao geral</span>
               <span className={styles.previewRailItem}>pipeline</span>
               <span className={styles.previewRailItem}>contatos</span>
@@ -238,16 +277,16 @@ export default function PulseCRM() {
           <div className={styles.previewWorkspace}>
             <div className={styles.previewStats}>
               <div className={styles.previewStat}>
-                <span>velocidade de proposta</span>
-                <strong>+18%</strong>
-              </div>
-              <div className={styles.previewStat}>
-                <span>qualidade do pipeline</span>
+                <span>qualidade de pipeline</span>
                 <strong>94 pts</strong>
               </div>
               <div className={styles.previewStat}>
-                <span>cobertura de proxima acao</span>
-                <strong>87%</strong>
+                <span>deals com risco alto</span>
+                <strong>05</strong>
+              </div>
+              <div className={styles.previewStat}>
+                <span>regras em execucao</span>
+                <strong>14</strong>
               </div>
             </div>
 
@@ -281,10 +320,33 @@ export default function PulseCRM() {
         </div>
       </section>
 
+      <section className={styles.section}>
+        <div className={styles.sectionIntro}>
+          <span className={styles.sectionEyebrow}>Ganhos esperados</span>
+          <h2 className={styles.sectionTitle}>O valor do produto aparece quando a equipe para de operar no improviso.</h2>
+        </div>
+
+        <div className={styles.outcomeGrid}>
+          {outcomes.map((outcome) => {
+            const Icon = outcome.icon;
+
+            return (
+              <article key={outcome.title} className={styles.outcomeCard}>
+                <div className={styles.outcomeIcon}>
+                  <Icon size={18} strokeWidth={1.85} />
+                </div>
+                <h3>{outcome.title}</h3>
+                <p>{outcome.copy}</p>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
       <section id="deployment" className={styles.section}>
         <div className={styles.sectionIntro}>
           <span className={styles.sectionEyebrow}>Faixas de implantacao</span>
-          <h2 className={styles.sectionTitle}>Niveis diferentes de implementacao, uma linguagem operacional consistente.</h2>
+          <h2 className={styles.sectionTitle}>Escopos diferentes, a mesma disciplina operacional e visual.</h2>
         </div>
 
         <div className={styles.deploymentGrid}>

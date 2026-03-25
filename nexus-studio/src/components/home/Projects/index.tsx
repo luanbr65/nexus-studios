@@ -5,110 +5,94 @@ import Link from 'next/link';
 import styles from './projects.module.css';
 import { useAnimate } from '@/hooks/useAnimate';
 
-interface Project {
-  name: string;
-  description: string;
-  tech: string;
-  status: 'online' | 'live' | 'beta';
-  href?: string;
-  highlightColor?: string;
-  linkText: string;
-  linkHref: string;
-  linkSecondary?: boolean;
-}
-
-const projects: Project[] = [
-  {
-    name: 'Nexus Portfolio',
-    description:
-      'Hub pessoal de projetos. Interface experimental focada em branding e apresentação visual de alto impacto (Identity Design).',
-    tech: 'Next.js / Framer Motion / Node.js',
-    status: 'online',
-    linkText: 'Em produção →',
-    linkHref: '#',
-  },
+const projects = [
   {
     name: 'Pulse CRM',
     description:
-      'Plataforma completa de gestão de relacionamento (CRM) com pipeline visual Kanban, métricas em tempo real e automação de follow-ups. Projetado para acelerar o ciclo de vendas.',
-    tech: 'Next.js 14 / Dashboard UI / Realtime',
+      'Camada comercial com pipeline, automacao e leitura operacional desenhada para parecer produto real, nao demo vazia.',
+    tech: 'Next.js 14 / dashboard UI / operator states',
     status: 'live',
-    highlightColor: '#6366f1',
-    linkText: 'Ver Sistema Online →',
+    note: 'Sistema demonstravel com landing e painel de comando.',
+    linkText: 'Abrir produto',
     linkHref: '/pulse-crm',
+  },
+  {
+    name: 'Nexus Portfolio',
+    description:
+      'A propria superficie institucional do estudio, tratada como produto vivo e usada para provar criterio visual e tecnico.',
+    tech: 'Next.js / motion / content architecture',
+    status: 'online',
+    note: 'Base para narrativa comercial, cases e captacao.',
+    linkText: 'Voltar ao topo',
+    linkHref: '#top',
   },
   {
     name: 'Vortex Analytics',
     description:
-      'Plataforma SaaS B2B para visualização de Big Data em tempo real. Dashboard administrativo com processamento de milhões de registros.',
-    tech: 'Python / AWS / WebGL',
+      'Ambiente de analytics para leitura executiva e simulacao de telemetria com linguagem visual mais tecnica.',
+    tech: 'dashboard systems / synthetic data / B2B analytics',
     status: 'beta',
-    highlightColor: '#ddd',
-    linkText: 'Solicitar Acesso 🔒',
+    note: 'Em evolucao controlada, com acesso restrito.',
+    linkText: 'Ver ambiente',
     linkHref: '/vortex',
-    linkSecondary: true,
   },
 ];
 
 export default function Projects() {
-  const { shouldReduceMotion, fade, listItem } = useAnimate();
+  const { shouldReduceMotion, fade } = useAnimate();
 
   const inViewProps = shouldReduceMotion
     ? {}
     : {
         initial: 'hidden' as const,
         whileInView: 'show' as const,
-        viewport: { once: true, amount: 0.25 },
+        viewport: { once: true, amount: 0.22 },
       };
 
   return (
     <section className={styles.section} id="cases">
       <div className={styles.container}>
         <motion.div {...fade(24)} {...inViewProps} className={styles.header}>
-          <span className={styles.sectionTitle}>Selected Works // 2024-2025</span>
-          <h2 className={styles.mainTitle}>System Logs</h2>
+          <span className={styles.sectionTitle}>Produtos e ambientes</span>
+          <h2 className={styles.mainTitle}>Superficies que mostram o nivel da entrega.</h2>
+          <p className={styles.headerCopy}>
+            Cada item abaixo existe para apresentar uma camada diferente da Nexus: produto, narrativa visual e
+            operacao de interface.
+          </p>
         </motion.div>
 
         {projects.map((proj, idx) => (
-          <motion.div
+          <motion.article
             key={proj.name}
             className={styles.projectRow}
             {...fade(20)}
-            transition={{ ...(shouldReduceMotion ? {} : { duration: 0.6, ease: [0.22, 1, 0.36, 1] }), delay: 0.04 + idx * 0.04 }}
+            transition={{
+              ...(shouldReduceMotion ? {} : { duration: 0.6, ease: [0.22, 1, 0.36, 1] }),
+              delay: 0.04 + idx * 0.05,
+            }}
             {...inViewProps}
           >
             <div className={styles.projectInfo}>
-              <h3
-                className={styles.projectName}
-                style={{ color: proj.highlightColor || 'inherit' }}
-              >
-                {proj.name}
-              </h3>
+              <div className={styles.projectHeading}>
+                <h3 className={styles.projectName}>{proj.name}</h3>
+                <span className={`${styles.statusPill} ${styles[proj.status]}`}>
+                  {proj.status === 'beta' ? 'private beta' : proj.status === 'live' ? 'live build' : 'studio online'}
+                </span>
+              </div>
               <p className={styles.projectDesc}>{proj.description}</p>
+              <p className={styles.projectNote}>{proj.note}</p>
             </div>
+
             <div className={styles.projectMeta}>
               <div className={styles.statusLine}>
-                <span
-                  className={`${styles.dot} ${
-                    proj.status === 'online' ? styles.online : proj.status === 'live' ? styles.online : styles.building
-                  }`}
-                ></span>
-                <span>{proj.status === 'beta' ? 'PRIVATE BETA' : proj.status === 'live' ? 'SAAS LIVE' : 'SYSTEM ONLINE'}</span>
+                <span className={styles.metaLabel}>stack</span>
+                <span>{proj.tech}</span>
               </div>
-              <div className={styles.statusLine}>
-                <span>Tech: {proj.tech}</span>
-              </div>
-              {proj.linkSecondary ? (
-                <Link href={proj.linkHref} className={styles.linkButtonSecondary}>
-                  {proj.linkText}
-                </Link>
-              ) : (
-                <Link href={proj.linkHref} className={styles.linkButton}>
-                  {proj.linkText}
-                </Link>
-              )}
+              <Link href={proj.linkHref} className={styles.linkButton}>
+                {proj.linkText}
+              </Link>
             </div>
-          </motion.div>
+          </motion.article>
         ))}
       </div>
     </section>

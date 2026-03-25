@@ -10,6 +10,7 @@ import {
   Briefcase,
   Building2,
   CheckCircle2,
+  CircleAlert,
   Clock3,
   Layers3,
   Mail,
@@ -20,6 +21,7 @@ import {
   Settings2,
   ShieldCheck,
   Sparkles,
+  Target,
   Users,
   Workflow,
 } from 'lucide-react';
@@ -39,7 +41,13 @@ const signalCards = [
   { label: 'Pipeline ativo', value: 'R$ 393k', delta: '+18%', note: 'contra o mes anterior' },
   { label: 'Propostas em revisao', value: '12', delta: '+4', note: 'contas com alta intencao' },
   { label: 'Cobertura de proxima acao', value: '87%', delta: '+9%', note: 'deals com proximo passo definido' },
-  { label: 'Tempo medio de resposta', value: '8h', delta: '-2h', note: 'apos regras de automacao' },
+  { label: 'Tempo medio de resposta', value: '8h', delta: '-2h', note: 'apos rotinas de automacao' },
+];
+
+const healthSignals = [
+  { label: 'Saude do pipeline', value: '94 pts', tone: 'live', copy: 'Board sem gargalo estrutural nesta rodada.' },
+  { label: 'Deals em risco', value: '05', tone: 'hot', copy: 'Contas com silencio ou dependencia de aprovacao.' },
+  { label: 'Cadencia do time', value: 'forte', tone: 'qualified', copy: 'Owners com follow-up consistente nas ultimas 48h.' },
 ];
 
 const deals = [
@@ -53,6 +61,7 @@ const deals = [
     probability: '72%',
     nextStep: 'Revisao final de precificacao com CFO',
     priority: 'hot',
+    health: 'risco de atraso',
   },
   {
     id: 2,
@@ -64,6 +73,7 @@ const deals = [
     probability: '54%',
     nextStep: 'Mapear bloqueios juridicos',
     priority: 'warm',
+    health: 'esperando resposta',
   },
   {
     id: 3,
@@ -75,6 +85,7 @@ const deals = [
     probability: '29%',
     nextStep: 'Rodar call de discovery',
     priority: 'watch',
+    health: 'descoberta inicial',
   },
   {
     id: 4,
@@ -86,6 +97,7 @@ const deals = [
     probability: '81%',
     nextStep: 'Aprovar escopo final',
     priority: 'hot',
+    health: 'alta aderencia',
   },
   {
     id: 5,
@@ -97,6 +109,7 @@ const deals = [
     probability: '47%',
     nextStep: 'Confirmar checklist de integracao',
     priority: 'warm',
+    health: 'aguardando integracao',
   },
   {
     id: 6,
@@ -108,6 +121,7 @@ const deals = [
     probability: '24%',
     nextStep: 'Primeiro follow-up apos inbound',
     priority: 'watch',
+    health: 'baixo contexto',
   },
 ];
 
@@ -116,6 +130,12 @@ const tasks = [
   { id: 2, title: 'Revisar notas juridicas de Blue Sigma', due: 'Hoje / 19:00', owner: 'Luan', tone: 'warm' },
   { id: 3, title: 'Rodar checklist de qualificacao em Aurora Retail', due: 'Amanha / 10:00', owner: 'Paula', tone: 'warm' },
   { id: 4, title: 'Fechar loop do inbound de Prime Field', due: 'Amanha / 14:00', owner: 'Rafa', tone: 'watch' },
+];
+
+const riskItems = [
+  { id: 1, title: 'Atlas Health sem retorno do financeiro', impact: 'pode atrasar fechamento em 48h', tone: 'hot' },
+  { id: 2, title: 'Northline depende de validacao juridica', impact: 'chance de estagnar em proposta', tone: 'warm' },
+  { id: 3, title: 'Prime Field entrou com dados incompletos', impact: 'risco de qualificacao fraca', tone: 'watch' },
 ];
 
 const pipelineStages = [
@@ -134,6 +154,7 @@ const contacts = [
     channel: 'Email + WhatsApp',
     health: 'alta aderencia',
     nextTouch: 'Revisao de proposta hoje',
+    segment: 'enterprise',
   },
   {
     id: 2,
@@ -143,6 +164,7 @@ const contacts = [
     channel: 'Email',
     health: 'pedir follow-up',
     nextTouch: 'Responder objeccoes juridicas',
+    segment: 'mid-market',
   },
   {
     id: 3,
@@ -152,6 +174,7 @@ const contacts = [
     channel: 'Ligacao agendada',
     health: 'etapa inicial',
     nextTouch: 'Discovery call em 24h',
+    segment: 'growth',
   },
   {
     id: 4,
@@ -161,6 +184,7 @@ const contacts = [
     channel: 'Email + ligacao',
     health: 'alta aderencia',
     nextTouch: 'Validar integracoes com o time',
+    segment: 'mid-market',
   },
 ];
 
@@ -177,15 +201,21 @@ const automationRules = [
     title: 'Roteamento de inbound com alta intencao',
     statusId: 'testing',
     statusLabel: 'teste',
-    copy: 'Pontua os pedidos de entrada e encaminha as contas mais quentes para o operador com resposta mais rapida.',
+    copy: 'Pontua pedidos de entrada e encaminha contas quentes para o operador com resposta mais rapida.',
   },
   {
     id: 3,
     title: 'Digest executivo diario',
     statusId: 'live',
     statusLabel: 'ativa',
-    copy: 'Consolida movimento de pipeline, deals bloqueados e sinais principais em um resumo da manha.',
+    copy: 'Consolida pipeline, deals bloqueados e sinais principais em um resumo da manha.',
   },
+];
+
+const automationQueue = [
+  { id: 1, title: '6 deals qualificados sem toque recente', action: 'criar regra de lembrete por owner' },
+  { id: 2, title: '2 propostas com escopo em revisao ha mais de 48h', action: 'disparar alerta para financeiro e comercial' },
+  { id: 3, title: 'variacao em tags de responsavel', action: 'normalizar nomes antes do proximo relatorio' },
 ];
 
 const activityFeed = [
@@ -230,7 +260,7 @@ export default function PulseDashboard() {
         <div className={styles.railCard}>
           <span className={styles.cardLabel}>Modo do sistema</span>
           <strong>Leitura operacional ativada</strong>
-          <p>A cromia do dashboard foi reduzida para manter o foco no que exige decisao, nao em decoracao.</p>
+          <p>O painel foi desenhado para reduzir ruido visual e destacar prioridades comerciais reais.</p>
           <div className={styles.railMeta}>
             <span>
               <ShieldCheck size={14} strokeWidth={1.8} />
@@ -238,8 +268,26 @@ export default function PulseDashboard() {
             </span>
             <span>
               <Sparkles size={14} strokeWidth={1.8} />
-              sincronizacao limpa
+              dados consistentes
             </span>
+          </div>
+        </div>
+
+        <div className={styles.railCard}>
+          <span className={styles.cardLabel}>Resumo da rodada</span>
+          <div className={styles.miniList}>
+            <div>
+              <strong>05</strong>
+              <span>deals em risco</span>
+            </div>
+            <div>
+              <strong>14</strong>
+              <span>rotinas ativas</span>
+            </div>
+            <div>
+              <strong>87%</strong>
+              <span>proxima acao coberta</span>
+            </div>
           </div>
         </div>
       </aside>
@@ -249,7 +297,7 @@ export default function PulseDashboard() {
           <div className={styles.topbarCopy}>
             <span className={styles.topline}>Pulse CRM / painel de comando / Sao Paulo</span>
             <h1>Controle comercial sem ruido de template.</h1>
-            <p>Leia sinal, mova deals e execute o proximo passo a partir de uma superficie unica.</p>
+            <p>Leia sinal, mova deals e acompanhe risco a partir de uma superficie unica.</p>
           </div>
 
           <div className={styles.topbarActions}>
@@ -289,6 +337,18 @@ export default function PulseDashboard() {
               ))}
             </section>
 
+            <section className={styles.healthGrid}>
+              {healthSignals.map((item) => (
+                <article key={item.label} className={styles.healthCard}>
+                  <div className={styles.healthTop}>
+                    <span className={styles.cardLabel}>{item.label}</span>
+                    <span className={`${styles.ruleStatus} ${styles[item.tone]}`}>{item.value}</span>
+                  </div>
+                  <p>{item.copy}</p>
+                </article>
+              ))}
+            </section>
+
             <div className={styles.overviewGrid}>
               <section className={`${styles.panel} ${styles.priorityPanel}`}>
                 <div className={styles.panelHeader}>
@@ -319,6 +379,7 @@ export default function PulseDashboard() {
                         <Clock3 size={14} strokeWidth={1.8} />
                         <span>{deal.nextStep}</span>
                       </div>
+                      <span className={styles.inlineNote}>{deal.health}</span>
                     </article>
                   ))}
                 </div>
@@ -381,7 +442,7 @@ export default function PulseDashboard() {
                 <div className={styles.panelHeader}>
                   <div>
                     <span className={styles.cardLabel}>Atividade recente</span>
-                    <h2>Sinais mais novos entrando na camada operacional.</h2>
+                    <h2>Sinais novos entrando na camada operacional.</h2>
                   </div>
                 </div>
 
@@ -392,6 +453,27 @@ export default function PulseDashboard() {
                       <div>
                         <strong>{item.title}</strong>
                         <p>{item.meta}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <section className={`${styles.panel} ${styles.riskPanel}`}>
+                <div className={styles.panelHeader}>
+                  <div>
+                    <span className={styles.cardLabel}>Radar de risco</span>
+                    <h2>Onde a rodada pode perder velocidade.</h2>
+                  </div>
+                </div>
+
+                <div className={styles.riskList}>
+                  {riskItems.map((risk) => (
+                    <div key={risk.id} className={styles.riskItem}>
+                      <span className={`${styles.activityTone} ${styles[risk.tone]}`}></span>
+                      <div>
+                        <strong>{risk.title}</strong>
+                        <p>{risk.impact}</p>
                       </div>
                     </div>
                   ))}
@@ -435,6 +517,10 @@ export default function PulseDashboard() {
                             </div>
                             <p>{deal.owner}</p>
                             <strong>{deal.value}</strong>
+                            <div className={styles.boardMeta}>
+                              <span>{deal.probability} de confianca</span>
+                              <span>{deal.health}</span>
+                            </div>
                             <div className={styles.boardFooter}>{deal.nextStep}</div>
                           </article>
                         ))
@@ -495,9 +581,12 @@ export default function PulseDashboard() {
                     </span>
                   </div>
 
-                  <div className={styles.contactState}>
-                    <Clock3 size={14} strokeWidth={1.8} />
-                    <span>{contact.nextTouch}</span>
+                  <div className={styles.contactStateRow}>
+                    <div className={styles.contactState}>
+                      <Clock3 size={14} strokeWidth={1.8} />
+                      <span>{contact.nextTouch}</span>
+                    </div>
+                    <span className={styles.segmentTag}>{contact.segment}</span>
                   </div>
 
                   <div className={styles.contactActions}>
@@ -560,33 +649,26 @@ export default function PulseDashboard() {
               <section className={`${styles.panel} ${styles.automationPanel}`}>
                 <div className={styles.panelHeader}>
                   <div>
-                    <span className={styles.cardLabel}>Leitura assistida</span>
-                    <h2>Proximos ajustes recomendados</h2>
+                    <span className={styles.cardLabel}>Fila de ajuste</span>
+                    <h2>Proximos movimentos recomendados</h2>
                   </div>
                 </div>
 
                 <div className={styles.guidanceList}>
-                  <div className={styles.guidanceItem}>
-                    <Sparkles size={16} strokeWidth={1.8} />
-                    <div>
-                      <strong>Criar regra para qualificados silenciosos</strong>
-                      <p>Seis contas qualificadas estao sem toque do owner nas ultimas 48 horas.</p>
+                  {automationQueue.map((item) => (
+                    <div key={item.id} className={styles.guidanceItem}>
+                      <Target size={16} strokeWidth={1.8} />
+                      <div>
+                        <strong>{item.title}</strong>
+                        <p>{item.action}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className={styles.guidanceItem}>
-                    <Sparkles size={16} strokeWidth={1.8} />
-                    <div>
-                      <strong>Aumentar a cadencia de revisao de proposta</strong>
-                      <p>Deals em proposta convertem melhor quando a revisao financeira começa no mesmo dia.</p>
-                    </div>
-                  </div>
-                  <div className={styles.guidanceItem}>
-                    <Sparkles size={16} strokeWidth={1.8} />
-                    <div>
-                      <strong>Normalizar tags de responsavel</strong>
-                      <p>A variacao de nomes ja comeca a afetar a leitura dos agrupamentos em relatorio.</p>
-                    </div>
-                  </div>
+                  ))}
+                </div>
+
+                <div className={styles.inlineNotice}>
+                  <CircleAlert size={16} strokeWidth={1.8} />
+                  <span>3 recomendacoes novas desde a ultima sincronizacao.</span>
                 </div>
               </section>
             </div>

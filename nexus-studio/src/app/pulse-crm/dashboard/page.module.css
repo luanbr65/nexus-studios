@@ -6,7 +6,7 @@
   --text-muted: rgba(248, 250, 252, 0.62);
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 284px minmax(0, 1fr);
+  grid-template-columns: 296px minmax(0, 1fr);
   background:
     radial-gradient(circle at top right, rgba(34, 211, 238, 0.1), transparent 28%),
     radial-gradient(circle at top left, rgba(99, 102, 241, 0.12), transparent 30%),
@@ -20,7 +20,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
   padding: 1.5rem;
   border-right: 1px solid var(--line-soft);
   background: rgba(3, 7, 18, 0.88);
@@ -31,6 +31,7 @@
 .railCard,
 .panel,
 .signalCard,
+.healthCard,
 .boardColumn,
 .contactCard {
   border: 1px solid var(--line-soft);
@@ -51,6 +52,7 @@
 .railCard:hover,
 .panel:hover,
 .signalCard:hover,
+.healthCard:hover,
 .boardColumn:hover,
 .contactCard:hover {
   transform: translateY(-1px);
@@ -149,6 +151,33 @@
   gap: 0.4rem;
   color: rgba(248, 250, 252, 0.74);
   font-size: 0.86rem;
+}
+
+.miniList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.miniList div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.miniList strong {
+  font-size: 1rem;
+}
+
+.miniList span {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.5;
 }
 
 .workspace {
@@ -313,17 +342,26 @@
   gap: 1.2rem;
 }
 
-.signalGrid {
+.signalGrid,
+.healthGrid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
 }
 
-.signalCard {
+.signalGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.healthGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.signalCard,
+.healthCard {
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
-  min-height: 144px;
+  min-height: 140px;
   padding: 1.1rem;
   border-radius: 1.1rem;
 }
@@ -333,17 +371,23 @@
   font-weight: 700;
 }
 
-.signalMeta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+.signalMeta,
+.healthCard p {
   color: var(--text-muted);
   font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.healthTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  align-items: center;
 }
 
 .overviewGrid {
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(300px, 0.8fr);
+  grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.85fr);
   gap: 1rem;
 }
 
@@ -356,7 +400,8 @@
 .pipelinePanel,
 .queuePanel,
 .activityPanel,
-.automationPanel {
+.automationPanel,
+.riskPanel {
   min-height: 100%;
 }
 
@@ -387,6 +432,7 @@
 .stageList,
 .ruleList,
 .guidanceList,
+.riskList,
 .boardCards {
   display: flex;
   flex-direction: column;
@@ -398,6 +444,7 @@
 .activityItem,
 .ruleCard,
 .guidanceItem,
+.riskItem,
 .boardCard {
   border: 1px solid var(--line-soft);
   background: rgba(255, 255, 255, 0.02);
@@ -416,7 +463,8 @@
 .boardCardTop,
 .ruleHeader,
 .boardColumnHeader,
-.contactHeader {
+.contactHeader,
+.contactStateRow {
   display: flex;
   justify-content: space-between;
   gap: 0.75rem;
@@ -436,19 +484,29 @@
 .guidanceItem p,
 .queueItem p,
 .activityItem p,
+.riskItem p,
 .boardCard p {
   margin: 0.3rem 0 0;
   color: var(--text-muted);
   line-height: 1.6;
 }
 
-.dealCardMeta {
+.dealCardMeta,
+.boardMeta {
   color: rgba(248, 250, 252, 0.8);
   font-size: 0.9rem;
 }
 
+.boardMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 .stageBadge,
-.ruleStatus {
+.ruleStatus,
+.segmentTag,
+.inlineNote {
   display: inline-flex;
   align-items: center;
   min-height: 1.9rem;
@@ -456,6 +514,15 @@
   border-radius: 999px;
   font-size: 0.72rem;
   font-weight: 700;
+}
+
+.inlineNote,
+.segmentTag {
+  width: fit-content;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(248, 250, 252, 0.76);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
 .lead,
@@ -501,7 +568,8 @@
 
 .queueItem,
 .activityItem,
-.guidanceItem {
+.guidanceItem,
+.riskItem {
   display: flex;
   gap: 0.9rem;
   align-items: flex-start;
@@ -512,7 +580,8 @@
 .queueItem strong,
 .activityItem strong,
 .ruleCard strong,
-.guidanceItem strong {
+.guidanceItem strong,
+.riskItem strong {
   font-size: 0.96rem;
 }
 
@@ -597,7 +666,8 @@
 .queueItem:hover,
 .activityItem:hover,
 .ruleCard:hover,
-.guidanceItem:hover {
+.guidanceItem:hover,
+.riskItem:hover {
   border-color: var(--line-strong);
   background: var(--surface-1);
 }
@@ -679,7 +749,8 @@
   border-radius: 1rem;
 }
 
-.stateNote {
+.stateNote,
+.inlineNotice {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
@@ -694,6 +765,11 @@
 
 .stateNote svg {
   color: #6ee7b7;
+  flex-shrink: 0;
+}
+
+.inlineNotice svg {
+  color: #fcd34d;
   flex-shrink: 0;
 }
 
@@ -715,12 +791,13 @@
   margin-top: 0.1rem;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
   .shell {
-    grid-template-columns: 240px minmax(0, 1fr);
+    grid-template-columns: 256px minmax(0, 1fr);
   }
 
-  .signalGrid {
+  .signalGrid,
+  .healthGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -776,7 +853,9 @@
 }
 
 @media (max-width: 640px) {
-  .signalGrid {
+  .signalGrid,
+  .healthGrid,
+  .miniList {
     grid-template-columns: 1fr;
   }
 
@@ -789,7 +868,16 @@
   .contactCard,
   .railCard,
   .brandBlock,
-  .signalCard {
+  .signalCard,
+  .healthCard {
     padding: 1rem;
+  }
+
+  .contactStateRow,
+  .dealCardTop,
+  .dealCardMeta,
+  .panelHeader,
+  .sectionHeader {
+    flex-direction: column;
   }
 }

@@ -4,7 +4,7 @@
   --line-soft: rgba(255, 255, 255, 0.08);
   --line-strong: rgba(34, 211, 238, 0.18);
   --accent-strong: #22d3ee;
-  --accent-muted: rgba(34, 211, 238, 0.14);
+  --accent-muted: rgba(34, 211, 238, 0.12);
   --text-muted: rgba(248, 250, 252, 0.68);
   max-width: 1180px;
   margin: 0 auto;
@@ -17,9 +17,9 @@
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at top left, rgba(99, 102, 241, 0.08), transparent 28%),
-    radial-gradient(circle at bottom right, rgba(34, 211, 238, 0.08), transparent 24%);
-  opacity: 0.8;
+    radial-gradient(circle at top left, rgba(99, 102, 241, 0.1), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(34, 211, 238, 0.08), transparent 22%);
+  opacity: 0.85;
 }
 
 .hero,
@@ -33,7 +33,7 @@
 
 .heroGrid {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.85fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.82fr);
   gap: 2rem;
   align-items: start;
 }
@@ -74,7 +74,7 @@
 }
 
 .heroText {
-  max-width: 60ch;
+  max-width: 62ch;
   margin: 0;
   padding-left: 1.4rem;
   border-left: 1px solid var(--line-soft);
@@ -113,6 +113,7 @@
 .secondaryLink {
   border: 1px solid var(--line-soft);
   color: var(--color-text);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .primaryLink:hover,
@@ -120,17 +121,28 @@
   transform: translateY(-2px);
 }
 
-.metricRow {
+.metricRow,
+.panelGrid,
+.layerGrid,
+.principlesGrid,
+.moduleGrid,
+.outcomeGrid,
+.deploymentGrid,
+.previewStats {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
-  margin-top: 0.5rem;
+}
+
+.metricRow {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .metricCard,
 .signalCard,
 .principleCard,
+.layerCard,
 .moduleCard,
+.outcomeCard,
 .deploymentCard,
 .previewStat {
   border: 1px solid var(--line-soft);
@@ -144,7 +156,9 @@
 .metricCard:hover,
 .signalCard:hover,
 .principleCard:hover,
+.layerCard:hover,
 .moduleCard:hover,
+.outcomeCard:hover,
 .deploymentCard:hover,
 .previewStat:hover {
   transform: translateY(-2px);
@@ -161,7 +175,7 @@
 }
 
 .metricValue {
-  font-size: 1.75rem;
+  font-size: 1.65rem;
   font-weight: 700;
 }
 
@@ -196,16 +210,21 @@
   font-size: 0.84rem;
 }
 
-.signalGrid {
-  display: grid;
-  gap: 0.85rem;
+.panelBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.panelGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .signalCard {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
-  padding: 1rem 1rem 0.95rem;
+  padding: 1rem;
   border-radius: 1rem;
 }
 
@@ -214,19 +233,11 @@
   font-weight: 700;
 }
 
-.panelBlock {
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--line-soft);
-}
-
 .panelList {
   margin: 0;
   padding-left: 1rem;
   color: var(--text-muted);
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 .panelText {
@@ -244,22 +255,26 @@
   flex-direction: column;
   gap: 0.9rem;
   margin-bottom: 2rem;
-  max-width: 56rem;
+  max-width: 58rem;
 }
 
 .sectionTitle {
-  max-width: 16ch;
+  max-width: 15ch;
   font-size: clamp(2.2rem, 4vw, 3.8rem);
   font-weight: 500;
 }
 
-.principlesGrid {
-  display: grid;
+.principlesGrid,
+.moduleGrid,
+.outcomeGrid,
+.deploymentGrid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.1rem;
 }
 
-.principleCard {
+.principleCard,
+.layerCard,
+.deploymentCard,
+.outcomeCard {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -277,7 +292,9 @@
 }
 
 .principleCard h3,
+.layerCard h3,
 .moduleCard h3,
+.outcomeCard h3,
 .deploymentCard h3 {
   margin: 0;
   font-size: 1.25rem;
@@ -285,18 +302,17 @@
 }
 
 .principleCard p,
+.layerCard p,
 .moduleCard p,
+.outcomeCard p,
 .deploymentCard p {
   margin: 0;
   color: var(--text-muted);
   line-height: 1.7;
 }
 
-.moduleGrid,
-.deploymentGrid {
-  display: grid;
+.layerGrid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.1rem;
 }
 
 .moduleCard {
@@ -308,7 +324,8 @@
   border-radius: 1.2rem;
 }
 
-.moduleIcon {
+.moduleIcon,
+.outcomeIcon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -379,9 +396,7 @@
 }
 
 .previewStats {
-  display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
 }
 
 .previewStat {
@@ -439,15 +454,6 @@
   background: linear-gradient(90deg, rgba(99, 102, 241, 0.92), rgba(34, 211, 238, 0.92));
 }
 
-.deploymentCard {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  min-height: 240px;
-  padding: 1.4rem;
-  border-radius: 1.2rem;
-}
-
 .deploymentTag {
   color: var(--color-accent);
 }
@@ -459,14 +465,18 @@
 
 @media (max-width: 1080px) {
   .heroGrid,
-  .previewShell {
-    grid-template-columns: 1fr;
-  }
-
+  .previewShell,
   .principlesGrid,
+  .layerGrid,
   .moduleGrid,
+  .outcomeGrid,
   .deploymentGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .heroGrid,
+  .previewShell {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -476,9 +486,12 @@
   }
 
   .metricRow,
+  .panelGrid,
   .previewStats,
   .principlesGrid,
+  .layerGrid,
   .moduleGrid,
+  .outcomeGrid,
   .deploymentGrid {
     grid-template-columns: 1fr;
   }
@@ -494,5 +507,15 @@
   .flowStage {
     grid-template-columns: 1fr;
     gap: 0.45rem;
+  }
+
+  .heroActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .primaryLink,
+  .secondaryLink {
+    width: 100%;
   }
 }
