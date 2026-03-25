@@ -31,23 +31,23 @@ import styles from './page.module.css';
 type TabId = 'overview' | 'pipeline' | 'contacts' | 'automation';
 
 const navigation: Array<{ id: TabId; label: string; icon: LucideIcon }> = [
-  { id: 'overview', label: 'Visao geral', icon: Activity },
+  { id: 'overview', label: 'Visão geral', icon: Activity },
   { id: 'pipeline', label: 'Pipeline', icon: Workflow },
   { id: 'contacts', label: 'Contatos', icon: Users },
-  { id: 'automation', label: 'Automacoes', icon: Bot },
+  { id: 'automation', label: 'Automações', icon: Bot },
 ];
 
 const signalCards = [
   { label: 'Pipeline ativo', value: 'R$ 393k', delta: '+18%', note: 'contra o mes anterior' },
-  { label: 'Propostas em revisao', value: '12', delta: '+4', note: 'contas com alta intencao' },
-  { label: 'Cobertura de proxima acao', value: '87%', delta: '+9%', note: 'deals com proximo passo definido' },
-  { label: 'Tempo medio de resposta', value: '8h', delta: '-2h', note: 'apos rotinas de automacao' },
+  { label: 'Propostas em revisão', value: '12', delta: '+4', note: 'contas com alta intenção' },
+  { label: 'Cobertura de próxima ação', value: '87%', delta: '+9%', note: 'deals com próximo passo definido' },
+  { label: 'Tempo médio de resposta', value: '8h', delta: '-2h', note: 'após rotinas de automação' },
 ];
 
 const healthSignals = [
-  { label: 'Saude do pipeline', value: '94 pts', tone: 'live', copy: 'Board sem gargalo estrutural nesta rodada.' },
-  { label: 'Deals em risco', value: '05', tone: 'hot', copy: 'Contas com silencio ou dependencia de aprovacao.' },
-  { label: 'Cadencia do time', value: 'forte', tone: 'qualified', copy: 'Owners com follow-up consistente nas ultimas 48h.' },
+  { label: 'Saúde do pipeline', value: '94 pts', tone: 'live', copy: 'Board sem gargalo estrutural nesta rodada.' },
+  { label: 'Deals em risco', value: '05', tone: 'hot', copy: 'Contas com silêncio ou dependência de aprovação.' },
+  { label: 'Cadência do time', value: 'forte', tone: 'qualified', copy: 'Owners com follow-up consistente nas últimas 48h.' },
 ];
 
 const deals = [
@@ -59,7 +59,7 @@ const deals = [
     stage: 'Proposta',
     stageId: 'proposal',
     probability: '72%',
-    nextStep: 'Revisao final de precificacao com CFO',
+    nextStep: 'Revisão final de precificação com CFO',
     priority: 'hot',
     health: 'risco de atraso',
   },
@@ -71,7 +71,7 @@ const deals = [
     stage: 'Qualificado',
     stageId: 'qualified',
     probability: '54%',
-    nextStep: 'Mapear bloqueios juridicos',
+    nextStep: 'Mapear bloqueios jurídicos',
     priority: 'warm',
     health: 'esperando resposta',
   },
@@ -92,7 +92,7 @@ const deals = [
     company: 'Blue Sigma',
     owner: 'Luan Borges',
     value: 'R$ 64k',
-    stage: 'Negociacao',
+    stage: 'Negociação',
     stageId: 'negotiation',
     probability: '81%',
     nextStep: 'Aprovar escopo final',
@@ -107,9 +107,9 @@ const deals = [
     stage: 'Qualificado',
     stageId: 'qualified',
     probability: '47%',
-    nextStep: 'Confirmar checklist de integracao',
+    nextStep: 'Confirmar checklist de integração',
     priority: 'warm',
-    health: 'aguardando integracao',
+    health: 'aguardando integração',
   },
   {
     id: 6,
@@ -127,22 +127,22 @@ const deals = [
 
 const tasks = [
   { id: 1, title: 'Enviar proposta revisada para Atlas Health', due: 'Hoje / 17:30', owner: 'Marina', tone: 'hot' },
-  { id: 2, title: 'Revisar notas juridicas de Blue Sigma', due: 'Hoje / 19:00', owner: 'Luan', tone: 'warm' },
-  { id: 3, title: 'Rodar checklist de qualificacao em Aurora Retail', due: 'Amanha / 10:00', owner: 'Paula', tone: 'warm' },
-  { id: 4, title: 'Fechar loop do inbound de Prime Field', due: 'Amanha / 14:00', owner: 'Rafa', tone: 'watch' },
+  { id: 2, title: 'Revisar notas jurídicas de Blue Sigma', due: 'Hoje / 19:00', owner: 'Luan', tone: 'warm' },
+  { id: 3, title: 'Rodar checklist de qualificação em Aurora Retail', due: 'Amanhã / 10:00', owner: 'Paula', tone: 'warm' },
+  { id: 4, title: 'Fechar loop do inbound de Prime Field', due: 'Amanhã / 14:00', owner: 'Rafa', tone: 'watch' },
 ];
 
 const riskItems = [
   { id: 1, title: 'Atlas Health sem retorno do financeiro', impact: 'pode atrasar fechamento em 48h', tone: 'hot' },
-  { id: 2, title: 'Northline depende de validacao juridica', impact: 'chance de estagnar em proposta', tone: 'warm' },
-  { id: 3, title: 'Prime Field entrou com dados incompletos', impact: 'risco de qualificacao fraca', tone: 'watch' },
+  { id: 2, title: 'Northline depende de validação jurídica', impact: 'chance de estagnar em proposta', tone: 'warm' },
+  { id: 3, title: 'Prime Field entrou com dados incompletos', impact: 'risco de qualificação fraca', tone: 'watch' },
 ];
 
 const pipelineStages = [
   { id: 'lead', label: 'Lead', count: 14, value: 'R$ 84k', fill: '76%' },
   { id: 'qualified', label: 'Qualificado', count: 9, value: 'R$ 132k', fill: '61%' },
   { id: 'proposal', label: 'Proposta', count: 6, value: 'R$ 103k', fill: '44%' },
-  { id: 'negotiation', label: 'Negociacao', count: 3, value: 'R$ 74k', fill: '28%' },
+  { id: 'negotiation', label: 'Negociação', count: 3, value: 'R$ 74k', fill: '28%' },
 ];
 
 const contacts = [
@@ -152,8 +152,8 @@ const contacts = [
     company: 'Atlas Health',
     role: 'Diretora de Receita',
     channel: 'Email + WhatsApp',
-    health: 'alta aderencia',
-    nextTouch: 'Revisao de proposta hoje',
+    health: 'alta aderência',
+    nextTouch: 'Revisão de proposta hoje',
     segment: 'enterprise',
   },
   {
@@ -163,7 +163,7 @@ const contacts = [
     role: 'Head de Sales Ops',
     channel: 'Email',
     health: 'pedir follow-up',
-    nextTouch: 'Responder objeccoes juridicas',
+    nextTouch: 'Responder objeções jurídicas',
     segment: 'mid-market',
   },
   {
@@ -171,7 +171,7 @@ const contacts = [
     name: 'Julia Prado',
     company: 'Vertex Mobility',
     role: 'Growth Manager',
-    channel: 'Ligacao agendada',
+    channel: 'Ligação agendada',
     health: 'etapa inicial',
     nextTouch: 'Discovery call em 24h',
     segment: 'growth',
@@ -180,10 +180,10 @@ const contacts = [
     id: 4,
     name: 'Paula Souza',
     company: 'Aurora Retail',
-    role: 'Lider comercial',
-    channel: 'Email + ligacao',
-    health: 'alta aderencia',
-    nextTouch: 'Validar integracoes com o time',
+    role: 'Líder comercial',
+    channel: 'Email + ligação',
+    health: 'alta aderência',
+    nextTouch: 'Validar integrações com o time',
     segment: 'mid-market',
   },
 ];
@@ -191,38 +191,38 @@ const contacts = [
 const automationRules = [
   {
     id: 1,
-    title: 'Recuperacao de proposta parada',
+    title: 'Recuperação de proposta parada',
     statusId: 'live',
     statusLabel: 'ativa',
-    copy: 'Dispara lembrete e revisao do owner quando uma proposta fica 72 horas sem movimento.',
+    copy: 'Dispara lembrete e revisão do owner quando uma proposta fica 72 horas sem movimento.',
   },
   {
     id: 2,
-    title: 'Roteamento de inbound com alta intencao',
+    title: 'Roteamento de inbound com alta intenção',
     statusId: 'testing',
     statusLabel: 'teste',
-    copy: 'Pontua pedidos de entrada e encaminha contas quentes para o operador com resposta mais rapida.',
+    copy: 'Pontua pedidos de entrada e encaminha contas quentes para o operador com resposta mais rápida.',
   },
   {
     id: 3,
-    title: 'Digest executivo diario',
+    title: 'Digest executivo diário',
     statusId: 'live',
     statusLabel: 'ativa',
-    copy: 'Consolida pipeline, deals bloqueados e sinais principais em um resumo da manha.',
+    copy: 'Consolida pipeline, deals bloqueados e sinais principais em um resumo da manhã.',
   },
 ];
 
 const automationQueue = [
   { id: 1, title: '6 deals qualificados sem toque recente', action: 'criar regra de lembrete por owner' },
-  { id: 2, title: '2 propostas com escopo em revisao ha mais de 48h', action: 'disparar alerta para financeiro e comercial' },
-  { id: 3, title: 'variacao em tags de responsavel', action: 'normalizar nomes antes do proximo relatorio' },
+  { id: 2, title: '2 propostas com escopo em revisão há mais de 48h', action: 'disparar alerta para financeiro e comercial' },
+  { id: 3, title: 'variação em tags de responsável', action: 'normalizar nomes antes do próximo relatório' },
 ];
 
 const activityFeed = [
-  { id: 1, title: 'Proposta atualizada', meta: 'Atlas Health / 18 min atras', tone: 'hot' },
-  { id: 2, title: 'Automacao executada', meta: 'Recuperacao de proposta parada / 51 min atras', tone: 'warm' },
-  { id: 3, title: 'Novo lead qualificado', meta: 'Northline Commerce / 2h atras', tone: 'live' },
-  { id: 4, title: 'Reuniao concluida', meta: 'Aurora Retail / 3h atras', tone: 'live' },
+  { id: 1, title: 'Proposta atualizada', meta: 'Atlas Health / 18 min atrás', tone: 'hot' },
+  { id: 2, title: 'Automação executada', meta: 'Recuperação de proposta parada / 51 min atrás', tone: 'warm' },
+  { id: 3, title: 'Novo lead qualificado', meta: 'Northline Commerce / 2h atrás', tone: 'live' },
+  { id: 4, title: 'Reunião concluída', meta: 'Aurora Retail / 3h atrás', tone: 'live' },
 ];
 
 export default function PulseDashboard() {
@@ -236,10 +236,10 @@ export default function PulseDashboard() {
             <Layers3 size={18} strokeWidth={1.8} />
             <span>Pulse CRM</span>
           </Link>
-          <p className={styles.brandText}>Superficie comercial privada desenhada pela Nexus Studio.</p>
+          <p className={styles.brandText}>Superfície comercial privada desenhada pela Nexus Studio.</p>
         </div>
 
-        <nav className={styles.nav} aria-label="Secoes do Pulse CRM">
+        <nav className={styles.nav} aria-label="Seções do Pulse CRM">
           {navigation.map((item) => {
             const Icon = item.icon;
 
@@ -260,7 +260,7 @@ export default function PulseDashboard() {
         <div className={styles.railCard}>
           <span className={styles.cardLabel}>Modo do sistema</span>
           <strong>Leitura operacional ativada</strong>
-          <p>O painel foi desenhado para reduzir ruido visual e destacar prioridades comerciais reais.</p>
+          <p>O painel foi desenhado para reduzir ruído visual e destacar prioridades comerciais reais.</p>
           <div className={styles.railMeta}>
             <span>
               <ShieldCheck size={14} strokeWidth={1.8} />
@@ -286,7 +286,7 @@ export default function PulseDashboard() {
             </div>
             <div>
               <strong>87%</strong>
-              <span>proxima acao coberta</span>
+              <span>próxima ação coberta</span>
             </div>
           </div>
         </div>
@@ -295,17 +295,17 @@ export default function PulseDashboard() {
       <main className={styles.workspace}>
         <header className={styles.topbar}>
           <div className={styles.topbarCopy}>
-            <span className={styles.topline}>Pulse CRM / painel de comando / Sao Paulo</span>
-            <h1>Controle comercial sem ruido de template.</h1>
-            <p>Leia sinal, mova deals e acompanhe risco a partir de uma superficie unica.</p>
+            <span className={styles.topline}>Pulse CRM / painel de comando / São Paulo</span>
+            <h1>Controle comercial sem ruído de template.</h1>
+            <p>Leia sinal, mova deals e acompanhe risco a partir de uma superfície única.</p>
           </div>
 
           <div className={styles.topbarActions}>
             <label className={styles.search}>
               <Search size={16} strokeWidth={1.8} />
-              <input type="search" placeholder="Buscar contas, contatos ou responsaveis" />
+              <input type="search" placeholder="Buscar contas, contatos ou responsáveis" />
             </label>
-            <button type="button" className={styles.iconButton} aria-label="Notificacoes">
+            <button type="button" className={styles.iconButton} aria-label="Notificações">
               <Bell size={18} strokeWidth={1.8} />
               <span className={styles.badge}>3</span>
             </button>
@@ -319,7 +319,7 @@ export default function PulseDashboard() {
         <div className={styles.commandStrip}>
           <span className={styles.commandChip}>qualidade de dados 99,2%</span>
           <span className={styles.commandChip}>cobertura de follow-up 87%</span>
-          <span className={styles.commandChip}>confianca de forecast alta</span>
+          <span className={styles.commandChip}>confiança de forecast alta</span>
         </div>
 
         {activeTab === 'overview' && (
@@ -373,7 +373,7 @@ export default function PulseDashboard() {
                       </div>
                       <div className={styles.dealCardMeta}>
                         <span>{deal.value}</span>
-                        <span>{deal.probability} de confianca</span>
+                        <span>{deal.probability} de confiança</span>
                       </div>
                       <div className={styles.nextStep}>
                         <Clock3 size={14} strokeWidth={1.8} />
@@ -389,7 +389,7 @@ export default function PulseDashboard() {
                 <div className={styles.panelHeader}>
                   <div>
                     <span className={styles.cardLabel}>Fila operacional</span>
-                    <h2>Trabalho que mantem o pipeline honesto.</h2>
+                    <h2>Trabalho que mantém o pipeline honesto.</h2>
                   </div>
                 </div>
 
@@ -409,7 +409,7 @@ export default function PulseDashboard() {
 
                 <div className={styles.stateNote}>
                   <CheckCircle2 size={16} strokeWidth={1.8} />
-                  <span>Nenhum bloqueio critico fora do radar nesta rodada.</span>
+                  <span>Nenhum bloqueio crítico fora do radar nesta rodada.</span>
                 </div>
               </section>
 
@@ -417,7 +417,7 @@ export default function PulseDashboard() {
                 <div className={styles.panelHeader}>
                   <div>
                     <span className={styles.cardLabel}>Forma do pipeline</span>
-                    <h2>Distribuicao das oportunidades ao longo do fluxo comercial.</h2>
+                    <h2>Distribuição das oportunidades ao longo do fluxo comercial.</h2>
                   </div>
                 </div>
 
@@ -518,7 +518,7 @@ export default function PulseDashboard() {
                             <p>{deal.owner}</p>
                             <strong>{deal.value}</strong>
                             <div className={styles.boardMeta}>
-                              <span>{deal.probability} de confianca</span>
+                              <span>{deal.probability} de confiança</span>
                               <span>{deal.health}</span>
                             </div>
                             <div className={styles.boardFooter}>{deal.nextStep}</div>
@@ -542,7 +542,7 @@ export default function PulseDashboard() {
             <div className={styles.sectionHeader}>
               <div>
                 <span className={styles.cardLabel}>Camada de contato</span>
-                <h2>Memoria compartilhada da conta, nao notas quebradas em varios lugares.</h2>
+                <h2>Memória compartilhada da conta, não notas quebradas em vários lugares.</h2>
               </div>
               <button type="button" className={styles.secondaryButton}>
                 <Plus size={16} strokeWidth={2} />
@@ -610,8 +610,8 @@ export default function PulseDashboard() {
           <div className={styles.viewStack}>
             <div className={styles.sectionHeader}>
               <div>
-                <span className={styles.cardLabel}>Camada de automacao</span>
-                <h2>Playbooks que aceleram a execucao sem tirar contexto do operador.</h2>
+                <span className={styles.cardLabel}>Camada de automação</span>
+                <h2>Playbooks que aceleram a execução sem tirar contexto do operador.</h2>
               </div>
               <button type="button" className={styles.secondaryButton}>
                 <Settings2 size={16} strokeWidth={1.8} />
@@ -624,7 +624,7 @@ export default function PulseDashboard() {
                 <div className={styles.panelHeader}>
                   <div>
                     <span className={styles.cardLabel}>Regras em uso</span>
-                    <h2>Stack atual de automacao</h2>
+                    <h2>Stack atual de automação</h2>
                   </div>
                 </div>
 
@@ -642,7 +642,7 @@ export default function PulseDashboard() {
 
                 <div className={styles.stateNote}>
                   <CheckCircle2 size={16} strokeWidth={1.8} />
-                  <span>Nenhuma automacao com falha critica neste ambiente.</span>
+                  <span>Nenhuma automação com falha crítica neste ambiente.</span>
                 </div>
               </section>
 
@@ -650,7 +650,7 @@ export default function PulseDashboard() {
                 <div className={styles.panelHeader}>
                   <div>
                     <span className={styles.cardLabel}>Fila de ajuste</span>
-                    <h2>Proximos movimentos recomendados</h2>
+                    <h2>Próximos movimentos recomendados</h2>
                   </div>
                 </div>
 
@@ -668,7 +668,7 @@ export default function PulseDashboard() {
 
                 <div className={styles.inlineNotice}>
                   <CircleAlert size={16} strokeWidth={1.8} />
-                  <span>3 recomendacoes novas desde a ultima sincronizacao.</span>
+                  <span>3 recomendações novas desde a última sincronização.</span>
                 </div>
               </section>
             </div>

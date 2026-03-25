@@ -1,265 +1,565 @@
-.srOnly {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
+.page {
+  --surface-0: rgba(255, 255, 255, 0.03);
+  --surface-1: rgba(255, 255, 255, 0.05);
+  --line-soft: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(34, 211, 238, 0.22);
+  --text-muted: rgba(248, 250, 252, 0.68);
+  position: relative;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: calc(var(--header-height) + 4rem) 2rem 6rem;
 }
 
-.container {
-  background-color: #000;
-  color: #00ff41;
-  font-family: 'Courier New', Courier, monospace;
-  min-height: 100vh;
+.backdrop {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at top left, rgba(14, 165, 233, 0.14), transparent 24%),
+    radial-gradient(circle at 80% 10%, rgba(34, 211, 238, 0.12), transparent 20%),
+    radial-gradient(circle at bottom right, rgba(99, 102, 241, 0.1), transparent 24%);
+}
+
+.hero,
+.workspaceGrid,
+.moduleGrid {
+  position: relative;
+  z-index: 1;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.82fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.heroCopy {
   display: flex;
   flex-direction: column;
-  position: relative;
-  overflow: hidden;
+  gap: 1.5rem;
 }
 
-/* Efeito de Scanlines (TV antiga) */
-.scanlines {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(255,255,255,0),
-    rgba(255,255,255,0) 50%,
-    rgba(0,0,0,0.2) 50%,
-    rgba(0,0,0,0.2)
-  );
-  background-size: 100% 4px;
-  pointer-events: none;
-  z-index: 10;
+.eyebrow,
+.panelEyebrow,
+.metricLabel,
+.panelLabel {
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
 }
 
-.header {
-  border-bottom: 1px solid #1a1a1a;
-  padding: 1.5rem;
+.eyebrow,
+.panelEyebrow {
+  color: var(--color-accent);
+}
+
+.heroTitle {
+  margin: 0;
+  max-width: 11ch;
+  font-size: clamp(3rem, 6vw, 5.8rem);
+  line-height: 0.94;
+  letter-spacing: -0.05em;
+  font-weight: 500;
+}
+
+.heroText {
+  max-width: 62ch;
+  margin: 0;
+  padding-left: 1.4rem;
+  border-left: 1px solid var(--line-soft);
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
+.actionRow {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.9rem;
 }
 
-.brand {
-  font-weight: bold;
-  letter-spacing: -1px;
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.status {
-  font-size: 0.8rem;
-  color: #555;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.blink {
-  width: 8px;
-  height: 8px;
-  background: #00ff41;
-  border-radius: 50%;
-  animation: blinker 1s linear infinite;
-}
-
-@keyframes blinker {
-  50% { opacity: 0; }
-}
-
-.main {
-  flex: 1;
-  display: flex;
+.primaryAction,
+.secondaryAction,
+.segmentedButton,
+.regionButton {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
-  position: relative;
+  gap: 0.55rem;
+  min-height: 3rem;
+  border-radius: 999px;
+  transition: transform var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    background var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-/* O Painel Central */
-.panel {
-  border: 1px solid #333;
-  background: #050505;
-  padding: 3rem;
-  max-width: 600px;
-  width: 100%;
-  position: relative;
-  box-shadow: 0 0 30px rgba(0, 255, 65, 0.05);
+.primaryAction,
+.segmentedButton,
+.regionButton {
+  cursor: pointer;
 }
 
-/* Cantos decorativos tech */
-.panel::before {
-  content: '';
-  position: absolute;
-  top: -1px; left: -1px;
-  width: 20px; height: 20px;
-  border-top: 2px solid #00ff41;
-  border-left: 2px solid #00ff41;
-}
-.panel::after {
-  content: '';
-  position: absolute;
-  bottom: -1px; right: -1px;
-  width: 20px; height: 20px;
-  border-bottom: 2px solid #00ff41;
-  border-right: 2px solid #00ff41;
+.primaryAction {
+  border: 1px solid transparent;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.96), rgba(34, 211, 238, 0.9));
+  color: #03121a;
+  font-weight: 700;
+  padding: 0.85rem 1.2rem;
 }
 
-.title {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-  letter-spacing: -2px;
-  color: #fff;
+.secondaryAction {
+  padding: 0.85rem 1.2rem;
+  border: 1px solid var(--line-soft);
+  color: var(--color-text);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.02);
 }
 
-.subtitle {
-  color: #888;
-  margin-bottom: 2rem;
+.primaryAction:hover,
+.secondaryAction:hover,
+.segmentedButton:hover,
+.regionButton:hover {
+  transform: translateY(-2px);
+}
+
+.metricGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.metricCard,
+.moduleCard,
+.panel,
+.workloadCard,
+.alertCard,
+.automationCard,
+.insightCard {
+  border: 1px solid var(--line-soft);
+  background: var(--surface-0);
+  backdrop-filter: blur(18px);
+  transition: transform var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    background var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.metricCard:hover,
+.moduleCard:hover,
+.panel:hover,
+.workloadCard:hover,
+.alertCard:hover,
+.automationCard:hover,
+.insightCard:hover {
+  transform: translateY(-2px);
+  border-color: var(--line-strong);
+  background: var(--surface-1);
+}
+
+.metricCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-height: 150px;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.metricLabel {
+  color: rgba(248, 250, 252, 0.46);
+}
+
+.metricValue {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.metricCard p {
+  margin: 0;
+  color: var(--text-muted);
   line-height: 1.6;
 }
 
-.statsGrid {
+.heroPanel,
+.panel {
+  border-radius: 1.35rem;
+}
+
+.heroPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.35rem;
+  border: 1px solid var(--line-strong);
+  background:
+    linear-gradient(180deg, rgba(5, 10, 20, 0.92), rgba(4, 12, 22, 0.76)),
+    radial-gradient(circle at top right, rgba(34, 211, 238, 0.16), transparent 28%);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.panelHeader h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.panelMeta {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.segmentedRow,
+.regionList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.segmentedButton,
+.regionButton {
+  border: 1px solid var(--line-soft);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text-muted);
+  padding: 0.75rem 1rem;
+}
+
+.segmentedButtonActive,
+.regionButtonActive {
+  border-color: var(--line-strong);
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.16), rgba(34, 211, 238, 0.1));
+  color: var(--color-text);
+}
+
+.panelBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding-top: 0.35rem;
+}
+
+.panelLabel {
+  color: rgba(248, 250, 252, 0.42);
+}
+
+.panelBlock h2,
+.panelBlock p,
+.panelCopy,
+.workloadCard p,
+.alertCard p,
+.automationCard p,
+.insightCard p,
+.clusterRow p {
+  margin: 0;
+}
+
+.panelBlock p,
+.panelCopy,
+.workloadCard p,
+.alertCard p,
+.automationCard p,
+.insightCard p,
+.clusterRow p {
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.panelFoot {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: auto;
+  padding-top: 0.25rem;
+  color: rgba(248, 250, 252, 0.82);
+  font-size: 0.92rem;
+}
+
+.moduleGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
   margin-bottom: 2rem;
 }
 
-.statItem {
-  border: 1px solid #222;
-  padding: 1rem;
+.moduleCard {
+  display: flex;
+  gap: 1rem;
+  min-height: 220px;
+  padding: 1.2rem;
+  border-radius: 1.2rem;
 }
 
-.statLabel {
-  font-size: 0.7rem;
-  color: #555;
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 5px;
+.moduleIcon,
+.panelAccent {
+  color: var(--color-accent);
 }
 
-.statValue {
-  font-size: 1.2rem;
-  color: #00ff41;
+.moduleIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.9rem;
+  background: rgba(34, 211, 238, 0.12);
+  flex-shrink: 0;
 }
 
-.formGroup {
+.moduleBody {
   display: flex;
   flex-direction: column;
+  gap: 0.7rem;
+}
+
+.moduleBody h3,
+.workloadHead strong,
+.automationHead strong,
+.insightCard strong,
+.clusterRow strong,
+.alertCard strong {
+  margin: 0;
+}
+
+.moduleBody h3 {
+  font-size: 1.15rem;
+}
+
+.moduleBody p,
+.moduleBody span {
+  margin: 0;
+  line-height: 1.65;
+}
+
+.moduleBody p {
+  color: var(--text-muted);
+}
+
+.moduleBody span {
+  color: rgba(248, 250, 252, 0.46);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.workspaceGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
   gap: 1rem;
 }
 
-.input {
-  background: #111;
-  border: 1px solid #333;
-  padding: 1rem;
-  color: #fff;
-  font-family: inherit;
-  width: 100%;
+.panel {
+  padding: 1.2rem;
 }
 
-.input:focus {
-  outline: none;
-  border-color: #00ff41;
+.chartPanel,
+.insightPanel {
+  grid-column: 1 / 2;
 }
 
-.button {
-  background: #00ff41;
-  color: #000;
-  border: none;
+.alertPanel,
+.automationPanel {
+  grid-column: 2 / 3;
+}
+
+.clusterPanel,
+.insightPanel {
+  grid-column: span 1;
+}
+
+.chartShell {
   padding: 1rem;
-  font-weight: bold;
-  cursor: pointer;
+  border: 1px solid var(--line-soft);
+  border-radius: 1.1rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.chartLegend {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 0.9rem;
+}
+
+.chartLegend span {
+  color: rgba(248, 250, 252, 0.48);
+  font-size: 0.82rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.2s;
+  letter-spacing: 0.14em;
 }
 
-.button:hover {
-  background: #fff;
-  box-shadow: 0 0 15px #00ff41;
+.chartLegend strong {
+  font-size: 1.1rem;
 }
 
-.footer {
+.chart {
+  width: 100%;
+  height: 220px;
+}
+
+.chartLine {
+  stroke: rgba(255, 255, 255, 0.07);
+  stroke-width: 0.7;
+}
+
+.chartPath {
+  fill: none;
+  stroke: url(#vortex-chart);
+  stroke: rgba(34, 211, 238, 0.94);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.workloadRow,
+.clusterList,
+.alertList,
+.automationList,
+.insightList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.workloadRow {
+  margin-top: 1rem;
+}
+
+.workloadCard,
+.alertCard,
+.automationCard,
+.insightCard {
+  border-radius: 1rem;
   padding: 1rem;
-  border-top: 1px solid #1a1a1a;
-  font-size: 0.7rem;
-  color: #444;
-  display: flex;
-  justify-content: space-between;
 }
 
-/* Dashboard Styles */
-.dashboardGrid {
-  padding: 2rem;
+.workloadHead,
+.automationHead,
+.clusterRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.workloadHead span,
+.automationHead span {
+  color: rgba(248, 250, 252, 0.74);
+  font-size: 0.84rem;
+}
+
+.workloadBar {
+  display: flex;
+  height: 0.72rem;
+  margin: 0.75rem 0 0.5rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.workloadBar span {
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(14, 165, 233, 0.94), rgba(34, 211, 238, 0.9));
+}
+
+.alertCard {
   display: grid;
-  grid-template-columns: 2fr 1fr; /* Esquerda grande, direita menor */
-  gap: 1.5rem;
-  max-width: 1400px;
-  margin: 0 auto;
-  width: 100%;
+  grid-template-columns: auto 1fr;
+  gap: 0.8rem;
 }
 
-.widget {
-  background: #0a0a0a;
-  border: 1px solid #222;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
+.toneDot {
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-top: 0.35rem;
+  border-radius: 999px;
 }
 
-.widgetTitle {
-  font-size: 0.8rem;
-  color: #555;
-  letter-spacing: 1px;
-  margin-bottom: 1rem;
-  display: flex;
-  justify-content: space-between;
+.healthy {
+  background: rgba(16, 185, 129, 0.2);
+  color: #6ee7b7;
 }
 
-.bigNumber {
-  font-size: 3rem;
-  font-weight: bold;
-  color: #fff;
-  margin-bottom: 1rem;
+.watch {
+  background: rgba(250, 204, 21, 0.18);
+  color: #fde68a;
 }
 
-.chartContainer {
-  height: 200px;
-  width: 100%;
+.risk {
+  background: rgba(239, 68, 68, 0.18);
+  color: #fca5a5;
 }
 
-.healthRow {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid #1a1a1a;
-  padding-bottom: 0.5rem;
-  font-size: 0.9rem;
-  color: #ccc;
+.statusTag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.9rem;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
-.logs {
-  font-family: 'Courier New', monospace;
-  font-size: 0.85rem;
-  color: #888;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.automationHead span {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
-@media (max-width: 768px) {
-  .dashboardGrid {
+.warningIcon {
+  color: #fbbf24;
+}
+
+@media (max-width: 1080px) {
+  .hero,
+  .workspaceGrid,
+  .moduleGrid {
     grid-template-columns: 1fr;
+  }
+
+  .chartPanel,
+  .alertPanel,
+  .clusterPanel,
+  .automationPanel,
+  .insightPanel {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 780px) {
+  .page {
+    padding: calc(var(--header-height) + 3rem) 1.2rem 5rem;
+  }
+
+  .heroTitle {
+    max-width: none;
+  }
+
+  .metricGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .actionRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .primaryAction,
+  .secondaryAction {
+    width: 100%;
+  }
+
+  .panelHeader,
+  .chartLegend,
+  .workloadHead,
+  .automationHead,
+  .clusterRow {
+    flex-direction: column;
   }
 }

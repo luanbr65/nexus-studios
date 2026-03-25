@@ -7,29 +7,29 @@ import { useAnimate } from '@/hooks/useAnimate';
 import styles from './hero.module.css';
 
 const whatsappMessage =
-  'Ola! Vim pelo site da Nexus Studio e gostaria de iniciar uma consultoria.';
+  'Olá! Vim pelo site da Nexus Studio e gostaria de iniciar uma consultoria.';
 
 const trustSignals = [
-  { label: 'entrega orientada a sistema', value: 'produto, marca e operacao no mesmo fluxo' },
-  { label: 'tempo de resposta', value: 'escopo claro em poucas interacoes' },
-  { label: 'camada tecnica', value: 'arquitetura, front-end e integracoes' },
+  { label: 'entrega orientada a sistema', value: 'produto, marca e operação no mesmo fluxo' },
+  { label: 'tempo de resposta', value: 'escopo claro em poucas interações' },
+  { label: 'camada técnica', value: 'arquitetura, front-end e integrações' },
 ];
 
 const commandCards = [
   {
     icon: Workflow,
     title: 'Arquitetura de produto',
-    copy: 'Estruturamos fluxos, interfaces e governanca para produtos que precisam operar com clareza.',
+    copy: 'Estruturamos fluxos, interfaces e governança para produtos que precisam operar com clareza.',
   },
   {
     icon: Clock3,
     title: 'Entrega com ritmo',
-    copy: 'Projetos saem de ideia para interface utilizavel com recorte tecnico e prioridade definida.',
+    copy: 'Projetos saem de ideia para interface utilizável, com recorte técnico e prioridade definida.',
   },
   {
     icon: ShieldCheck,
     title: 'Solidez operacional',
-    copy: 'Cada camada entra pensando em manutencao, performance e leitura de negocio.',
+    copy: 'Cada camada entra pensando em manutenção, performance e leitura de negócio.',
   },
 ];
 
@@ -43,7 +43,7 @@ export default function Hero() {
       <header className={styles.container}>
         <div className={styles.content}>
           <motion.span className={styles.label} {...fade(18)}>
-            Nexus Studio / Sao Paulo / engenharia para produto e operacao
+            Nexus Studio / São Paulo / engenharia para produto e operação
           </motion.span>
 
           <motion.h1
@@ -51,7 +51,7 @@ export default function Hero() {
             {...fade(24)}
             transition={shouldReduceMotion ? undefined : { duration: 0.6, delay: 0.06 }}
           >
-            Sistemas digitais com forma, criterio e capacidade de execucao.
+            Sistemas digitais com forma, critério e capacidade de execução.
           </motion.h1>
 
           <motion.p
@@ -59,8 +59,8 @@ export default function Hero() {
             {...fade(20)}
             transition={shouldReduceMotion ? undefined : { duration: 0.6, delay: 0.12 }}
           >
-            A Nexus Studio desenha superficies, fluxos e infraestrutura para negocios que precisam parecer
-            consistentes e operar melhor. Nao tratamos design, produto e engenharia como trilhas separadas.
+            A Nexus Studio desenha superfícies, fluxos e infraestrutura para negócios que precisam parecer
+            consistentes e operar melhor. Não tratamos design, produto e engenharia como trilhas separadas.
           </motion.p>
 
           <motion.div
@@ -117,7 +117,7 @@ export default function Hero() {
             <div className={styles.consoleHero}>
               <div>
                 <span className={styles.kicker}>foco atual</span>
-                <h2>Produtos mais apresentaveis e mais utilizaveis.</h2>
+                <h2>Produtos mais apresentáveis e mais utilizáveis.</h2>
               </div>
               <div className={styles.consoleStat}>
                 <span>camadas integradas</span>
@@ -145,12 +145,12 @@ export default function Hero() {
 
             <div className={styles.consoleFooter}>
               <div className={styles.footerMetric}>
-                <span>tempo de implantacao</span>
+                <span>tempo de implantação</span>
                 <strong>escopo modular</strong>
               </div>
               <div className={styles.footerMetric}>
                 <span>tipo de entrega</span>
-                <strong>interfaces, produto, automacao</strong>
+                <strong>interfaces, produto, automação</strong>
               </div>
             </div>
           </motion.div>

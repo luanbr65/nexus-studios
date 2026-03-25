@@ -9,30 +9,30 @@ const projects = [
   {
     name: 'Pulse CRM',
     description:
-      'Camada comercial com pipeline, automacao e leitura operacional desenhada para parecer produto real, nao demo vazia.',
+      'Camada comercial com pipeline, automação e leitura operacional desenhada para parecer produto real, não demo vazia.',
     tech: 'Next.js 14 / dashboard UI / operator states',
     status: 'live',
-    note: 'Sistema demonstravel com landing e painel de comando.',
+    note: 'Sistema demonstrável com landing e painel de comando.',
     linkText: 'Abrir produto',
     linkHref: '/pulse-crm',
   },
   {
     name: 'Nexus Portfolio',
     description:
-      'A propria superficie institucional do estudio, tratada como produto vivo e usada para provar criterio visual e tecnico.',
+      'A própria superfície institucional do estúdio, tratada como produto vivo e usada para provar critério visual e técnico.',
     tech: 'Next.js / motion / content architecture',
     status: 'online',
-    note: 'Base para narrativa comercial, cases e captacao.',
+    note: 'Base para narrativa comercial, cases e captação.',
     linkText: 'Voltar ao topo',
     linkHref: '#top',
   },
   {
     name: 'Vortex Analytics',
     description:
-      'Ambiente de analytics para leitura executiva e simulacao de telemetria com linguagem visual mais tecnica.',
+      'Ambiente de analytics para leitura executiva e simulação de telemetria com linguagem visual mais técnica.',
     tech: 'dashboard systems / synthetic data / B2B analytics',
     status: 'beta',
-    note: 'Em evolucao controlada, com acesso restrito.',
+    note: 'Em evolução controlada, com acesso restrito.',
     linkText: 'Ver ambiente',
     linkHref: '/vortex',
   },
@@ -57,7 +57,7 @@ export default function Projects() {
           <h2 className={styles.mainTitle}>Superficies que mostram o nivel da entrega.</h2>
           <p className={styles.headerCopy}>
             Cada item abaixo existe para apresentar uma camada diferente da Nexus: produto, narrativa visual e
-            operacao de interface.
+            operação de interface.
           </p>
         </motion.div>
 

@@ -9,21 +9,21 @@ const services = [
   {
     id: '01',
     title: 'Estrutura de produto',
-    desc: 'Desenhamos a arquitetura da experiencia, a hierarquia de interface e a logica do fluxo principal.',
+    desc: 'Desenhamos a arquitetura da experiência, a hierarquia de interface e a lógica do fluxo principal.',
     stack: 'UX systems / page architecture / operator flow',
     icon: Layers3,
   },
   {
     id: '02',
-    title: 'Front-end de alto criterio',
-    desc: 'Interfaces com ritmo visual, performance real e componentes que nao colapsam na manutencao.',
+    title: 'Front-end de alto critério',
+    desc: 'Interfaces com ritmo visual, performance real e componentes que não colapsam na manutenção.',
     stack: 'Next.js / React / motion / component systems',
     icon: Monitor,
   },
   {
     id: '03',
-    title: 'Integracao e operacao',
-    desc: 'Conectamos automacao, telemetria e regras para que a camada visual tenha suporte operacional.',
+    title: 'Integração e operação',
+    desc: 'Conectamos automação, telemetria e regras para que a camada visual tenha suporte operacional.',
     stack: 'APIs / workflows / analytics / delivery cadence',
     icon: Waypoints,
   },
@@ -43,8 +43,8 @@ export default function Services() {
           <span className={styles.eyebrow}>Capacidades centrais</span>
           <h2>Menos fornecedor de tela, mais parceiro de sistema.</h2>
           <p>
-            A entrega da Nexus parte de uma leitura unica: aparencia, produto e execucao tecnica precisam subir
-            juntas. Quando uma camada anda sozinha, a percepcao do negocio quebra.
+            A entrega da Nexus parte de uma leitura única: aparência, produto e execução técnica precisam subir
+            juntas. Quando uma camada anda sozinha, a percepção do negócio quebra.
           </p>
         </motion.div>
 

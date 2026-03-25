@@ -31,7 +31,7 @@ export default function TechStrip() {
       <div className={styles.container}>
         <div className={styles.lead}>
           <span className={styles.label}>Camadas que costumamos integrar</span>
-          <strong>produto, identidade, interface e operacao</strong>
+          <strong>produto, identidade, interface e operação</strong>
         </div>
 
         <div className={styles.marquee}>
