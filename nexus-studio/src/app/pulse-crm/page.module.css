@@ -11,9 +11,19 @@
   padding: calc(var(--header-height) + 4rem) 2rem 7rem;
 }
 
+.page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at top left, rgba(99, 102, 241, 0.08), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(34, 211, 238, 0.08), transparent 24%);
+  opacity: 0.8;
+}
+
 .hero,
-.section,
-.ctaPanel {
+.section {
   position: relative;
 }
 
@@ -51,8 +61,7 @@
 }
 
 .heroTitle,
-.sectionTitle,
-.ctaTitle {
+.sectionTitle {
   margin: 0;
   letter-spacing: -0.04em;
   line-height: 0.95;
@@ -73,8 +82,7 @@
   line-height: 1.7;
 }
 
-.heroActions,
-.ctaActions {
+.heroActions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.9rem;
@@ -128,6 +136,20 @@
   border: 1px solid var(--line-soft);
   background: var(--surface-0);
   backdrop-filter: blur(18px);
+  transition: transform var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    background var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.metricCard:hover,
+.signalCard:hover,
+.principleCard:hover,
+.moduleCard:hover,
+.deploymentCard:hover,
+.previewStat:hover {
+  transform: translateY(-2px);
+  border-color: var(--line-strong);
+  background: var(--surface-1);
 }
 
 .metricCard {
@@ -222,10 +244,10 @@
   flex-direction: column;
   gap: 0.9rem;
   margin-bottom: 2rem;
+  max-width: 56rem;
 }
 
-.sectionTitle,
-.ctaTitle {
+.sectionTitle {
   max-width: 16ch;
   font-size: clamp(2.2rem, 4vw, 3.8rem);
   font-weight: 500;
@@ -435,23 +457,9 @@
   font-size: 1.1rem;
 }
 
-.ctaPanel {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 2rem;
-  align-items: center;
-  padding: 1.8rem;
-  border: 1px solid var(--line-strong);
-  border-radius: 1.5rem;
-  background:
-    linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(34, 211, 238, 0.08)),
-    rgba(255, 255, 255, 0.02);
-}
-
 @media (max-width: 1080px) {
   .heroGrid,
-  .previewShell,
-  .ctaPanel {
+  .previewShell {
     grid-template-columns: 1fr;
   }
 
@@ -477,6 +485,10 @@
 
   .moduleCard {
     min-height: unset;
+  }
+
+  .heroTitle {
+    max-width: 12ch;
   }
 
   .flowStage {

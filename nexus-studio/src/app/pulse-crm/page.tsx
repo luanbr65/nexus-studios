@@ -14,91 +14,91 @@ import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'Pulse CRM - Nexus Studio',
-  description: 'Revenue operating system with pipeline control, automation and operator-grade visibility.',
+  description: 'Sistema comercial com pipeline, automacoes e visibilidade operacional para equipes de vendas.',
 };
 
 const principles = [
   {
     index: '01',
-    title: 'Structured commercial flow',
-    copy: 'Every lead, proposal and handoff lives inside one sequence with clear ownership and next actions.',
+    title: 'Fluxo comercial estruturado',
+    copy: 'Cada lead, proposta e handoff opera dentro de uma sequencia clara, com dono, contexto e proximo passo.',
   },
   {
     index: '02',
-    title: 'Operator-grade visibility',
-    copy: 'The interface is built for teams that need to read signal fast, not browse ornamental dashboards.',
+    title: 'Leitura rapida de sinal',
+    copy: 'A interface prioriza decisao operacional. Menos ornamento, mais clareza para quem precisa agir rapido.',
   },
   {
     index: '03',
-    title: 'Automation with context',
-    copy: 'Playbooks accelerate follow-up and qualification without flattening the nuance of each account.',
+    title: 'Automacao com contexto',
+    copy: 'Playbooks aceleram follow-ups e qualificacao sem apagar a nuance de cada conta e cada negociacao.',
   },
 ];
 
 const modules: Array<{ icon: LucideIcon; title: string; copy: string; meta: string }> = [
   {
     icon: Workflow,
-    title: 'Pipeline orchestration',
-    copy: 'Stage rules, owner accountability and pipeline hygiene built into the operating layer.',
+    title: 'Orquestracao de pipeline',
+    copy: 'Regras de etapa, responsabilidade por deal e higiene de pipeline embutidas na camada operacional.',
     meta: 'kanban / handoff / SLAs',
   },
   {
     icon: Bot,
-    title: 'Commercial automations',
-    copy: 'Trigger follow-ups, route hot accounts and keep the team focused on live opportunities.',
-    meta: 'playbooks / reminders / triggers',
+    title: 'Automacoes comerciais',
+    copy: 'Dispare follow-ups, priorize contas quentes e reduza o tempo gasto em trabalho repetitivo.',
+    meta: 'rotinas / alertas / gatilhos',
   },
   {
     icon: BarChart3,
-    title: 'Revenue telemetry',
-    copy: 'Read conversion, velocity and forecast in one place with less noise and tighter reporting.',
-    meta: 'forecast / cadence / conversion',
+    title: 'Telemetria de receita',
+    copy: 'Leia conversao, velocidade e previsao em uma superficie mais enxuta e util para o time.',
+    meta: 'forecast / cadencia / conversao',
   },
   {
     icon: MessagesSquare,
-    title: 'Shared account memory',
-    copy: 'Notes, meetings, objections and contact context stay attached to the deal, not hidden in chat.',
-    meta: 'timeline / context / history',
+    title: 'Memoria compartilhada da conta',
+    copy: 'Notas, reunioes, objeccoes e historico comercial ficam ligados ao deal, nao espalhados em chat.',
+    meta: 'timeline / contexto / historico',
   },
   {
     icon: Database,
-    title: 'Clean operating data',
-    copy: 'Lead sources, qualification patterns and commercial output stay normalized for future decisions.',
-    meta: 'data model / sources / sync',
+    title: 'Base operacional limpa',
+    copy: 'Fontes de lead, padroes de qualificacao e saida comercial ficam normalizados para decisao futura.',
+    meta: 'modelo / fontes / sincronizacao',
   },
   {
     icon: ShieldCheck,
-    title: 'Controlled access',
-    copy: 'Private demos, team roles and operational safeguards keep the surface ready for real usage.',
-    meta: 'roles / audit / governance',
+    title: 'Controle de acesso',
+    copy: 'Demos privadas, papeis do time e protecoes operacionais deixam a superficie pronta para uso real.',
+    meta: 'roles / auditoria / governanca',
   },
 ];
 
 const deploymentTracks = [
   {
-    label: 'Pilot',
-    title: 'For teams validating the operating model',
-    copy: 'Best for a compact sales squad that needs a cleaner system before expanding process complexity.',
-    metric: '2 to 4 weeks',
+    label: 'Piloto',
+    title: 'Para equipes validando um novo modelo comercial',
+    copy: 'Ideal para times compactos que precisam organizar a operacao antes de ampliar a complexidade do processo.',
+    metric: '2 a 4 semanas',
   },
   {
     label: 'Ops',
-    title: 'For teams formalizing revenue operations',
-    copy: 'Adds automation, reporting surfaces and role clarity for teams with active pipeline pressure.',
-    metric: '4 to 8 weeks',
+    title: 'Para equipes formalizando operacao de receita',
+    copy: 'Adiciona automacoes, superficies de relatorio e mais clareza de responsabilidade em pipeline ativo.',
+    metric: '4 a 8 semanas',
   },
   {
     label: 'Scale',
-    title: 'For multi-operator commercial environments',
-    copy: 'Designed for layered workflows, cross-team visibility and private deployment constraints.',
-    metric: 'Custom scope',
+    title: 'Para ambientes comerciais com multiplos operadores',
+    copy: 'Pensado para workflows em camadas, visibilidade cruzada e restricoes de implantacao privada.',
+    metric: 'Escopo customizado',
   },
 ];
 
 const heroSignals = [
-  { value: 'R$ 393k', label: 'active pipeline' },
-  { value: '31%', label: 'proposal conversion' },
-  { value: '8 days', label: 'avg. response cycle' },
+  { value: 'R$ 393k', label: 'pipeline ativo' },
+  { value: '31%', label: 'conversao de proposta' },
+  { value: '8 dias', label: 'ciclo medio de resposta' },
 ];
 
 export default function PulseCRM() {
@@ -107,42 +107,43 @@ export default function PulseCRM() {
       <section className={styles.hero}>
         <div className={styles.heroGrid}>
           <div className={styles.heroCopy}>
-            <span className={styles.eyebrow}>Nexus Product System / Pulse CRM</span>
-            <h1 className={styles.heroTitle}>A revenue control layer for teams that sell with precision.</h1>
+            <span className={styles.eyebrow}>Sistema de produto Nexus / Pulse CRM</span>
+            <h1 className={styles.heroTitle}>Uma camada de controle comercial para equipes que vendem com precisao.</h1>
             <p className={styles.heroText}>
-              Pulse CRM reorganizes leads, proposals and follow-ups into one operational surface. It is designed to
-              feel less like a generic SaaS template and more like a reliable command layer for commercial teams.
+              Pulse CRM reorganiza leads, propostas e follow-ups em uma unica superficie operacional. A proposta nao
+              e parecer uma landing generica de SaaS, e sim uma ferramenta que transmite controle, leitura e ritmo de
+              execucao.
             </p>
 
             <div className={styles.heroActions}>
               <Link href="/pulse-crm/dashboard" className={styles.primaryLink}>
-                Open product demo <ArrowRight size={16} />
+                Abrir demo do produto <ArrowRight size={16} />
               </Link>
               <a href="#deployment" className={styles.secondaryLink}>
-                Review deployment tracks
+                Ver faixas de implantacao
               </a>
             </div>
 
             <div className={styles.metricRow}>
               <div className={styles.metricCard}>
                 <span className={styles.metricValue}>247</span>
-                <span className={styles.metricLabel}>tracked accounts</span>
+                <span className={styles.metricLabel}>contas monitoradas</span>
               </div>
               <div className={styles.metricCard}>
                 <span className={styles.metricValue}>14</span>
-                <span className={styles.metricLabel}>live automations</span>
+                <span className={styles.metricLabel}>automacoes ativas</span>
               </div>
               <div className={styles.metricCard}>
-                <span className={styles.metricValue}>99.2%</span>
-                <span className={styles.metricLabel}>data completion</span>
+                <span className={styles.metricValue}>99,2%</span>
+                <span className={styles.metricLabel}>completude de dados</span>
               </div>
             </div>
           </div>
 
           <aside className={styles.heroPanel}>
             <div className={styles.panelHeader}>
-              <span className={styles.panelEyebrow}>Operational snapshot</span>
-              <span className={styles.panelTimestamp}>updated 2m ago</span>
+              <span className={styles.panelEyebrow}>Leitura operacional</span>
+              <span className={styles.panelTimestamp}>atualizado ha 2 min</span>
             </div>
 
             <div className={styles.signalGrid}>
@@ -155,19 +156,19 @@ export default function PulseCRM() {
             </div>
 
             <div className={styles.panelBlock}>
-              <span className={styles.panelBlockLabel}>Operator stack</span>
+              <span className={styles.panelBlockLabel}>Estrutura do operador</span>
               <ul className={styles.panelList}>
-                <li>Pipeline governance with deal ownership</li>
-                <li>Follow-up triggers for stalled accounts</li>
-                <li>Shared visibility across qualification and proposal</li>
+                <li>Governanca do pipeline com dono por oportunidade</li>
+                <li>Gatilhos de follow-up para contas sem movimento</li>
+                <li>Visibilidade compartilhada entre qualificacao e proposta</li>
               </ul>
             </div>
 
             <div className={styles.panelBlock}>
-              <span className={styles.panelBlockLabel}>Why it feels different</span>
+              <span className={styles.panelBlockLabel}>Por que a leitura muda</span>
               <p className={styles.panelText}>
-                Pulse is framed as an operating system, not as a glossy dashboard. The interface is dense where it
-                needs to be and quiet everywhere else.
+                O Pulse foi desenhado como sistema operacional comercial, nao como vitrine. A interface fica densa
+                onde precisa e silenciosa no resto.
               </p>
             </div>
           </aside>
@@ -176,8 +177,8 @@ export default function PulseCRM() {
 
       <section className={styles.section}>
         <div className={styles.sectionIntro}>
-          <span className={styles.sectionEyebrow}>Operating principles</span>
-          <h2 className={styles.sectionTitle}>Built with the same visual discipline as the Nexus brand.</h2>
+          <span className={styles.sectionEyebrow}>Principios de produto</span>
+          <h2 className={styles.sectionTitle}>A mesma disciplina visual da Nexus aplicada a um produto comercial.</h2>
         </div>
 
         <div className={styles.principlesGrid}>
@@ -193,8 +194,8 @@ export default function PulseCRM() {
 
       <section id="features" className={styles.section}>
         <div className={styles.sectionIntro}>
-          <span className={styles.sectionEyebrow}>Core modules</span>
-          <h2 className={styles.sectionTitle}>A tighter commercial surface from first touch to closed account.</h2>
+          <span className={styles.sectionEyebrow}>Modulos centrais</span>
+          <h2 className={styles.sectionTitle}>Uma superficie comercial mais enxuta do primeiro contato ao deal fechado.</h2>
         </div>
 
         <div className={styles.moduleGrid}>
@@ -215,37 +216,37 @@ export default function PulseCRM() {
 
       <section className={`${styles.section} ${styles.previewSection}`}>
         <div className={styles.sectionIntro}>
-          <span className={styles.sectionEyebrow}>Interface preview</span>
-          <h2 className={styles.sectionTitle}>A commercial command layer with less noise and stronger control.</h2>
+          <span className={styles.sectionEyebrow}>Preview de interface</span>
+          <h2 className={styles.sectionTitle}>Um painel de comando comercial com menos ruido e mais capacidade de acao.</h2>
         </div>
 
         <div className={styles.previewShell}>
           <div className={styles.previewRail}>
             <div className={styles.previewRailBlock}>
               <span className={styles.previewRailLabel}>Views</span>
-              <span className={styles.previewRailItem}>overview</span>
+              <span className={styles.previewRailItem}>visao geral</span>
               <span className={styles.previewRailItem}>pipeline</span>
-              <span className={styles.previewRailItem}>contacts</span>
-              <span className={styles.previewRailItem}>automation</span>
+              <span className={styles.previewRailItem}>contatos</span>
+              <span className={styles.previewRailItem}>automacoes</span>
             </div>
             <div className={styles.previewRailBlock}>
-              <span className={styles.previewRailLabel}>Status</span>
-              <span className={styles.previewRailMuted}>private demo / clean data / operator mode</span>
+              <span className={styles.previewRailLabel}>Estado do ambiente</span>
+              <span className={styles.previewRailMuted}>demo privada / dados limpos / modo operador</span>
             </div>
           </div>
 
           <div className={styles.previewWorkspace}>
             <div className={styles.previewStats}>
               <div className={styles.previewStat}>
-                <span>proposal velocity</span>
+                <span>velocidade de proposta</span>
                 <strong>+18%</strong>
               </div>
               <div className={styles.previewStat}>
-                <span>pipeline quality</span>
+                <span>qualidade do pipeline</span>
                 <strong>94 pts</strong>
               </div>
               <div className={styles.previewStat}>
-                <span>next action coverage</span>
+                <span>cobertura de proxima acao</span>
                 <strong>87%</strong>
               </div>
             </div>
@@ -258,19 +259,19 @@ export default function PulseCRM() {
                 </span>
               </div>
               <div className={styles.flowStage}>
-                <span className={styles.flowLabel}>Qualified</span>
+                <span className={styles.flowLabel}>Qualificado</span>
                 <span className={styles.flowBar}>
                   <span style={{ width: '59%' }} />
                 </span>
               </div>
               <div className={styles.flowStage}>
-                <span className={styles.flowLabel}>Proposal</span>
+                <span className={styles.flowLabel}>Proposta</span>
                 <span className={styles.flowBar}>
                   <span style={{ width: '46%' }} />
                 </span>
               </div>
               <div className={styles.flowStage}>
-                <span className={styles.flowLabel}>Negotiation</span>
+                <span className={styles.flowLabel}>Negociacao</span>
                 <span className={styles.flowBar}>
                   <span style={{ width: '31%' }} />
                 </span>
@@ -282,8 +283,8 @@ export default function PulseCRM() {
 
       <section id="deployment" className={styles.section}>
         <div className={styles.sectionIntro}>
-          <span className={styles.sectionEyebrow}>Deployment tracks</span>
-          <h2 className={styles.sectionTitle}>Different levels of implementation, one consistent operating language.</h2>
+          <span className={styles.sectionEyebrow}>Faixas de implantacao</span>
+          <h2 className={styles.sectionTitle}>Niveis diferentes de implementacao, uma linguagem operacional consistente.</h2>
         </div>
 
         <div className={styles.deploymentGrid}>
@@ -295,21 +296,6 @@ export default function PulseCRM() {
               <strong>{track.metric}</strong>
             </article>
           ))}
-        </div>
-      </section>
-
-      <section className={styles.ctaPanel}>
-        <div>
-          <span className={styles.sectionEyebrow}>Private product demo</span>
-          <h2 className={styles.ctaTitle}>Explore the Pulse dashboard and see the Nexus language applied to a revenue system.</h2>
-        </div>
-        <div className={styles.ctaActions}>
-          <Link href="/pulse-crm/dashboard" className={styles.primaryLink}>
-            Launch dashboard <ArrowRight size={16} />
-          </Link>
-          <Link href="/" className={styles.secondaryLink}>
-            Back to Nexus home
-          </Link>
         </div>
       </section>
     </main>

@@ -36,12 +36,26 @@
   border: 1px solid var(--line-soft);
   background: var(--surface-0);
   backdrop-filter: blur(16px);
+  transition: transform var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    background var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
 .brandBlock,
 .railCard {
   border-radius: 1.2rem;
   padding: 1.1rem;
+}
+
+.brandBlock:hover,
+.railCard:hover,
+.panel:hover,
+.signalCard:hover,
+.boardColumn:hover,
+.contactCard:hover {
+  transform: translateY(-1px);
+  border-color: var(--line-strong);
+  background: var(--surface-1);
 }
 
 .brand {
@@ -578,6 +592,16 @@
   border-radius: 1rem;
 }
 
+.boardCard:hover,
+.dealCard:hover,
+.queueItem:hover,
+.activityItem:hover,
+.ruleCard:hover,
+.guidanceItem:hover {
+  border-color: var(--line-strong);
+  background: var(--surface-1);
+}
+
 .boardCard strong {
   font-size: 0.98rem;
 }
@@ -623,6 +647,18 @@
   gap: 0.65rem;
 }
 
+.contactState {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.1rem;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 999px;
+  color: rgba(248, 250, 252, 0.78);
+  font-size: 0.84rem;
+}
+
 .contactMeta span {
   display: inline-flex;
   align-items: center;
@@ -641,6 +677,36 @@
   gap: 0.75rem;
   padding: 1rem;
   border-radius: 1rem;
+}
+
+.stateNote {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 2.5rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 1rem;
+  color: rgba(248, 250, 252, 0.78);
+  background: rgba(255, 255, 255, 0.02);
+  font-size: 0.9rem;
+}
+
+.stateNote svg {
+  color: #6ee7b7;
+  flex-shrink: 0;
+}
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  padding: 1rem;
+  border: 1px dashed var(--line-soft);
+  border-radius: 1rem;
+  color: var(--text-muted);
+  text-align: center;
 }
 
 .guidanceItem svg {
@@ -681,10 +747,13 @@
   .nav {
     flex-direction: row;
     flex-wrap: wrap;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
   }
 
   .navButton {
     width: auto;
+    flex: 0 0 auto;
   }
 
   .workspace {
@@ -702,6 +771,7 @@
 
   .search {
     width: 100%;
+    min-width: 0;
   }
 }
 
