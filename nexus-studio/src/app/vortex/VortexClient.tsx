@@ -1,14 +1,12 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { startTransition, useDeferredValue, useEffect, useMemo, useState } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import {
   Area,
   AreaChart,
   CartesianGrid,
   Cell,
-  Line,
   Pie,
   PieChart,
   ResponsiveContainer,
@@ -16,125 +14,159 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import { AlertBadge, EmptyState, FilterGroup, FocusPanel, MetricCard } from './VortexComponents';
-import { buildSyntheticAnalytics, filterOptions, sanitizeFilters } from './syntheticData';
 import styles from './vortex.module.css';
-import type { AnalyticsSnapshot, FocusDetail, RangeKey, ScenarioKey, SegmentKey } from './types';
 
-interface FiltersState {
-  range: RangeKey;
-  segment: SegmentKey;
-  scenario: ScenarioKey;
+type RangeKey = '7D' | '30D' | '90D';
+type SegmentKey = 'All' | 'Product' | 'Enterprise';
+
+const performanceData: Record<
+  RangeKey,
+  Array<{ label: string; revenue: number; sessions: number; orders: number; conversion: number }>
+> = {
+  '7D': [
+    { label: 'Mon', revenue: 18400, sessions: 8100, orders: 252, conversion: 3.1 },
+    { label: 'Tue', revenue: 19600, sessions: 8480, orders: 268, conversion: 3.2 },
+    { label: 'Wed', revenue: 22300, sessions: 9040, orders: 301, conversion: 3.4 },
+    { label: 'Thu', revenue: 21750, sessions: 8920, orders: 295, conversion: 3.3 },
+    { label: 'Fri', revenue: 24800, sessions: 9800, orders: 338, conversion: 3.5 },
+    { label: 'Sat', revenue: 26100, sessions: 10120, orders: 352, conversion: 3.6 },
+    { label: 'Sun', revenue: 23940, sessions: 9500, orders: 327, conversion: 3.4 },
+  ],
+  '30D': [
+    { label: 'W1', revenue: 112400, sessions: 45200, orders: 1482, conversion: 3.2 },
+    { label: 'W2', revenue: 128700, sessions: 48940, orders: 1635, conversion: 3.3 },
+    { label: 'W3', revenue: 136100, sessions: 51420, orders: 1711, conversion: 3.4 },
+    { label: 'W4', revenue: 149900, sessions: 54880, orders: 1884, conversion: 3.6 },
+  ],
+  '90D': [
+    { label: 'Jan', revenue: 412000, sessions: 161200, orders: 5324, conversion: 3.1 },
+    { label: 'Feb', revenue: 438500, sessions: 172900, orders: 5580, conversion: 3.2 },
+    { label: 'Mar', revenue: 471200, sessions: 184600, orders: 6014, conversion: 3.3 },
+  ],
+};
+
+const channelData: Record<RangeKey, Array<{ name: string; value: number; color: string }>> = {
+  '7D': [
+    { name: 'Organic', value: 38, color: '#7cf29b' },
+    { name: 'Paid Social', value: 21, color: '#4fc3f7' },
+    { name: 'Direct', value: 18, color: '#ffd166' },
+    { name: 'Referral', value: 13, color: '#ff8a65' },
+    { name: 'Email', value: 10, color: '#b388ff' },
+  ],
+  '30D': [
+    { name: 'Organic', value: 34, color: '#7cf29b' },
+    { name: 'Paid Social', value: 24, color: '#4fc3f7' },
+    { name: 'Direct', value: 17, color: '#ffd166' },
+    { name: 'Referral', value: 15, color: '#ff8a65' },
+    { name: 'Email', value: 10, color: '#b388ff' },
+  ],
+  '90D': [
+    { name: 'Organic', value: 32, color: '#7cf29b' },
+    { name: 'Paid Social', value: 26, color: '#4fc3f7' },
+    { name: 'Direct', value: 16, color: '#ffd166' },
+    { name: 'Referral', value: 14, color: '#ff8a65' },
+    { name: 'Email', value: 12, color: '#b388ff' },
+  ],
+};
+
+const funnelData = [
+  { label: 'Visitors', value: '182k', change: '+8.2%' },
+  { label: 'Trials', value: '14.7k', change: '+5.6%' },
+  { label: 'Qualified', value: '4.1k', change: '+3.4%' },
+  { label: 'Won', value: '1.2k', change: '+2.1%' },
+];
+
+const regionData = [
+  { name: 'North America', revenue: '$412k', conversion: '4.8%', status: 'Scaling well' },
+  { name: 'Europe', revenue: '$286k', conversion: '3.9%', status: 'Healthy demand' },
+  { name: 'Latin America', revenue: '$174k', conversion: '4.2%', status: 'Fastest growth' },
+  { name: 'Asia Pacific', revenue: '$221k', conversion: '3.5%', status: 'Needs retention push' },
+];
+
+const segmentNotes: Record<SegmentKey, string[]> = {
+  All: [
+    'Revenue is broad-based, with organic and paid social moving in balance.',
+    'Retention pressure is concentrated in Asia Pacific, not across the whole funnel.',
+    'The top opportunity this week is landing page optimization for high-intent traffic.',
+  ],
+  Product: [
+    'Self-serve demand is strong, especially on mobile acquisition flows.',
+    'Checkout conversion improved after reducing friction in onboarding.',
+    'The next lever is feature adoption after the first successful session.',
+  ],
+  Enterprise: [
+    'Pipeline quality is holding, but the deal cycle remains slower than self-serve.',
+    'Direct traffic is outperforming paid for large-account conversions.',
+    'Expansion revenue is growing faster than new-logo acquisition this month.',
+  ],
+};
+
+const segmentMultipliers: Record<SegmentKey, { revenue: number; orders: number; conversion: number; liveUsers: number }> = {
+  All: { revenue: 1, orders: 1, conversion: 1, liveUsers: 1 },
+  Product: { revenue: 0.82, orders: 0.91, conversion: 1.07, liveUsers: 1.18 },
+  Enterprise: { revenue: 1.24, orders: 0.52, conversion: 0.88, liveUsers: 0.54 },
+};
+
+const rangeLabels: Record<RangeKey, string> = {
+  '7D': 'Last 7 days',
+  '30D': 'Last 30 days',
+  '90D': 'Last 90 days',
+};
+
+function formatCurrency(value: number) {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 0,
+  }).format(value);
 }
 
-function getFocusDetail(snapshot: AnalyticsSnapshot, focusId: string | null): FocusDetail | null {
-  if (!focusId) {
-    return null;
-  }
-
-  const fromSummary = snapshot.summary.find((item) => item.id === focusId)?.detail;
-  if (fromSummary) {
-    return fromSummary;
-  }
-
-  const fromChannels = snapshot.channels.find((item) => item.id === focusId)?.detail;
-  if (fromChannels) {
-    return fromChannels;
-  }
-
-  const fromRegions = snapshot.regions.find((item) => item.id === focusId)?.detail;
-  if (fromRegions) {
-    return fromRegions;
-  }
-
-  return snapshot.topPages.find((item) => item.id === focusId)?.detail ?? null;
+function formatCompact(value: number) {
+  return new Intl.NumberFormat('en-US', {
+    notation: 'compact',
+    maximumFractionDigits: 1,
+  }).format(value);
 }
 
 export default function VortexClient() {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const router = useRouter();
+  const [activeRange, setActiveRange] = useState<RangeKey>('30D');
+  const [activeSegment, setActiveSegment] = useState<SegmentKey>('All');
+  const [liveUsers, setLiveUsers] = useState(1842);
+  const [insights, setInsights] = useState(segmentNotes.All);
 
-  const initialFilters = sanitizeFilters({
-    range: searchParams.get('range'),
-    segment: searchParams.get('segment'),
-    scenario: searchParams.get('scenario'),
-  });
+  const selectedPerformance = performanceData[activeRange];
+  const selectedChannels = channelData[activeRange];
+  const multiplier = segmentMultipliers[activeSegment];
 
-  const [filters, setFilters] = useState<FiltersState>(initialFilters);
-  const [selectedFocusId, setSelectedFocusId] = useState<string | null>(searchParams.get('focus'));
-
-  useEffect(() => {
-    const nextFilters = sanitizeFilters({
-      range: searchParams.get('range'),
-      segment: searchParams.get('segment'),
-      scenario: searchParams.get('scenario'),
-    });
-    const nextFocus = searchParams.get('focus');
-
-    setFilters((current) =>
-      current.range === nextFilters.range &&
-      current.segment === nextFilters.segment &&
-      current.scenario === nextFilters.scenario
-        ? current
-        : nextFilters,
-    );
-    setSelectedFocusId((current) => (current === nextFocus ? current : nextFocus));
-  }, [searchParams]);
-
-  const deferredFilters = useDeferredValue(filters);
-  const snapshot = useMemo(
-    () => buildSyntheticAnalytics(deferredFilters.range, deferredFilters.segment, deferredFilters.scenario),
-    [deferredFilters.range, deferredFilters.segment, deferredFilters.scenario],
+  const revenue = Math.round(
+    selectedPerformance.reduce((total, point) => total + point.revenue, 0) * multiplier.revenue,
   );
+  const sessions = Math.round(
+    selectedPerformance.reduce((total, point) => total + point.sessions, 0) * multiplier.liveUsers,
+  );
+  const orders = Math.round(selectedPerformance.reduce((total, point) => total + point.orders, 0) * multiplier.orders);
+  const conversion =
+    (
+      (selectedPerformance.reduce((total, point) => total + point.conversion, 0) / selectedPerformance.length) *
+      multiplier.conversion
+    ).toFixed(1) + '%';
 
   useEffect(() => {
-    if (!selectedFocusId) {
-      setSelectedFocusId(snapshot.recommendedFocusId);
-      return;
-    }
-
-    if (!getFocusDetail(snapshot, selectedFocusId)) {
-      setSelectedFocusId(snapshot.recommendedFocusId);
-    }
-  }, [selectedFocusId, snapshot]);
+    setInsights(segmentNotes[activeSegment]);
+  }, [activeSegment]);
 
   useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set('range', filters.range);
-    params.set('segment', filters.segment);
-    params.set('scenario', filters.scenario);
+    const interval = setInterval(() => {
+      setLiveUsers((current) => Math.max(1200, current + Math.round(Math.random() * 80 - 35)));
+    }, 2400);
 
-    if (selectedFocusId) {
-      params.set('focus', selectedFocusId);
-    } else {
-      params.delete('focus');
-    }
+    return () => clearInterval(interval);
+  }, []);
 
-    const nextQuery = params.toString();
-    const currentQuery = searchParams.toString();
-
-    if (nextQuery !== currentQuery) {
-      router.replace(`${pathname}?${nextQuery}`, { scroll: false });
-    }
-  }, [filters, pathname, router, searchParams, selectedFocusId]);
-
-  const isRefreshing =
-    filters.range !== deferredFilters.range ||
-    filters.segment !== deferredFilters.segment ||
-    filters.scenario !== deferredFilters.scenario;
-
-  const focusDetail = getFocusDetail(snapshot, selectedFocusId);
-  const topChannel = [...snapshot.channels].sort((left, right) => right.share - left.share)[0];
-
-  const handleFilterChange = <T extends keyof FiltersState>(key: T, value: FiltersState[T]) => {
-    startTransition(() => {
-      setFilters((current) => ({ ...current, [key]: value }));
-    });
-  };
+  const topChannel = [...selectedChannels].sort((left, right) => right.value - left.value)[0];
 
   return (
-    <main className={styles.container} aria-label="Vortex analytics" aria-busy={isRefreshing}>
+    <main className={styles.container} aria-label="Vortex analytics">
       <div className={styles.backdrop}></div>
       <div className={styles.scanlines}></div>
       <div className={styles.glow}></div>
@@ -149,70 +181,91 @@ export default function VortexClient() {
         </div>
 
         <div className={styles.headerMeta}>
-          <span className={styles.headerBadge}>{snapshot.scenarioLabel}</span>
-          <span className={styles.headerBadge}>Live users {snapshot.liveUsers}</span>
-          {isRefreshing && <span className={styles.headerBadgeAccent}>Refreshing view</span>}
+          <span className={styles.headerBadge}>{rangeLabels[activeRange]}</span>
+          <span className={styles.headerBadge}>{activeSegment} segment</span>
         </div>
       </header>
 
       <section className={styles.hero}>
         <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}>Synthetic but coherent analytics</p>
-          <h1 className={styles.heroTitle}>A believable growth console, ready for real data later.</h1>
-          <p className={styles.heroText}>{snapshot.scenarioSummary}</p>
+          <p className={styles.eyebrow}>Revenue, funnel, and traffic quality</p>
+          <h1 className={styles.heroTitle}>A real analytics surface inside Nexus, not a gated mockup.</h1>
+          <p className={styles.heroText}>
+            This version of Vortex is focused on product and growth intelligence: revenue trends, acquisition mix,
+            conversion health, and market performance all live in one view.
+          </p>
         </div>
 
-        <div className={styles.filterStack}>
-          <FilterGroup
-            label="Range"
-            options={filterOptions.ranges}
-            value={filters.range}
-            onChange={(value) => handleFilterChange('range', value)}
-          />
-          <FilterGroup
-            label="Segment"
-            options={filterOptions.segments}
-            value={filters.segment}
-            onChange={(value) => handleFilterChange('segment', value)}
-          />
-          <FilterGroup
-            label="Scenario"
-            options={filterOptions.scenarios}
-            value={filters.scenario}
-            onChange={(value) => handleFilterChange('scenario', value)}
-          />
+        <div className={styles.controlStack}>
+          <div className={styles.controlGroup}>
+            {(['7D', '30D', '90D'] as RangeKey[]).map((range) => (
+              <button
+                key={range}
+                type="button"
+                className={range === activeRange ? styles.controlButtonActive : styles.controlButton}
+                onClick={() => setActiveRange(range)}
+              >
+                {range}
+              </button>
+            ))}
+          </div>
+
+          <div className={styles.controlGroup}>
+            {(['All', 'Product', 'Enterprise'] as SegmentKey[]).map((segment) => (
+              <button
+                key={segment}
+                type="button"
+                className={segment === activeSegment ? styles.controlButtonActive : styles.controlButton}
+                onClick={() => setActiveSegment(segment)}
+              >
+                {segment}
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
       <section className={styles.metricsGrid}>
-        {snapshot.summary.map((metric) => (
-          <MetricCard
-            key={metric.id}
-            metric={metric}
-            active={selectedFocusId === metric.id}
-            onSelect={setSelectedFocusId}
-          />
-        ))}
+        <article className={styles.metricCard}>
+          <span className={styles.metricLabel}>Revenue</span>
+          <strong className={styles.metricValue}>{formatCurrency(revenue)}</strong>
+          <p className={styles.metricMeta}>Blended across the selected time range and segment.</p>
+        </article>
+        <article className={styles.metricCard}>
+          <span className={styles.metricLabel}>Orders</span>
+          <strong className={styles.metricValue}>{formatCompact(orders)}</strong>
+          <p className={styles.metricMeta}>Healthy order flow with stronger weekend closes.</p>
+        </article>
+        <article className={styles.metricCard}>
+          <span className={styles.metricLabel}>Avg. conversion</span>
+          <strong className={styles.metricValue}>{conversion}</strong>
+          <p className={styles.metricMeta}>Lift is strongest in the self-serve funnel.</p>
+        </article>
+        <article className={styles.metricCard}>
+          <span className={styles.metricLabel}>Live users</span>
+          <strong className={styles.metricValue}>{formatCompact(liveUsers)}</strong>
+          <p className={styles.metricMeta}>Top acquisition channel: {topChannel.name}.</p>
+        </article>
       </section>
 
       <div className={styles.dashboardGrid}>
         <motion.section
           className={`${styles.panel} ${styles.primaryPanel}`}
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
+          transition={{ duration: 0.45, ease: 'easeOut' }}
         >
           <div className={styles.panelHeader}>
             <div>
               <p className={styles.panelTitle}>Revenue trend</p>
-              <p className={styles.panelSubtitle}>Current period compared with the previous baseline.</p>
+              <p className={styles.panelSubtitle}>Sessions and revenue moving together over time.</p>
             </div>
-            <span className={styles.panelTag}>{filters.range}</span>
+            <span className={styles.panelTag}>Performance</span>
           </div>
 
           <div className={styles.chartShell}>
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={snapshot.performance}>
+              <AreaChart data={selectedPerformance}>
                 <defs>
                   <linearGradient id="revenueFill" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#7cf29b" stopOpacity={0.42} />
@@ -230,54 +283,37 @@ export default function VortexClient() {
                     color: '#ecfff1',
                   }}
                 />
-                <Area type="monotone" dataKey="revenue" stroke="#7cf29b" strokeWidth={2.2} fill="url(#revenueFill)" />
-                <Line type="monotone" dataKey="previousRevenue" stroke="#4f7f5d" strokeWidth={1.6} dot={false} />
+                <Area type="monotone" dataKey="revenue" stroke="#7cf29b" strokeWidth={2.5} fill="url(#revenueFill)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
 
           <div className={styles.inlineStats}>
             <div>
-              <span className={styles.inlineLabel}>Top channel</span>
-              <strong>{topChannel?.name}</strong>
+              <span className={styles.inlineLabel}>Sessions</span>
+              <strong>{formatCompact(sessions)}</strong>
             </div>
             <div>
-              <span className={styles.inlineLabel}>Scenario</span>
-              <strong>{snapshot.scenarioLabel}</strong>
+              <span className={styles.inlineLabel}>Peak period</span>
+              <strong>{selectedPerformance[selectedPerformance.length - 1]?.label}</strong>
             </div>
             <div>
-              <span className={styles.inlineLabel}>Focus</span>
-              <strong>{filters.segment}</strong>
+              <span className={styles.inlineLabel}>Revenue / session</span>
+              <strong>{formatCurrency(Math.round(revenue / Math.max(sessions, 1)))}</strong>
             </div>
           </div>
         </motion.section>
 
         <motion.section
           className={styles.panel}
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.05, ease: 'easeOut' }}
-        >
-          <div className={styles.panelHeader}>
-            <div>
-              <p className={styles.panelTitle}>Signal detail</p>
-              <p className={styles.panelSubtitle}>Drill into whichever metric or row matters right now.</p>
-            </div>
-            <span className={styles.panelTag}>Inspector</span>
-          </div>
-          <FocusPanel detail={focusDetail} />
-        </motion.section>
-
-        <motion.section
-          className={styles.panel}
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1, ease: 'easeOut' }}
+          transition={{ duration: 0.45, delay: 0.05, ease: 'easeOut' }}
         >
           <div className={styles.panelHeader}>
             <div>
               <p className={styles.panelTitle}>Acquisition mix</p>
-              <p className={styles.panelSubtitle}>Channel contribution with click-to-inspect rows.</p>
+              <p className={styles.panelSubtitle}>Channel share for the selected range.</p>
             </div>
             <span className={styles.panelTag}>Traffic</span>
           </div>
@@ -285,9 +321,9 @@ export default function VortexClient() {
           <div className={styles.donutWrap}>
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
-                <Pie data={snapshot.channels} dataKey="share" innerRadius={60} outerRadius={86} paddingAngle={4}>
-                  {snapshot.channels.map((entry) => (
-                    <Cell key={entry.id} fill={entry.color} />
+                <Pie data={selectedChannels} dataKey="value" innerRadius={58} outerRadius={86} paddingAngle={4}>
+                  {selectedChannels.map((entry) => (
+                    <Cell key={entry.name} fill={entry.color} />
                   ))}
                 </Pie>
                 <Tooltip
@@ -303,47 +339,13 @@ export default function VortexClient() {
           </div>
 
           <div className={styles.channelList}>
-            {snapshot.channels.map((channel) => (
-              <button
-                key={channel.id}
-                type="button"
-                className={selectedFocusId === channel.id ? styles.listRowActive : styles.listRow}
-                onClick={() => setSelectedFocusId(channel.id)}
-              >
-                <div className={styles.rowLeading}>
+            {selectedChannels.map((channel) => (
+              <div key={channel.name} className={styles.channelRow}>
+                <div className={styles.channelInfo}>
                   <span className={styles.channelDot} style={{ backgroundColor: channel.color }}></span>
                   <span>{channel.name}</span>
                 </div>
-                <div className={styles.rowTrailing}>
-                  <strong>{channel.share}%</strong>
-                  <small>{channel.delta}</small>
-                </div>
-              </button>
-            ))}
-          </div>
-        </motion.section>
-
-        <motion.section
-          className={styles.panel}
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.15, ease: 'easeOut' }}
-        >
-          <div className={styles.panelHeader}>
-            <div>
-              <p className={styles.panelTitle}>Funnel checkpoints</p>
-              <p className={styles.panelSubtitle}>Progression through the modeled customer journey.</p>
-            </div>
-            <span className={styles.panelTag}>Growth</span>
-          </div>
-
-          <div className={styles.funnelGrid}>
-            {snapshot.funnel.map((step) => (
-              <div key={step.id} className={styles.funnelCard}>
-                <span className={styles.funnelLabel}>{step.label}</span>
-                <strong className={styles.funnelValue}>{step.value}</strong>
-                <span className={styles.funnelDelta}>{step.delta}</span>
-                <p className={styles.funnelNote}>{step.note}</p>
+                <strong>{channel.value}%</strong>
               </div>
             ))}
           </div>
@@ -351,146 +353,79 @@ export default function VortexClient() {
 
         <motion.section
           className={styles.panel}
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.2, ease: 'easeOut' }}
+          transition={{ duration: 0.45, delay: 0.1, ease: 'easeOut' }}
         >
           <div className={styles.panelHeader}>
             <div>
-              <p className={styles.panelTitle}>Top pages</p>
-              <p className={styles.panelSubtitle}>Surfaces that are generating the most value in this scenario.</p>
+              <p className={styles.panelTitle}>Funnel checkpoints</p>
+              <p className={styles.panelSubtitle}>Stage-by-stage movement through the customer journey.</p>
             </div>
-            <span className={styles.panelTag}>Content</span>
+            <span className={styles.panelTag}>Growth</span>
           </div>
 
-          <div className={styles.table}>
-            {snapshot.topPages.map((page) => (
-              <button
-                key={page.id}
-                type="button"
-                className={selectedFocusId === page.id ? styles.tableRowActive : styles.tableRow}
-                onClick={() => setSelectedFocusId(page.id)}
-              >
-                <span>{page.name}</span>
-                <span>{page.sessions}</span>
-                <span>{page.conversion}</span>
-                <strong>{page.revenue}</strong>
-              </button>
+          <div className={styles.funnelGrid}>
+            {funnelData.map((item) => (
+              <div key={item.label} className={styles.funnelCard}>
+                <span className={styles.funnelLabel}>{item.label}</span>
+                <strong className={styles.funnelValue}>{item.value}</strong>
+                <span className={styles.funnelChange}>{item.change}</span>
+              </div>
             ))}
           </div>
         </motion.section>
 
         <motion.section
           className={styles.panel}
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.25, ease: 'easeOut' }}
+          transition={{ duration: 0.45, delay: 0.15, ease: 'easeOut' }}
         >
           <div className={styles.panelHeader}>
             <div>
               <p className={styles.panelTitle}>Regional performance</p>
-              <p className={styles.panelSubtitle}>Markets that are outperforming or slowing the whole picture.</p>
+              <p className={styles.panelSubtitle}>Where conversion is strongest right now.</p>
             </div>
-            <span className={styles.panelTag}>Regions</span>
+            <span className={styles.panelTag}>Markets</span>
           </div>
 
           <div className={styles.regionList}>
-            {snapshot.regions.map((region) => (
-              <button
-                key={region.id}
-                type="button"
-                className={selectedFocusId === region.id ? styles.listRowActive : styles.listRow}
-                onClick={() => setSelectedFocusId(region.id)}
-              >
-                <div className={styles.rowLeadingStack}>
+            {regionData.map((region) => (
+              <div key={region.name} className={styles.regionRow}>
+                <div>
                   <strong>{region.name}</strong>
-                  <small>{region.status}</small>
+                  <p>{region.status}</p>
                 </div>
-                <div className={styles.rowTrailing}>
-                  <strong>{region.revenue}</strong>
-                  <small>{region.conversion}</small>
+                <div className={styles.regionMeta}>
+                  <span>{region.revenue}</span>
+                  <span>{region.conversion}</span>
                 </div>
-              </button>
+              </div>
             ))}
           </div>
         </motion.section>
 
         <motion.section
-          className={styles.panel}
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.3, ease: 'easeOut' }}
-        >
-          <div className={styles.panelHeader}>
-            <div>
-              <p className={styles.panelTitle}>Experiments</p>
-              <p className={styles.panelSubtitle}>Safe placeholders for future product and growth tests.</p>
-            </div>
-            <span className={styles.panelTag}>Ops</span>
-          </div>
-
-          {snapshot.experiments.length === 0 ? (
-            <EmptyState
-              title="No active experiments"
-              body="This scenario deliberately leaves the experiment queue empty so the UI already supports empty states."
-            />
-          ) : (
-            <div className={styles.experimentList}>
-              {snapshot.experiments.map((experiment) => (
-                <div key={experiment.id} className={styles.experimentCard}>
-                  <div>
-                    <strong>{experiment.name}</strong>
-                    <p>{experiment.audience}</p>
-                  </div>
-                  <div className={styles.rowTrailing}>
-                    <strong>{experiment.lift}</strong>
-                    <small>{experiment.status}</small>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </motion.section>
-
-        <motion.section
           className={`${styles.panel} ${styles.fullSpan}`}
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.35, ease: 'easeOut' }}
+          transition={{ duration: 0.45, delay: 0.2, ease: 'easeOut' }}
         >
           <div className={styles.panelHeader}>
             <div>
-              <p className={styles.panelTitle}>Insights and alerts</p>
-              <p className={styles.panelSubtitle}>Narrative guidance plus structured warning states.</p>
+              <p className={styles.panelTitle}>Operator insights</p>
+              <p className={styles.panelSubtitle}>Short narrative to guide the next product or growth move.</p>
             </div>
             <span className={styles.panelTag}>Briefing</span>
           </div>
 
-          <div className={styles.briefingGrid}>
-            <div className={styles.insightGrid}>
-              {snapshot.insights.map((insight) => (
-                <article key={insight.id} className={styles.insightCard}>
-                  <h3>{insight.title}</h3>
-                  <p>{insight.body}</p>
-                </article>
-              ))}
-            </div>
-
-            <div className={styles.alertList}>
-              {snapshot.alerts.length === 0 ? (
-                <EmptyState title="No alerts" body="This scenario is running clean with no warnings to surface." />
-              ) : (
-                snapshot.alerts.map((alert) => (
-                  <article key={alert.id} className={styles.alertCard}>
-                    <div className={styles.alertHeader}>
-                      <AlertBadge severity={alert.severity} />
-                      <h3>{alert.title}</h3>
-                    </div>
-                    <p>{alert.body}</p>
-                  </article>
-                ))
-              )}
-            </div>
+          <div className={styles.insightGrid}>
+            {insights.map((item) => (
+              <div key={item} className={styles.insightCard}>
+                <p>{item}</p>
+              </div>
+            ))}
           </div>
         </motion.section>
       </div>
