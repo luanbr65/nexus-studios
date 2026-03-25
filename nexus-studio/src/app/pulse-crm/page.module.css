@@ -1,11 +1,9 @@
-:root {
+.container {
   /* map some local tokens to global design variables */
   --page-bg: var(--color-bg);
   --page-text: var(--color-text);
   --page-accent: var(--color-primary);
-}
 
-.container {
   min-height: 100vh;
   background: var(--page-bg);
   color: var(--page-text);
