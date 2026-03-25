@@ -1,0 +1,372 @@
+.page {
+  --surface-0: rgba(255, 255, 255, 0.03);
+  --surface-1: rgba(255, 255, 255, 0.05);
+  --line-soft: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(74, 222, 128, 0.2);
+  --text-muted: rgba(248, 250, 252, 0.68);
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: calc(var(--header-height) + 4rem) 2rem 6rem;
+}
+
+.hero,
+.section {
+  position: relative;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap: 2rem;
+  margin-bottom: 5rem;
+}
+
+.heroCopy,
+.heroPanel,
+.sectionIntro,
+.moduleBody {
+  display: flex;
+  flex-direction: column;
+}
+
+.heroCopy {
+  gap: 1.5rem;
+}
+
+.eyebrow,
+.panelEyebrow,
+.sectionEyebrow,
+.panelLabel,
+.previewLabel,
+.trackCard span,
+.moduleBody span {
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.eyebrow,
+.sectionEyebrow {
+  color: #4ade80;
+}
+
+.heroTitle,
+.sectionIntro h2 {
+  margin: 0;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+}
+
+.heroTitle {
+  max-width: 11ch;
+  font-size: clamp(3rem, 6vw, 5.8rem);
+}
+
+.heroText,
+.panelBlock p,
+.moduleBody p,
+.trackCard p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
+.heroText {
+  max-width: 62ch;
+  padding-left: 1.4rem;
+  border-left: 1px solid var(--line-soft);
+}
+
+.actionRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+.primaryLink,
+.secondaryLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 3rem;
+  padding: 0.85rem 1.2rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    background var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.primaryLink {
+  border: 1px solid transparent;
+  background: linear-gradient(135deg, rgba(74, 222, 128, 0.94), rgba(34, 197, 94, 0.9));
+  color: #04110a;
+  font-weight: 700;
+}
+
+.secondaryLink {
+  border: 1px solid var(--line-soft);
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.primaryLink:hover,
+.secondaryLink:hover {
+  transform: translateY(-2px);
+}
+
+.metricGrid,
+.moduleGrid,
+.trackGrid,
+.previewStats {
+  display: grid;
+  gap: 1rem;
+}
+
+.metricGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.metricCard,
+.moduleCard,
+.trackCard,
+.previewStats article {
+  border: 1px solid var(--line-soft);
+  border-radius: 1rem;
+  background: var(--surface-0);
+  backdrop-filter: blur(18px);
+}
+
+.metricCard {
+  padding: 1rem;
+}
+
+.metricCard strong {
+  display: block;
+  font-size: 1.65rem;
+}
+
+.metricCard span,
+.previewStats article span {
+  color: rgba(248, 250, 252, 0.56);
+  font-size: 0.88rem;
+}
+
+.heroPanel {
+  gap: 1rem;
+  padding: 1.35rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 1.35rem;
+  background:
+    linear-gradient(180deg, rgba(8, 18, 12, 0.9), rgba(6, 12, 18, 0.78)),
+    radial-gradient(circle at top right, rgba(74, 222, 128, 0.12), transparent 30%);
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+.panelMeta {
+  color: rgba(248, 250, 252, 0.5);
+  font-size: 0.84rem;
+}
+
+.panelBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.panelLabel,
+.previewLabel,
+.moduleBody span,
+.trackCard span {
+  color: rgba(248, 250, 252, 0.46);
+}
+
+.panelList {
+  margin: 0;
+  padding-left: 1rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.section {
+  margin-bottom: 5rem;
+}
+
+.sectionIntro {
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+  max-width: 54rem;
+}
+
+.sectionIntro h2 {
+  max-width: 15ch;
+  font-size: clamp(2.2rem, 4vw, 3.7rem);
+}
+
+.moduleGrid,
+.trackGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.moduleCard {
+  display: flex;
+  gap: 1rem;
+  min-height: 220px;
+  padding: 1.2rem;
+}
+
+.moduleIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.9rem;
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+  flex-shrink: 0;
+}
+
+.moduleBody {
+  gap: 0.75rem;
+}
+
+.moduleBody h3,
+.trackCard h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.previewSection {
+  overflow: hidden;
+}
+
+.previewShell {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  border: 1px solid var(--line-strong);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(7, 15, 12, 0.9), rgba(3, 9, 13, 0.94)),
+    radial-gradient(circle at top right, rgba(74, 222, 128, 0.14), transparent 30%);
+}
+
+.previewSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 1.2rem;
+  border-right: 1px solid var(--line-soft);
+  color: rgba(248, 250, 252, 0.72);
+}
+
+.previewWorkspace {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.2rem;
+}
+
+.previewStats {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.previewStats article {
+  padding: 1rem;
+}
+
+.previewStats article strong {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 1.2rem;
+}
+
+.workflowList {
+  display: grid;
+  gap: 0.9rem;
+  padding: 1rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 1.1rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.workflowRow {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.workflowHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  color: rgba(248, 250, 252, 0.82);
+}
+
+.workflowHead span {
+  color: rgba(248, 250, 252, 0.5);
+  font-size: 0.86rem;
+}
+
+.workflowBar {
+  display: flex;
+  height: 0.72rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.workflowBar span {
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(74, 222, 128, 0.95), rgba(250, 204, 21, 0.85));
+}
+
+.trackCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  min-height: 220px;
+  padding: 1.2rem;
+}
+
+@media (max-width: 1080px) {
+  .hero,
+  .previewShell,
+  .moduleGrid,
+  .trackGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 780px) {
+  .page {
+    padding: calc(var(--header-height) + 3rem) 1.2rem 5rem;
+  }
+
+  .metricGrid,
+  .previewStats {
+    grid-template-columns: 1fr;
+  }
+
+  .actionRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .primaryLink,
+  .secondaryLink {
+    width: 100%;
+  }
+
+  .workflowHead {
+    flex-direction: column;
+  }
+}

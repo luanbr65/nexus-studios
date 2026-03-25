@@ -8,18 +8,19 @@ import Footer from '../Footer';
 
 export default function AppChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const isPulseDashboard = pathname?.startsWith('/pulse-crm/dashboard');
+  const isProductDashboard =
+    pathname?.startsWith('/pulse-crm/dashboard') || pathname?.startsWith('/beacon-ops/dashboard');
 
   return (
     <>
-      {!isPulseDashboard && (
+      {!isProductDashboard && (
         <>
           <ScrollProgress />
           <Navbar />
         </>
       )}
       {children}
-      {!isPulseDashboard && <Footer />}
+      {!isProductDashboard && <Footer />}
     </>
   );
 }
