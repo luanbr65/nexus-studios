@@ -9,7 +9,9 @@ import Footer from '../Footer';
 export default function AppChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const isProductDashboard =
-    pathname?.startsWith('/pulse-crm/dashboard') || pathname?.startsWith('/beacon-ops/dashboard');
+    pathname?.startsWith('/pulse-crm/dashboard') ||
+    pathname?.startsWith('/beacon-ops/dashboard') ||
+    pathname?.startsWith('/vortex');
 
   return (
     <>

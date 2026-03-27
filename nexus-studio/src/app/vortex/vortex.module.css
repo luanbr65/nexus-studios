@@ -427,6 +427,8 @@
 }
 
 .workloadRow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-top: 1rem;
 }
 
@@ -518,9 +520,12 @@
 
 @media (max-width: 1080px) {
   .hero,
-  .workspaceGrid,
-  .moduleGrid {
+  .workspaceGrid {
     grid-template-columns: 1fr;
+  }
+
+  .moduleGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .chartPanel,
@@ -529,6 +534,10 @@
   .automationPanel,
   .insightPanel {
     grid-column: auto;
+  }
+
+  .workloadRow {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -545,6 +554,10 @@
     grid-template-columns: 1fr;
   }
 
+  .moduleGrid {
+    grid-template-columns: 1fr;
+  }
+
   .actionRow {
     flex-direction: column;
     align-items: stretch;
@@ -553,6 +566,25 @@
   .primaryAction,
   .secondaryAction {
     width: 100%;
+  }
+
+  .segmentedRow,
+  .regionList {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.2rem;
+    scrollbar-width: none;
+  }
+
+  .segmentedRow::-webkit-scrollbar,
+  .regionList::-webkit-scrollbar {
+    display: none;
+  }
+
+  .segmentedButton,
+  .regionButton {
+    flex: 0 0 auto;
+    white-space: nowrap;
   }
 
   .panelHeader,

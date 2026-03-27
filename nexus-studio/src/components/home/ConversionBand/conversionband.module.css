@@ -1,0 +1,318 @@
+.section {
+  background: var(--bg-main);
+  padding: 0 0 4rem;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.intro {
+  padding: 3.4rem 2rem 1.8rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.eyebrow,
+.phaseIndex,
+.panelEyebrow,
+.panelMeta,
+.panelLabel,
+.trackLabel,
+.trackSteps span {
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.eyebrow,
+.panelEyebrow {
+  color: var(--color-accent);
+}
+
+.intro h2 {
+  max-width: 13ch;
+  margin: 0;
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+}
+
+.intro p {
+  max-width: 60ch;
+  margin: 1rem 0 0;
+  color: rgba(248, 250, 252, 0.66);
+  line-height: 1.72;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+}
+
+.phaseGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.phaseCard,
+.signalPanel,
+.proofCard {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.phaseCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-height: 260px;
+  padding: 1.5rem;
+  border-right: 1px solid var(--border-color);
+}
+
+.phaseCard::before,
+.signalPanel::before {
+  content: '';
+  position: absolute;
+  inset: auto -8% -38% auto;
+  width: 180px;
+  height: 180px;
+  border-radius: 999px;
+  background: rgba(34, 211, 238, 0.12);
+  filter: blur(48px);
+  opacity: 0.6;
+  animation: drift 8s ease-in-out infinite;
+}
+
+.phaseHeader,
+.panelHeader,
+.actions,
+.trackLabel {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.phaseIndex,
+.panelMeta,
+.panelLabel,
+.trackSteps span {
+  color: rgba(248, 250, 252, 0.46);
+}
+
+.phaseIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 0.85rem;
+  background: rgba(34, 211, 238, 0.12);
+  color: var(--color-accent);
+}
+
+.phaseCard strong,
+.signalPanel h3,
+.proofCard strong {
+  margin: 0;
+}
+
+.phaseCard strong {
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+}
+
+.phaseCard p {
+  margin: 0;
+  color: rgba(248, 250, 252, 0.68);
+  line-height: 1.72;
+}
+
+.signalPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 1.5rem;
+  border-left: 1px solid var(--border-color);
+  background:
+    linear-gradient(180deg, rgba(7, 12, 22, 0.92), rgba(3, 7, 18, 0.88)),
+    radial-gradient(circle at top right, rgba(99, 102, 241, 0.16), transparent 28%);
+}
+
+.panelBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.signalPanel h3 {
+  max-width: 14ch;
+  margin-top: 0.45rem;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+}
+
+.proofGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.proofCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.95rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+}
+
+.proofCard strong {
+  font-size: 1.15rem;
+}
+
+.proofCard span,
+.trackLabel span {
+  color: rgba(248, 250, 252, 0.66);
+  line-height: 1.55;
+}
+
+.track {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.trackLabel {
+  justify-content: flex-start;
+  color: var(--color-accent);
+}
+
+.trackSteps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.trackSteps span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.55rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.primaryLink,
+.secondaryLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 3rem;
+  padding: 0.85rem 1.1rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    background var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.primaryLink {
+  border: 1px solid transparent;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.94), rgba(34, 211, 238, 0.9));
+  color: #03121a;
+  font-weight: 700;
+}
+
+.secondaryLink {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.primaryLink:hover,
+.secondaryLink:hover {
+  transform: translateY(-2px);
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(-10px, -8px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phaseCard::before,
+  .signalPanel::before {
+    animation: none;
+  }
+}
+
+@media (max-width: 1080px) {
+  .grid,
+  .phaseGrid,
+  .proofGrid,
+  .trackSteps {
+    grid-template-columns: 1fr;
+  }
+
+  .signalPanel {
+    border-left: 0;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .phaseCard {
+    border-right: 0;
+    border-bottom: 1px solid var(--border-color);
+    min-height: unset;
+  }
+
+  .phaseGrid .phaseCard:last-child {
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .container {
+    border-left: 0;
+    border-right: 0;
+  }
+
+  .intro,
+  .phaseCard,
+  .signalPanel {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .primaryLink,
+  .secondaryLink {
+    width: 100%;
+  }
+}

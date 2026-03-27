@@ -267,6 +267,10 @@
 }
 
 @media (max-width: 1080px) {
+  .section {
+    min-height: auto;
+  }
+
   .container {
     grid-template-columns: 1fr;
   }
@@ -274,6 +278,10 @@
   .headline,
   .consoleHero h2 {
     max-width: none;
+  }
+
+  .trustGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -290,6 +298,10 @@
     grid-template-columns: 1fr;
   }
 
+  .trustCard {
+    min-height: unset;
+  }
+
   .consoleHeader,
   .consoleHero,
   .consoleFooter {
@@ -304,5 +316,9 @@
   .primaryCta,
   .secondaryCta {
     width: 100%;
+  }
+
+  .console {
+    max-width: none;
   }
 }

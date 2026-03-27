@@ -99,6 +99,11 @@
     color var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
+.navButton span,
+.commandChip {
+  white-space: nowrap;
+}
+
 .navButton:hover {
   background: var(--surface-1);
   color: var(--color-text);
@@ -220,10 +225,15 @@
   justify-content: flex-end;
 }
 
+.topbarActions > * {
+  flex-shrink: 0;
+}
+
 .search {
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
+  flex: 1 1 280px;
   min-width: min(360px, 100%);
   padding: 0.85rem 1rem;
   border: 1px solid var(--line-soft);
@@ -802,10 +812,25 @@
   }
 
   .overviewGrid,
-  .board,
   .contactGrid,
   .automationGrid {
     grid-template-columns: 1fr;
+  }
+
+  .board {
+    grid-template-columns: repeat(4, minmax(240px, 240px));
+    overflow-x: auto;
+    padding-bottom: 0.35rem;
+    align-items: start;
+    scrollbar-width: none;
+  }
+
+  .board::-webkit-scrollbar {
+    display: none;
+  }
+
+  .boardColumn {
+    min-height: unset;
   }
 }
 
@@ -823,9 +848,15 @@
 
   .nav {
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     overflow-x: auto;
     padding-bottom: 0.25rem;
+    scrollbar-width: none;
+  }
+
+  .nav::-webkit-scrollbar,
+  .commandStrip::-webkit-scrollbar {
+    display: none;
   }
 
   .navButton {
@@ -844,6 +875,13 @@
   .topbarActions {
     width: 100%;
     justify-content: flex-start;
+  }
+
+  .commandStrip {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.2rem;
+    scrollbar-width: none;
   }
 
   .search {
@@ -879,5 +917,9 @@
   .panelHeader,
   .sectionHeader {
     flex-direction: column;
+  }
+
+  .board {
+    grid-template-columns: repeat(4, minmax(220px, 220px));
   }
 }

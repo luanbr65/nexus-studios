@@ -464,6 +464,12 @@
 }
 
 @media (max-width: 1080px) {
+  .metricRow,
+  .panelGrid,
+  .previewStats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .heroGrid,
   .previewShell,
   .principlesGrid,
@@ -477,6 +483,11 @@
   .heroGrid,
   .previewShell {
     grid-template-columns: 1fr;
+  }
+
+  .previewRail {
+    border-right: 0;
+    border-bottom: 1px solid var(--line-soft);
   }
 }
 
@@ -517,5 +528,18 @@
   .primaryLink,
   .secondaryLink {
     width: 100%;
+  }
+
+  .section {
+    margin-bottom: 4.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .panelHeader,
+  .sectionHeader,
+  .panelHeader p,
+  .sectionHeader p {
+    align-items: flex-start;
   }
 }
